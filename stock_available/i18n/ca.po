@@ -59,11 +59,6 @@ msgid "Config Settings"
 msgstr "Configuració"
 
 #. module: stock_available
-#: model:ir.model.fields,field_description:stock_available.field_res_config_settings__module_stock_available_sale
-msgid "Exclude goods already in sale quotations"
-msgstr "Excloure mercaderia que ja està en pressupostos de venda"
-
-#. module: stock_available
 #: model:ir.model.fields,field_description:stock_available.field_res_config_settings__module_stock_available_immediately
 msgid "Exclude incoming goods"
 msgstr "Excloure mercaderies a rebre"
@@ -80,14 +75,14 @@ msgid "Potential"
 msgstr "Potencial"
 
 #. module: stock_available
-#: model:ir.model,name:stock_available.model_product_product
+#: model:ir.model,name:stock_available.model_product_template
 msgid "Product"
 msgstr "Producte"
 
 #. module: stock_available
-#: model:ir.model,name:stock_available.model_product_template
-msgid "Product Template"
-msgstr "Plantilla del producte"
+#: model:ir.model,name:stock_available.model_product_product
+msgid "Product Variant"
+msgstr ""
 
 #. module: stock_available
 #: model:ir.model.fields,help:stock_available.field_product_product__potential_qty
@@ -161,21 +156,25 @@ msgstr ""
 "Això instala el mòdul stock_available_immediately."
 
 #. module: stock_available
-#: model:ir.model.fields,help:stock_available.field_res_config_settings__module_stock_available_sale
-msgid ""
-"This will subtract quantities from the sale quotations from the quantities "
-"available to promise.\n"
-"This installs the modules stock_available_sale.\n"
-"If the modules sale and sale_delivery_date are not installed, this will "
-"install them too"
-msgstr ""
-"Això restarà les quantitats dels pressupostos de venda de les quantitats "
-"disponibles per a prometre.\n"
-"Això instala el mòdul stock_available_sale.\n"
-"Si els mòduls sale i sale_delivery_date no estan instal·lats, els instal·"
-"larà també"
-
-#. module: stock_available
 #: model:ir.model.fields,field_description:stock_available.field_res_config_settings__stock_available_mrp_based_on
 msgid "based on"
 msgstr "basat en"
+
+#~ msgid "Exclude goods already in sale quotations"
+#~ msgstr "Excloure mercaderia que ja està en pressupostos de venda"
+
+#~ msgid "Product Template"
+#~ msgstr "Plantilla del producte"
+
+#~ msgid ""
+#~ "This will subtract quantities from the sale quotations from the "
+#~ "quantities available to promise.\n"
+#~ "This installs the modules stock_available_sale.\n"
+#~ "If the modules sale and sale_delivery_date are not installed, this will "
+#~ "install them too"
+#~ msgstr ""
+#~ "Això restarà les quantitats dels pressupostos de venda de les quantitats "
+#~ "disponibles per a prometre.\n"
+#~ "Això instala el mòdul stock_available_sale.\n"
+#~ "Si els mòduls sale i sale_delivery_date no estan instal·lats, els "
+#~ "instal·larà també"
