@@ -22,6 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [stock_available](stock_available/) | 16.0.1.0.1 |  | Stock available to promise
+[stock_available_immediately](stock_available_immediately/) | 16.0.1.0.0 |  | Ignore planned receptions in quantity available to promise
 
 [//]: # (end addons)
 
