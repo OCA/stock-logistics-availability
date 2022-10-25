@@ -21,5 +21,8 @@ msgstr ""
 
 #. module: stock_available_immediately
 #: model:ir.model,name:stock_available_immediately.model_product_product
-msgid "Product"
-msgstr "Produto"
+msgid "Product Variant"
+msgstr ""
+
+#~ msgid "Product"
+#~ msgstr "Produto"
