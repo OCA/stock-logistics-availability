@@ -21,7 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[stock_available](stock_available/) | 16.0.1.0.0 |  | Stock available to promise
+[stock_available](stock_available/) | 16.0.1.0.1 |  | Stock available to promise
 
 [//]: # (end addons)
 
