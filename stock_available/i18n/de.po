@@ -58,11 +58,6 @@ msgid "Config Settings"
 msgstr "stock.config.settings"
 
 #. module: stock_available
-#: model:ir.model.fields,field_description:stock_available.field_res_config_settings__module_stock_available_sale
-msgid "Exclude goods already in sale quotations"
-msgstr ""
-
-#. module: stock_available
 #: model:ir.model.fields,field_description:stock_available.field_res_config_settings__module_stock_available_immediately
 msgid "Exclude incoming goods"
 msgstr "Warenzugänge ausschließen"
@@ -79,14 +74,14 @@ msgid "Potential"
 msgstr ""
 
 #. module: stock_available
-#: model:ir.model,name:stock_available.model_product_product
+#: model:ir.model,name:stock_available.model_product_template
 msgid "Product"
 msgstr "Produkt"
 
 #. module: stock_available
-#: model:ir.model,name:stock_available.model_product_template
-msgid "Product Template"
-msgstr "Produktvorlage"
+#: model:ir.model,name:stock_available.model_product_product
+msgid "Product Variant"
+msgstr ""
 
 #. module: stock_available
 #: model:ir.model.fields,help:stock_available.field_product_product__potential_qty
@@ -152,20 +147,21 @@ msgstr ""
 "Das Modul stock_available_immediately wird installiert."
 
 #. module: stock_available
-#: model:ir.model.fields,help:stock_available.field_res_config_settings__module_stock_available_sale
-#, fuzzy
-msgid ""
-"This will subtract quantities from the sale quotations from the quantities "
-"available to promise.\n"
-"This installs the modules stock_available_sale.\n"
-"If the modules sale and sale_delivery_date are not installed, this will "
-"install them too"
-msgstr ""
-"Warenzugänge werden von dem für Lieferversprechen verfügbaren Bestand "
-"abgezogen.\n"
-"Das Modul stock_available_immediately wird installiert."
-
-#. module: stock_available
 #: model:ir.model.fields,field_description:stock_available.field_res_config_settings__stock_available_mrp_based_on
 msgid "based on"
 msgstr ""
+
+#~ msgid "Product Template"
+#~ msgstr "Produktvorlage"
+
+#, fuzzy
+#~ msgid ""
+#~ "This will subtract quantities from the sale quotations from the "
+#~ "quantities available to promise.\n"
+#~ "This installs the modules stock_available_sale.\n"
+#~ "If the modules sale and sale_delivery_date are not installed, this will "
+#~ "install them too"
+#~ msgstr ""
+#~ "Warenzugänge werden von dem für Lieferversprechen verfügbaren Bestand "
+#~ "abgezogen.\n"
+#~ "Das Modul stock_available_immediately wird installiert."

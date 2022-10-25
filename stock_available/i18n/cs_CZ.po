@@ -60,11 +60,6 @@ msgid "Config Settings"
 msgstr "stock.config.settings"
 
 #. module: stock_available
-#: model:ir.model.fields,field_description:stock_available.field_res_config_settings__module_stock_available_sale
-msgid "Exclude goods already in sale quotations"
-msgstr "Vyloučení zboží již v nabídkách prodeje"
-
-#. module: stock_available
 #: model:ir.model.fields,field_description:stock_available.field_res_config_settings__module_stock_available_immediately
 msgid "Exclude incoming goods"
 msgstr "Vylučte příchozí zboží"
@@ -81,14 +76,14 @@ msgid "Potential"
 msgstr "Potenciál"
 
 #. module: stock_available
-#: model:ir.model,name:stock_available.model_product_product
+#: model:ir.model,name:stock_available.model_product_template
 msgid "Product"
 msgstr "Produkt"
 
 #. module: stock_available
-#: model:ir.model,name:stock_available.model_product_template
-msgid "Product Template"
-msgstr "Šablona produktu"
+#: model:ir.model,name:stock_available.model_product_product
+msgid "Product Variant"
+msgstr ""
 
 #. module: stock_available
 #: model:ir.model.fields,help:stock_available.field_product_product__potential_qty
@@ -159,19 +154,24 @@ msgstr ""
 "\"Instaluje modul stock_available_immediately."
 
 #. module: stock_available
-#: model:ir.model.fields,help:stock_available.field_res_config_settings__module_stock_available_sale
-msgid ""
-"This will subtract quantities from the sale quotations from the quantities "
-"available to promise.\n"
-"This installs the modules stock_available_sale.\n"
-"If the modules sale and sale_delivery_date are not installed, this will "
-"install them too"
-msgstr ""
-"Tím se odečtou množství z prodejních kotací z množství, která je k dispozici "
-"pro slib. \"Instaluje moduly stock_available_sale.\" Pokud nejsou "
-"nainstalovány moduly prodeje a sales_delivery_date, nainstalují se je také"
-
-#. module: stock_available
 #: model:ir.model.fields,field_description:stock_available.field_res_config_settings__stock_available_mrp_based_on
 msgid "based on"
 msgstr "na základě"
+
+#~ msgid "Exclude goods already in sale quotations"
+#~ msgstr "Vyloučení zboží již v nabídkách prodeje"
+
+#~ msgid "Product Template"
+#~ msgstr "Šablona produktu"
+
+#~ msgid ""
+#~ "This will subtract quantities from the sale quotations from the "
+#~ "quantities available to promise.\n"
+#~ "This installs the modules stock_available_sale.\n"
+#~ "If the modules sale and sale_delivery_date are not installed, this will "
+#~ "install them too"
+#~ msgstr ""
+#~ "Tím se odečtou množství z prodejních kotací z množství, která je k "
+#~ "dispozici pro slib. \"Instaluje moduly stock_available_sale.\" Pokud "
+#~ "nejsou nainstalovány moduly prodeje a sales_delivery_date, nainstalují se "
+#~ "je také"

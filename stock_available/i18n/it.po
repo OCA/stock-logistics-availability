@@ -55,11 +55,6 @@ msgid "Config Settings"
 msgstr ""
 
 #. module: stock_available
-#: model:ir.model.fields,field_description:stock_available.field_res_config_settings__module_stock_available_sale
-msgid "Exclude goods already in sale quotations"
-msgstr ""
-
-#. module: stock_available
 #: model:ir.model.fields,field_description:stock_available.field_res_config_settings__module_stock_available_immediately
 msgid "Exclude incoming goods"
 msgstr ""
@@ -76,14 +71,14 @@ msgid "Potential"
 msgstr ""
 
 #. module: stock_available
-#: model:ir.model,name:stock_available.model_product_product
+#: model:ir.model,name:stock_available.model_product_template
 msgid "Product"
 msgstr "Prodotto"
 
 #. module: stock_available
-#: model:ir.model,name:stock_available.model_product_template
-msgid "Product Template"
-msgstr "Template Prodotto"
+#: model:ir.model,name:stock_available.model_product_product
+msgid "Product Variant"
+msgstr ""
 
 #. module: stock_available
 #: model:ir.model.fields,help:stock_available.field_product_product__potential_qty
@@ -137,16 +132,9 @@ msgid ""
 msgstr ""
 
 #. module: stock_available
-#: model:ir.model.fields,help:stock_available.field_res_config_settings__module_stock_available_sale
-msgid ""
-"This will subtract quantities from the sale quotations from the quantities "
-"available to promise.\n"
-"This installs the modules stock_available_sale.\n"
-"If the modules sale and sale_delivery_date are not installed, this will "
-"install them too"
-msgstr ""
-
-#. module: stock_available
 #: model:ir.model.fields,field_description:stock_available.field_res_config_settings__stock_available_mrp_based_on
 msgid "based on"
 msgstr ""
+
+#~ msgid "Product Template"
+#~ msgstr "Template Prodotto"
