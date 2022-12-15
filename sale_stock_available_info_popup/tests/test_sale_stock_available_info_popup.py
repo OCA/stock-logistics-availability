@@ -30,8 +30,12 @@ class SaleStockAvailableInfoPopup(common.TransactionCase):
         )
         picking_in = cls._create_picking(cls, cls.env.ref("stock.picking_type_in"), 5)
         picking_in.action_assign()
+        picking_in.move_ids[0].move_line_ids[0].qty_done = 5
+        picking_in._action_done()
         picking_out = cls._create_picking(cls, cls.env.ref("stock.picking_type_out"), 3)
         picking_out.action_assign()
+        picking_out.move_ids[0].move_line_ids[0].qty_done = 3
+        picking_out._action_done()
 
     def _create_picking(self, picking_type, qty):
         picking_form = Form(self.env["stock.picking"])
