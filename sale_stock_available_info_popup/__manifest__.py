@@ -7,7 +7,7 @@
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/stock-logistics-availability",
     "category": "Warehouse Management",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.0.1",
     "license": "AGPL-3",
     "depends": ["sale_stock", "stock_available"],
     "data": ["views/sale_order_views.xml"],

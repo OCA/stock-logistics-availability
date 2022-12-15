@@ -15,7 +15,7 @@
                 </td>
                 <td>
                     <b t-out='props.record.data.immediately_usable_qty_today' /> <t
-                    t-out="props.record.data.product_uom[1]"
+                        t-out="props.record.data.product_uom[1]"
                     />
                 </td>
             </tr>
