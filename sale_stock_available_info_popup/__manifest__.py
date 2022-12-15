@@ -12,7 +12,7 @@
     "depends": ["sale_stock", "stock_available"],
     "data": ["views/sale_order_views.xml"],
     "assets": {
-        "web.assets_qweb": [
+        "web.assets_backend": [
             "sale_stock_available_info_popup/static/src/xml/qty_at_date.xml",
         ],
     },
