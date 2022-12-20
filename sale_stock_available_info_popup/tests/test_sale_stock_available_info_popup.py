@@ -30,8 +30,12 @@ class SaleStockAvailableInfoPopup(common.TransactionCase):
         )
         picking_in = cls._create_picking(cls, cls.env.ref("stock.picking_type_in"), 5)
         picking_in.action_assign()
+        picking_in.move_ids[0].move_line_ids[0].qty_done = 5
+        picking_in._action_done()
         picking_out = cls._create_picking(cls, cls.env.ref("stock.picking_type_out"), 3)
         picking_out.action_assign()
+        picking_out.move_ids[0].move_line_ids[0].qty_done = 3
+        picking_out._action_done()
 
     def _create_picking(self, picking_type, qty):
         picking_form = Form(self.env["stock.picking"])
@@ -78,14 +82,14 @@ class SaleStockAvailableInfoPopup(common.TransactionCase):
             sale.order_line.mapped("immediately_usable_qty_today"),
             [qty, qty - 5, qty - 10],
         )
-        self.product.invalidate_cache()
+        self.product.invalidate_recordset()
         qty_yesterday = self.product.with_context(
             to_date=yesterday
         ).immediately_usable_qty
         self.assertFalse(qty == qty_yesterday)
         # Commitment date will affect the computation
         sale.commitment_date = yesterday
-        sale.order_line.invalidate_cache()
+        sale.order_line.invalidate_recordset()
         self.assertEqual(
             sale.order_line.mapped("immediately_usable_qty_today"),
             [qty_yesterday, qty_yesterday - 5, qty_yesterday - 10],
