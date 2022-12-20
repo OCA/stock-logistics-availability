@@ -5,7 +5,7 @@
     "summary": "Adds an 'Available to promise' quantity to the popover shown "
     "in sale order line that display stock info of the product",
     "author": "Tecnativa, Odoo Community Association (OCA)",
-    "website": "https://github.com/OCA/stock-logistics-warehouse",
+    "website": "https://github.com/OCA/stock-logistics-availability",
     "category": "Warehouse Management",
     "version": "15.0.1.0.0",
     "license": "AGPL-3",
