@@ -10,7 +10,7 @@ class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
     immediately_usable_qty_today = fields.Float(
-        compute="_compute_immediately_usable_qty_today"
+        compute="_compute_immediately_usable_qty_today",
     )
 
     @api.depends(
@@ -22,7 +22,7 @@ class SaleOrderLine(models.Model):
     )
     def _compute_immediately_usable_qty_today(self):
         qty_processed_per_product = defaultdict(lambda: 0)
-        self.immediately_usable_qty_today = False
+        self.immediately_usable_qty_today = 0.0
         for line in self.sorted(key=lambda r: r.sequence):
             if not line.display_qty_widget:
                 continue
