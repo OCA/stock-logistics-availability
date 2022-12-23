@@ -10,6 +10,7 @@ setuptools.setup(
     install_requires=[
         'odoo-addon-stock_available>=16.0dev,<16.1dev',
         'odoo-addon-stock_available_immediately>=16.0dev,<16.1dev',
+        'odoo-addon-stock_available_unreserved>=16.0dev,<16.1dev',
     ],
     classifiers=[
         'Programming Language :: Python',

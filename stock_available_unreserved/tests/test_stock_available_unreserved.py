@@ -78,7 +78,7 @@ class TestStockLogisticsWarehouse(TransactionCase):
                 "picking_type_id": cls.env.ref("stock.picking_type_in").id,
                 "location_id": cls.supplier_location.id,
                 "location_dest_id": cls.stock_location.id,
-                "move_lines": [
+                "move_ids": [
                     (
                         0,
                         0,
@@ -101,7 +101,7 @@ class TestStockLogisticsWarehouse(TransactionCase):
                 "picking_type_id": cls.env.ref("stock.picking_type_in").id,
                 "location_id": cls.supplier_location.id,
                 "location_dest_id": cls.stock_location.id,
-                "move_lines": [
+                "move_ids": [
                     (
                         0,
                         0,
@@ -124,7 +124,7 @@ class TestStockLogisticsWarehouse(TransactionCase):
                 "location_id": cls.stock_location.id,
                 "location_dest_id": cls.customer_location.id,
                 "immediate_transfer": False,
-                "move_lines": [
+                "move_ids": [
                     (
                         0,
                         0,
