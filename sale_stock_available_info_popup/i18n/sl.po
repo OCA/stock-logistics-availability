@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Weblate 3.10\n"
 
 #. module: sale_stock_available_info_popup
-#. openerp-web
+#. odoo-javascript
 #: code:addons/sale_stock_available_info_popup/static/src/xml/qty_at_date.xml:0
 #, python-format
 msgid "Available to promise"
