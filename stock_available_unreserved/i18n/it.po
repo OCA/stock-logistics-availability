@@ -30,26 +30,28 @@ msgid "Internal Unreserved"
 msgstr ""
 
 #. module: stock_available_unreserved
-#: code:addons/stock_available_unreserved/models/product.py:0
+#. odoo-python
+#: code:addons/stock_available_unreserved/models/product_product.py:0
 #, python-format
 msgid "Invalid domain operator %s"
 msgstr ""
 
 #. module: stock_available_unreserved
-#: code:addons/stock_available_unreserved/models/product.py:0
+#. odoo-python
+#: code:addons/stock_available_unreserved/models/product_product.py:0
 #, python-format
 msgid "Invalid domain right operand %s"
 msgstr ""
 
 #. module: stock_available_unreserved
-#: model:ir.model,name:stock_available_unreserved.model_product_product
+#: model:ir.model,name:stock_available_unreserved.model_product_template
 msgid "Product"
 msgstr "Prodotto"
 
 #. module: stock_available_unreserved
-#: model:ir.model,name:stock_available_unreserved.model_product_template
-msgid "Product Template"
-msgstr "Template Prodotto"
+#: model:ir.model,name:stock_available_unreserved.model_product_product
+msgid "Product Variant"
+msgstr ""
 
 #. module: stock_available_unreserved
 #: model:ir.model.fields,field_description:stock_available_unreserved.field_product_product__qty_available_not_res
@@ -59,6 +61,13 @@ msgstr ""
 #. module: stock_available_unreserved
 #: model:ir.model.fields,field_description:stock_available_unreserved.field_product_template__qty_available_not_res
 msgid "Quantity On Hand Unreserved"
+msgstr ""
+
+#. module: stock_available_unreserved
+#: model:ir.model.fields,help:stock_available_unreserved.field_product_product__qty_available_not_res
+#: model:ir.model.fields,help:stock_available_unreserved.field_product_template__qty_available_not_res
+msgid ""
+"Quantity of this product that is not currently reserved for a stock move"
 msgstr ""
 
 #. module: stock_available_unreserved
@@ -86,3 +95,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_available_unreserved.product_template_kanban_stock_view
 msgid "Unreserved:"
 msgstr ""
+
+#~ msgid "Product Template"
+#~ msgstr "Template Prodotto"
