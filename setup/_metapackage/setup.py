@@ -11,6 +11,7 @@ setuptools.setup(
         'odoo-addon-sale_stock_available_info_popup>=16.0dev,<16.1dev',
         'odoo-addon-stock_available>=16.0dev,<16.1dev',
         'odoo-addon-stock_available_immediately>=16.0dev,<16.1dev',
+        'odoo-addon-stock_available_unreserved>=16.0dev,<16.1dev',
     ],
     classifiers=[
         'Programming Language :: Python',
