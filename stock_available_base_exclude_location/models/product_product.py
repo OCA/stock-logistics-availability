@@ -41,13 +41,13 @@ class ProductProduct(models.Model):
                             excluded_location_ids.ids,
                         )
                     ],
-                    domain_quant_loc,
+                    domain_move_in_loc,
                 ]
             )
             domain_move_out_loc = expression.AND(
                 [
                     [("location_id", "not in", excluded_location_ids.ids)],
-                    domain_quant_loc,
+                    domain_move_out_loc,
                 ]
             )
         if excluded_location_domain:
