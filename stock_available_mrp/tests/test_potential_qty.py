@@ -98,7 +98,7 @@ class TestPotentialQty(TransactionCase):
         return bom
 
     def assertPotentialQty(self, record, qty, msg):
-        record.refresh()
+        record.invalidate_model()
         #  Check the potential
         self.assertEqual(record.potential_qty, qty, msg)
         # Check the variation of quantity available for sale
@@ -326,29 +326,29 @@ class TestPotentialQty(TransactionCase):
             }
         )
 
-        p1.refresh()
+        p1.invalidate_model()
 
         # Need a least 5 units for one P1
         self.assertEqual(0, p1.potential_qty)
 
         self.create_inventory(p3, 1)
-        p1.refresh()
+        p1.invalidate_model()
         self.assertEqual(0, p1.potential_qty)
 
         self.create_inventory(p3, 3)
-        p1.refresh()
+        p1.invalidate_model()
         self.assertEqual(0, p1.potential_qty)
 
         self.create_inventory(p3, 5)
-        p1.refresh()
+        p1.invalidate_model()
         self.assertEqual(1.0, p1.potential_qty)
 
         self.create_inventory(p3, 6)
-        p1.refresh()
+        p1.invalidate_model()
         self.assertEqual(3.0, p1.potential_qty)
 
         self.create_inventory(p3, 10)
-        p1.refresh()
+        p1.invalidate_model()
         self.assertEqual(5.0, p1.potential_qty)
 
     def test_05_potential_qty_list(self):
@@ -369,7 +369,7 @@ class TestPotentialQty(TransactionCase):
 
         self.create_inventory(p3, 3)
 
-        self.product_model.invalidate_cache()
+        self.product_model.invalidate_model()
 
         products = self.product_model.search([("id", "in", [p1.id, p2.id, p3.id])])
 
@@ -448,6 +448,6 @@ class TestPotentialQty(TransactionCase):
         )
 
         move_in._action_confirm()
-        product.invalidate_cache()
+        product.invalidate_model()
 
         self.assertEqual(product.immediately_usable_qty, 0.0)
