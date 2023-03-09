@@ -9,3 +9,7 @@
 * `Tecnativa <https://www.tecnativa.com>`_:
 
   * Víctor Martínez
+
+* `Trobz <https://trobz.com>`_:
+
+    * Khoi Vo <khoivha@trobz.com>
