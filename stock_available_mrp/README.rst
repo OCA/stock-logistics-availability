@@ -19,11 +19,8 @@ Consider the production potential is available to promise
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
     :target: https://translation.odoo-community.org/projects/stock-logistics-availability-16-0/stock-logistics-availability-16-0-stock_available_mrp
     :alt: Translate me on Weblate
-.. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/webui/builds.html?repo=OCA/stock-logistics-availability&target_branch=16.0
-    :alt: Try me on Runboat
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| 
 
 This module takes the potential quantities available for Products into account in
 the quantity available to promise, where the "Potential quantity" is the
@@ -114,7 +111,7 @@ Contributors
 * `Tecnativa <https://www.tecnativa.com>`_:
 
   * Víctor Martínez
-  
+
 * `Trobz <https://trobz.com>`_:
 
     * Khoi Vo <khoivha@trobz.com>
