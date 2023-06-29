@@ -34,5 +34,8 @@ msgstr "Disponible :"
 
 #. module: stock_free_quantity
 #: model:ir.model,name:stock_free_quantity.model_product_template
-msgid "Product Template"
-msgstr "Article"
+msgid "Product"
+msgstr ""
+
+#~ msgid "Product Template"
+#~ msgstr "Article"
