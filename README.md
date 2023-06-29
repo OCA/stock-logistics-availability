@@ -26,6 +26,7 @@ addon | version | maintainers | summary
 [stock_available_immediately](stock_available_immediately/) | 16.0.1.0.0 |  | Ignore planned receptions in quantity available to promise
 [stock_available_mrp](stock_available_mrp/) | 16.0.1.0.0 |  | Consider the production potential is available to promise
 [stock_available_unreserved](stock_available_unreserved/) | 16.0.1.0.0 | [![LoisRForgeFlow](https://github.com/LoisRForgeFlow.png?size=30px)](https://github.com/LoisRForgeFlow) | Quantity of stock available for immediate use
+[stock_free_quantity](stock_free_quantity/) | 16.0.1.0.0 |  | Stock Free Quantity
 
 [//]: # (end addons)
 
