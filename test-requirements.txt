@@ -1,0 +1,3 @@
+odoo-addon-stock-location-orderpoint @ git+https://github.com/OCA/stock-logistics-orderpoint.git@refs/pull/7/head#subdirectory=setup/stock_location_orderpoint
+odoo-addon-stock-available-location-get-domain @ git+https://github.com/OCA/stock-logistics-availability.git@refs/pull/11/head#subdirectory=setup/stock_available_location_get_domain
+odoo-addon-stock-available-base-exclude-location @ git+https://github.com/OCA/stock-logistics-availability@refs/pull/15/head#subdirectory=setup/stock_available_base_exclude_location
