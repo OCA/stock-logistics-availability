@@ -1,0 +1,81 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_available_location_orderpoint
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-06 12:00+0000\n"
+"PO-Revision-Date: 2023-07-06 12:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_available_location_orderpoint
+#: model_terms:ir.ui.view,arch_db:stock_available_location_orderpoint.product_normal_form_view
+#: model_terms:ir.ui.view,arch_db:stock_available_location_orderpoint.view_stock_available_form
+msgid "<span class=\"o_stat_text\">To Replenish</span>"
+msgstr "<span class=\"o_stat_text\">A réassortir</span>"
+
+#. module: stock_available_location_orderpoint
+#: model_terms:ir.ui.view,arch_db:stock_available_location_orderpoint.product_template_search_form_view_stock
+#: model_terms:ir.ui.view,arch_db:stock_available_location_orderpoint.stock_product_search_form_view
+msgid "In Replenishments"
+msgstr "En réassort"
+
+#. module: stock_available_location_orderpoint
+#: model:ir.model,name:stock_available_location_orderpoint.model_product_template
+msgid "Product"
+msgstr "Produit"
+
+#. module: stock_available_location_orderpoint
+#: model:ir.model,name:stock_available_location_orderpoint.model_product_product
+msgid "Product Variant"
+msgstr "Variante de produit"
+
+#. module: stock_available_location_orderpoint
+#: model:ir.model.fields,field_description:stock_available_location_orderpoint.field_product_product__quantity_in_replenishments
+#: model:ir.model.fields,field_description:stock_available_location_orderpoint.field_product_template__quantity_in_replenishments
+msgid "Quantity In Replenishments"
+msgstr "Quantité en Réassort"
+
+#. module: stock_available_location_orderpoint
+#: model:ir.model.fields,field_description:stock_available_location_orderpoint.field_product_product__quantity_to_replenish
+#: model:ir.model.fields,field_description:stock_available_location_orderpoint.field_product_template__quantity_to_replenish
+msgid "Quantity To Replenish"
+msgstr "Quantité à réassortir"
+
+#. module: stock_available_location_orderpoint
+#: model_terms:ir.ui.view,arch_db:stock_available_location_orderpoint.product_normal_form_view
+#: model_terms:ir.ui.view,arch_db:stock_available_location_orderpoint.view_stock_available_form
+msgid "Quantity to replenish (Quantity in replenishments)"
+msgstr "Quantité à réassortir (Quantité en réassort)"
+
+#. module: stock_available_location_orderpoint
+#: model:ir.model.fields,help:stock_available_location_orderpoint.field_product_product__quantity_in_replenishments
+#: model:ir.model.fields,help:stock_available_location_orderpoint.field_product_template__quantity_in_replenishments
+msgid ""
+"This is the quantity currently in replenishments following the location "
+"orderpoints."
+msgstr "C'est la quantité actuellement en réassorts suivant les réassorts d'emplacements."
+
+#. module: stock_available_location_orderpoint
+#: model:ir.model.fields,help:stock_available_location_orderpoint.field_product_product__quantity_to_replenish
+#: model:ir.model.fields,help:stock_available_location_orderpoint.field_product_template__quantity_to_replenish
+msgid "This is the quantity to replenish following the location orderpoints."
+msgstr "C'est la quantité à réassortir suivant les réassorts d'emplacement."
+
+#. module: stock_available_location_orderpoint
+#: model_terms:ir.ui.view,arch_db:stock_available_location_orderpoint.product_template_search_form_view_stock
+#: model_terms:ir.ui.view,arch_db:stock_available_location_orderpoint.stock_product_search_form_view
+msgid "To Replenish"
+msgstr "A réassortir"
+
+#. module: stock_available_location_orderpoint
+#: model_terms:ir.ui.view,arch_db:stock_available_location_orderpoint.view_stock_available_kanban
+msgid "To Replenish:"
+msgstr "A réassortir:"

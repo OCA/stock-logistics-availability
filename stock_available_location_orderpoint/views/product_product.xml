@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="product_normal_form_view">
+        <field
+            name="name"
+        >Quantity to Replenish (in stock_available_location_orderpoint)</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock.product_form_view_procurement_button" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//button[@name='action_product_forecast_report']"
+                position="after"
+            >
+                <button
+                    type="object"
+                    name="action_open_replenishments"
+                    groups="stock.group_stock_multi_locations"
+                    help="Quantity to replenish (Quantity in replenishments)"
+                    attrs="{'invisible':[('type', 'not in', ['product','consu'])]}"
+                    class="oe_stat_button"
+                    icon="fa-angle-double-down"
+                >
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value" widget="statinfo">
+                            <field
+                                name="quantity_to_replenish"
+                                widget="statinfo"
+                                nolabel="1"
+                                class="mr4"
+                            />(
+                            <field
+                                name="quantity_in_replenishments"
+                                widget="statinfo"
+                                nolabel="1"
+                                class="mr4"
+                            />)
+                        </span>
+                        <span class="o_stat_text">To Replenish</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_stock_available_product_tree">
+        <field
+            name="name"
+        >Quantity to Replenish (in stock_available_location_orderpoint)</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock.view_stock_product_tree" />
+        <field name="arch" type="xml">
+            <field name="virtual_available" position="after">
+                <field
+                    name="quantity_to_replenish"
+                    groups="stock.group_stock_multi_locations"
+                    optional="hide"
+                />
+                <field
+                    name="quantity_in_replenishments"
+                    groups="stock.group_stock_multi_locations"
+                    optional="hide"
+                />
+            </field>
+        </field>
+    </record>
+
+    <record id="stock_product_search_form_view" model="ir.ui.view">
+        <field
+            name="name"
+        >Quantity to Replenish (in stock_available_location_orderpoint)</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock.stock_product_search_form_view" />
+        <field name="arch" type="xml">
+            <filter name="real_stock_negative" position="after">
+                <filter
+                    name="to_replenish"
+                    string="To Replenish"
+                    domain="[('quantity_to_replenish','&gt;',0)]"
+                />
+                <filter
+                    name="in_replenishments"
+                    string="In Replenishments"
+                    domain="[('quantity_in_replenishments','&gt;',0)]"
+                />
+
+            </filter>
+        </field>
+    </record>
+</odoo>
