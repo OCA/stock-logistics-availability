@@ -329,10 +329,113 @@ class TestStockAvailableLocationOrderpointTemplate(TestLocationOrderpointCommon)
 
         # We are in shelf context
         self.template.invalidate_recordset()
+        self.template.product_variant_ids.invalidate_recordset()
+        self.template.with_context(
+            location=self.shelf.id
+        )._compute_available_quantities_dict()
+        self.assertEqual(
+            15.0,
+            self.template.with_context(location=self.shelf.id).quantity_to_replenish,
+        )
         templates = self.template.with_context(location=self.shelf.id).search(
-            [("quantity_to_replenish", "=", 5.0)]
+            [("quantity_to_replenish", "=", 15.0)]
         )
         self.assertTrue(self.template.id in templates.ids)
+
+    def test_available_on_different_sublocation(self):
+        """
+        Remove the existing orderpoints
+
+        Create a location structure like:
+            - Stock
+                - Area 1
+                    - Shelf 1
+                - Area 2
+                    - Shelf 2
+
+        Create orderpoints for both areas.
+
+        Create ougoing moves for both shelves:
+            - Shelf 1: 12.0
+            - Shelf 2: 2.0
+
+        Global quantity to replenish should be 8.0
+
+        Quantity for Shelf 1 should be 6.0
+
+        """
+        # Archive orderpoints
+        self.env["stock.location.orderpoint"].search([]).write({"active": False})
+
+        self.area_1 = self.env["stock.location"].create(
+            {
+                "name": "Area 1",
+                "location_id": self.location_dest.id,
+                "usage": "view",
+            }
+        )
+
+        self.shelf_1 = self.env["stock.location"].create(
+            {"name": "Shelf 1", "location_id": self.area_1.id}
+        )
+
+        self.area_2 = self.env["stock.location"].create(
+            {
+                "name": "Area 2",
+                "location_id": self.location_dest.id,
+                "usage": "view",
+            }
+        )
+
+        self.shelf_2 = self.env["stock.location"].create(
+            {"name": "Shelf 1", "location_id": self.area_2.id}
+        )
+
+        # Create an orderpoint by shelf
+        self.location_dest = self.area_1
+        (
+            self.orderpoint_shelf_1,
+            self.location_src_shelf_1,
+        ) = self._create_orderpoint_complete("Area 1 Replenishment", trigger="manual")
+
+        self.location_dest = self.area_2
+        (
+            self.orderpoint_shelf_2,
+            self.location_src_shelf_2,
+        ) = self._create_orderpoint_complete("Area 2 Replenishment", trigger="manual")
+
+        # Set stock on replenishment locations
+        self.env["stock.quant"].with_context(inventory_mode=True).create(
+            {
+                "inventory_quantity": 6.0,
+                "location_id": self.location_src_shelf_1.id,
+                "product_id": self.product.id,
+            }
+        )._apply_inventory()
+        self.env["stock.quant"].with_context(inventory_mode=True).create(
+            {
+                "inventory_quantity": 4.0,
+                "location_id": self.location_src_shelf_2.id,
+                "product_id": self.product.id,
+            }
+        )._apply_inventory()
+
+        self.location_dest = self.shelf_1
+        move = self._create_outgoing_move(12)
+        self.assertEqual(move.state, "confirmed")
+
+        self.location_dest = self.shelf_2
+        move = self._create_outgoing_move(2)
+        self.assertEqual(move.state, "confirmed")
+
+        self.template.invalidate_recordset()
+        self.assertEqual(8.0, self.template.quantity_to_replenish)
+
+        self.template.invalidate_recordset()
+        self.assertEqual(
+            6.0,
+            self.template.with_context(location=self.shelf_1.id).quantity_to_replenish,
+        )
 
     def test_action(self):
         action = self.template.action_open_replenishments()
