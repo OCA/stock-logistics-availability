@@ -139,8 +139,11 @@ class TestStockAvailableLocationOrderpoint(TestLocationOrderpointCommon):
         move = self._create_outgoing_move(1)
         self.assertEqual(move.state, "confirmed")
         self.product.invalidate_recordset()
+        # The quantity to replenish is equal to the total of replenishment locations
+        # quantity as they are in shelf parents path.
         self.assertEqual(
-            7.0, self.product.with_context(location=self.shelf.id).quantity_to_replenish
+            17.0,
+            self.product.with_context(location=self.shelf.id).quantity_to_replenish,
         )
 
     def test_available_on_one_stock_location_with_shelf(self):
@@ -204,16 +207,17 @@ class TestStockAvailableLocationOrderpoint(TestLocationOrderpointCommon):
 
         # Check the replenishment value for shelf location only
         self.assertEqual(
-            5.0, self.product.with_context(location=self.shelf.id).quantity_to_replenish
+            15.0,
+            self.product.with_context(location=self.shelf.id).quantity_to_replenish,
         )
 
         # We are not in shelf location context
-        product = self.product.search([("quantity_to_replenish", "=", 5.0)])
-        self.assertFalse(self.product.id in product.ids)
+        product = self.product.search([("quantity_to_replenish", "=", 15.0)])
+        self.assertTrue(self.product.id in product.ids)
 
         # We are in shelf location context
         product = self.product.with_context(location=self.shelf.id).search(
-            [("quantity_to_replenish", "=", 5.0)]
+            [("quantity_to_replenish", "=", 15.0)]
         )
         self.assertTrue(self.product.id in product.ids)
 
