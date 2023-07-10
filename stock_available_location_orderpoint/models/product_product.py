@@ -71,6 +71,8 @@ class ProductProduct(models.Model):
         for product in self:
             qties_replenished_for_location = {product: 0.0}
             for orderpoint in orderpoints:
+                # As we compute global quantities for the product, pass
+                # always 0 to the already replenished quantity
                 qty_to_replenish = orderpoint._get_qty_to_replenish(
                     product,
                     qties_on_locations,
