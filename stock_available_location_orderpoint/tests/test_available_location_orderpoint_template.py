@@ -356,8 +356,9 @@ class TestStockAvailableLocationOrderpointTemplate(TestLocationOrderpointCommon)
         Create orderpoints for both areas.
 
         Create ougoing moves for both shelves:
-            - Shelf 1: 12.0
-            - Shelf 2: 2.0
+            - Shelf 1: 12.0 (Product 1)
+            - Shelf 1: 4.0 (Product 2)
+            - Shelf 2: 2.0 (Product 1)
 
         Global quantity to replenish should be 8.0
 
@@ -414,28 +415,76 @@ class TestStockAvailableLocationOrderpointTemplate(TestLocationOrderpointCommon)
         )._apply_inventory()
         self.env["stock.quant"].with_context(inventory_mode=True).create(
             {
+                "inventory_quantity": 5.0,
+                "location_id": self.location_src_shelf_1.id,
+                "product_id": self.product_2.id,
+            }
+        )._apply_inventory()
+        self.env["stock.quant"].with_context(inventory_mode=True).create(
+            {
                 "inventory_quantity": 4.0,
                 "location_id": self.location_src_shelf_2.id,
                 "product_id": self.product.id,
             }
         )._apply_inventory()
 
-        self.location_dest = self.shelf_1
+        self.env["stock.quant"].with_context(inventory_mode=True).create(
+            {
+                "inventory_quantity": 3.0,
+                "location_id": self.location_src_shelf_2.id,
+                "product_id": self.product_2.id,
+            }
+        )._apply_inventory()
+
+        # Product 1
+        self.location_dest = self.area_1
         move = self._create_outgoing_move(12)
         self.assertEqual(move.state, "confirmed")
 
-        self.location_dest = self.shelf_2
+        self.location_dest = self.area_2
         move = self._create_outgoing_move(2)
         self.assertEqual(move.state, "confirmed")
 
+        # Product 2 - with less quantity than in replenishment location
+        self.product = self.product_2
+        self.location_dest = self.area_1
+        move = self._create_outgoing_move(1)
+        self.assertEqual(move.state, "confirmed")
+
+        self.location_dest = self.area_2
+        move = self._create_outgoing_move(3)
+        self.assertEqual(move.state, "confirmed")
+
         self.template.invalidate_recordset()
-        self.assertEqual(8.0, self.template.quantity_to_replenish)
+        self.assertEqual(12.0, self.template.quantity_to_replenish)
 
         self.template.invalidate_recordset()
         self.assertEqual(
-            6.0,
+            7.0,
             self.template.with_context(location=self.shelf_1.id).quantity_to_replenish,
         )
+
+        # Run replenishment on area 1
+        self.orderpoint_shelf_1.run_replenishment()
+        # Test all variables in different contexts
+        self.template.invalidate_recordset()
+        self.assertEqual(5.0, self.template.quantity_to_replenish)
+        self.assertEqual(7.0, self.template.quantity_in_replenishments)
+        self.template.invalidate_recordset()
+        self.assertEqual(
+            0.0,
+            self.template.with_context(location=self.shelf_1.id).quantity_to_replenish,
+        )
+        self.template.invalidate_recordset()
+        self.assertEqual(
+            7.0,
+            self.template.with_context(
+                location=self.shelf_1.id
+            ).quantity_in_replenishments,
+        )
+
+        templates = self.template.search([("quantity_in_replenishments", "=", 7.0)])
+        self.assertTrue(self.template.id in templates.ids)
 
     def test_action(self):
         action = self.template.action_open_replenishments()

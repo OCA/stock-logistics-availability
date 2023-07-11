@@ -60,13 +60,13 @@ class ProductProduct(models.Model):
                 ("state", "not in", ("done", "cancel")),
                 ("product_id", "in", self.ids),
             ],
-            ["product_id"],
+            ["product_id", "product_uom_qty:sum"],
             ["product_id"],
         )
         quantities_in_replenishments = defaultdict(lambda: defaultdict(lambda: 0))
         for current_move in current_moves:
             quantities_in_replenishments[current_move["product_id"][0]] = current_move[
-                "product_id_count"
+                "product_uom_qty"
             ]
         for product in self:
             qties_replenished_for_location = {product: 0.0}
