@@ -221,6 +221,123 @@ class TestStockAvailableLocationOrderpoint(TestLocationOrderpointCommon):
         )
         self.assertTrue(self.product.id in product.ids)
 
+    def test_available_on_different_sublocation(self):
+        """
+        Remove the existing orderpoints
+
+        Create a location structure like:
+            - Stock
+                - Area 1
+                    - Shelf 1
+                - Area 2
+                    - Shelf 2
+
+        Create orderpoints for both areas.
+
+        Create ougoing moves for both shelves:
+            - Shelf 1: 12.0 (product 1)
+            - Shelf 2: 2.0
+
+        Global quantity to replenish should be 8.0
+
+        Quantity for Shelf 1 should be 6.0
+
+        """
+        # Archive orderpoints
+        self.env["stock.location.orderpoint"].search([]).write({"active": False})
+
+        self.area_1 = self.env["stock.location"].create(
+            {
+                "name": "Area 1",
+                "location_id": self.location_dest.id,
+                "usage": "view",
+            }
+        )
+
+        self.shelf_1 = self.env["stock.location"].create(
+            {"name": "Shelf 1", "location_id": self.area_1.id}
+        )
+
+        self.area_2 = self.env["stock.location"].create(
+            {
+                "name": "Area 2",
+                "location_id": self.location_dest.id,
+                "usage": "view",
+            }
+        )
+
+        self.shelf_2 = self.env["stock.location"].create(
+            {"name": "Shelf 1", "location_id": self.area_2.id}
+        )
+
+        # Create an orderpoint by shelf
+        self.location_dest = self.area_1
+        (
+            self.orderpoint_shelf_1,
+            self.location_src_shelf_1,
+        ) = self._create_orderpoint_complete("Area 1 Replenishment", trigger="manual")
+
+        self.location_dest = self.area_2
+        (
+            self.orderpoint_shelf_2,
+            self.location_src_shelf_2,
+        ) = self._create_orderpoint_complete("Area 2 Replenishment", trigger="manual")
+
+        # Set stock on replenishment locations
+        self.env["stock.quant"].with_context(inventory_mode=True).create(
+            {
+                "inventory_quantity": 6.0,
+                "location_id": self.location_src_shelf_1.id,
+                "product_id": self.product.id,
+            }
+        )._apply_inventory()
+        self.env["stock.quant"].with_context(inventory_mode=True).create(
+            {
+                "inventory_quantity": 4.0,
+                "location_id": self.location_src_shelf_2.id,
+                "product_id": self.product.id,
+            }
+        )._apply_inventory()
+
+        self.location_dest = self.area_1
+        move = self._create_outgoing_move(12)
+        self.assertEqual(move.state, "confirmed")
+
+        self.location_dest = self.area_2
+        move = self._create_outgoing_move(2)
+        self.assertEqual(move.state, "confirmed")
+
+        self.product.invalidate_recordset()
+        self.assertEqual(8.0, self.product.quantity_to_replenish)
+
+        self.product.invalidate_recordset()
+        self.assertEqual(
+            6.0,
+            self.product.with_context(location=self.shelf_1.id).quantity_to_replenish,
+        )
+
+        # Run replenishment on area 1
+        self.orderpoint_shelf_1.run_replenishment()
+        # Test all variables in different contexts
+        self.product.invalidate_recordset()
+        self.assertEqual(2.0, self.product.quantity_to_replenish)
+        self.assertEqual(6.0, self.product.quantity_in_replenishments)
+        self.product.invalidate_recordset()
+        self.assertEqual(
+            0.0,
+            self.product.with_context(location=self.shelf_1.id).quantity_to_replenish,
+        )
+        self.product.invalidate_recordset()
+        self.assertEqual(
+            6.0,
+            self.product.with_context(
+                location=self.shelf_1.id
+            ).quantity_in_replenishments,
+        )
+
+        products = self.product.search([("quantity_in_replenishments", "=", 6.0)])
+        self.assertTrue(self.product.id in products.ids)
+
     def test_action(self):
         action = self.product.action_open_replenishments()
         self.assertIn(
