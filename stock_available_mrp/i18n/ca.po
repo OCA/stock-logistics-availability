@@ -17,29 +17,23 @@ msgstr ""
 "X-Generator: Weblate 4.3.2\n"
 
 #. module: stock_available_mrp
-#: model:product.product,name:stock_available_mrp.product_computer_desk_bolt_white
 #: model:product.template,name:stock_available_mrp.product_computer_desk_bolt_white_product_template
 msgid "Bolt"
 msgstr "Cargol"
 
 #. module: stock_available_mrp
 #: model:ir.model,name:stock_available_mrp.model_product_product
-msgid "Product"
-msgstr "Producte"
+msgid "Product Variant"
+msgstr ""
 
-#. module: stock_available_mrp
-#: model:product.product,name:stock_available_mrp.product_kit_1a
-msgid "Table Kit"
-msgstr "Kit de taula"
+#~ msgid "Product"
+#~ msgstr "Producte"
 
-#. module: stock_available_mrp
-#: model_terms:product.product,description:stock_available_mrp.product_kit_1a
-msgid "Table kit"
-msgstr "Kit de taula"
+#~ msgid "Table Kit"
+#~ msgstr "Kit de taula"
 
-#. module: stock_available_mrp
-#: model:product.product,uom_name:stock_available_mrp.product_computer_desk_bolt_white
-#: model:product.product,uom_name:stock_available_mrp.product_kit_1a
-#: model:product.template,uom_name:stock_available_mrp.product_computer_desk_bolt_white_product_template
-msgid "Units"
-msgstr "Unitats"
+#~ msgid "Table kit"
+#~ msgstr "Kit de taula"
+
+#~ msgid "Units"
+#~ msgstr "Unitats"
