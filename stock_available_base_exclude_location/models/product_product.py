@@ -23,8 +23,8 @@ class ProductProduct(models.Model):
         ) = super()._get_domain_locations_new(
             location_ids=location_ids,
         )
-        excluded_location_ids = self.env.context.get("excluded_location_ids")
-        excluded_location_domain = self.env.context.get("excluded_location_domain")
+        excluded_location_ids = self.env.context.get("excluded_location_ids", [])
+        excluded_location_domain = self.env.context.get("excluded_location_domain", [])
         domain_excluded_quant_loc = []
         domain_excluded_move_in_loc = []
         domain_excluded_move_out_loc = []
