@@ -1,14 +1,15 @@
 # Copyright 2020 ACSONE SA/NV
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo_test_helper import FakeModelLoader
 
-from odoo.tests import SavepointCase
+from odoo.tests.common import TransactionCase
 
 
-class TestExcludeLocation(SavepointCase):
+class TestExcludeLocation(TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(TestExcludeLocation, cls).setUpClass()
+        super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.loader = FakeModelLoader(cls.env, cls.__module__)
         cls.loader.backup_registry()
         from .common import ResPartner
@@ -25,7 +26,7 @@ class TestExcludeLocation(SavepointCase):
     @classmethod
     def tearDownClass(cls):
         cls.loader.restore_registry()
-        super(TestExcludeLocation, cls).tearDownClass()
+        super().tearDownClass()
 
     def _add_stock_to_product(self, product, location, qty):
         """
@@ -39,7 +40,7 @@ class TestExcludeLocation(SavepointCase):
                 "location_id": location.id,
                 "inventory_quantity": qty,
             }
-        )
+        )._apply_inventory()
 
     def test_exclude_location(self):
         # Add different levels of stock for product as :
@@ -54,6 +55,6 @@ class TestExcludeLocation(SavepointCase):
             excluded_location_ids=self.fake.stock_excluded_location_ids
         ).qty_available
         self.assertEqual(50.0, qty)
-        self.product.invalidate_cache()
+        self.product.invalidate_recordset()
         qty = self.product.qty_available
         self.assertEqual(75.0, qty)
