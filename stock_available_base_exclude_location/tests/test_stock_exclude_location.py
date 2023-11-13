@@ -87,9 +87,9 @@ class TestExcludeLocation(TransactionCase):
         # location as Sub Location 1
         self._add_stock_to_product(self.product, self.location_shop, 50.0)
         self._add_stock_to_product(self.product, self.sub_location_1, 25.0)
-        self.fake.stock_excluded_location_domain = [
-            ("location_id", "not in", self.sub_location_1.ids)
-        ]
+        self.fake.stock_excluded_location_domain_char = (
+            "[('location_id', 'not in', " + str(self.sub_location_1.ids) + ")]"
+        )
         qty = self.product.with_context(
             excluded_location_domain=self.fake.stock_excluded_location_domain
         ).qty_available
@@ -114,9 +114,11 @@ class TestExcludeLocation(TransactionCase):
             excluded_location_domain=self.fake.stock_excluded_location_domain
         ).virtual_available
         self.assertEqual(105.0, qty)
-        self.fake.stock_excluded_location_domain = [
-            ("location_id.usage", "!=", "supplier")
-        ]
+        self.fake.stock_excluded_location_domain_char = (
+            "[('location_id.usage', '!=', 'supplier')]"
+        )
         self.product.invalidate_recordset()
-        qty = self.product.qty_available
+        qty = self.product.with_context(
+            excluded_location_domain=self.fake.stock_excluded_location_domain
+        ).virtual_available
         self.assertEqual(75.0, qty)
