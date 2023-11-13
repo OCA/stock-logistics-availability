@@ -24,6 +24,7 @@ class ProductProduct(models.Model):
             location_ids=location_ids,
         )
         excluded_location_ids = self.env.context.get("excluded_location_ids")
+        excluded_location_domain = self.env.context.get("excluded_location_domain")
         if excluded_location_ids:
             domain_quant_loc = expression.AND(
                 [
@@ -46,6 +47,26 @@ class ProductProduct(models.Model):
             domain_move_out_loc = expression.AND(
                 [
                     [("location_id", "not in", excluded_location_ids.ids)],
+                    domain_quant_loc,
+                ]
+            )
+        if excluded_location_domain:
+            excluded_location_domain = excluded_location_domain
+            domain_quant_loc = expression.AND(
+                [
+                    excluded_location_domain,
+                    domain_quant_loc,
+                ]
+            )
+            domain_move_in_loc = expression.AND(
+                [
+                    excluded_location_domain,
+                    domain_quant_loc,
+                ]
+            )
+            domain_move_out_loc = expression.AND(
+                [
+                    excluded_location_domain,
                     domain_quant_loc,
                 ]
             )
