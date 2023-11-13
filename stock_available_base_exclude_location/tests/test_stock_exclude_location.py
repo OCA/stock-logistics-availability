@@ -58,3 +58,22 @@ class TestExcludeLocation(TransactionCase):
         self.product.invalidate_recordset()
         qty = self.product.qty_available
         self.assertEqual(75.0, qty)
+
+    def test_exclude_location_domain(self):
+        # Add different levels of stock for product as :
+        # Shop 0: 50.0
+        # Sub Level (Shop 0 / Sub Location 1): 25.0
+        # Query product stock availability normally and with excluded
+        # location as Sub Location 1
+        self._add_stock_to_product(self.product, self.location_shop, 50.0)
+        self._add_stock_to_product(self.product, self.sub_location_1, 25.0)
+        self.fake.stock_excluded_location_domain = [
+            ("location_id", "not in", self.sub_location_1.ids)
+        ]
+        qty = self.product.with_context(
+            excluded_location_domain=self.fake.stock_excluded_location_domain
+        ).qty_available
+        self.assertEqual(50.0, qty)
+        self.product.invalidate_recordset()
+        qty = self.product.qty_available
+        self.assertEqual(75.0, qty)
