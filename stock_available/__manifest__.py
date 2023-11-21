@@ -4,7 +4,7 @@
 
 {
     "name": "Stock available to promise",
-    "version": "16.0.1.0.1",
+    "version": "16.0.1.1.0",
     "author": "Numérigraphe, Sodexis, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/stock-logistics-availability",
     "development_status": "Production/Stable",
