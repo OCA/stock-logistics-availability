@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from collections import defaultdict
 
-from odoo import fields, models
+from odoo import api, fields, models
 from odoo.tools import float_compare
 from odoo.tools.safe_eval import safe_eval
 
@@ -14,36 +14,38 @@ class ProductProduct(models.Model):
     _inherit = "product.product"
 
     quantity_to_replenish = fields.Float(
-        compute="_compute_available_quantities",
+        compute="_compute_replenishment_quantities",
         search="_search_quantity_to_replenish",
+        prefetch=False,
         help="This is the quantity to replenish following the location orderpoints.",
     )
     quantity_in_replenishments = fields.Float(
-        compute="_compute_available_quantities",
+        compute="_compute_replenishment_quantities",
         search="_search_quantity_in_replenishments",
+        prefetch=False,
         help="This is the quantity currently in replenishments following the "
         "location orderpoints.",
     )
 
-    def _compute_available_quantities_dict(self):
-        """
-        Retrieve all replenishment quantities for the selected products
-        and locations.
-        """
-        res, stock_dict = super()._compute_available_quantities_dict()
-        location_domain = self._get_domain_location_for_locations()
-        locations = self.env["stock.location"].search(location_domain)
+    @api.depends_context("location")
+    def _compute_replenishment_quantities(self):
         orderpoint_obj = self.env["stock.location.orderpoint"]
         if orderpoint_obj.check_access_rights("read", raise_exception=False):
+            orderpoint_obj = self.env["stock.location.orderpoint"]
+            location_domain = self._get_domain_location_for_locations()
+            locations = self.env["stock.location"].search(location_domain)
             orderpoint_domain = orderpoint_obj._prepare_orderpoint_domain_location(
                 locations.ids
             )
             orderpoints = orderpoint_obj.search(orderpoint_domain)
         else:
-            for product in self:
-                res[product.id]["quantity_to_replenish"] = 0
-                res[product.id]["quantity_in_replenishments"] = 0
-                return res, stock_dict
+            self.update(
+                {
+                    "quantity_to_replenish": 0.0,
+                    "quantity_in_replenishments": 0.0,
+                }
+            )
+            return
 
         # Merge both source locations and destination locations
         location_ids = set(
@@ -84,14 +86,18 @@ class ProductProduct(models.Model):
                     )
                     > 0
                 ):
+                    # We take the maximum value from all the concerned orderpoints
+                    # for the product
                     qties_replenished_for_location[product] += qty_to_replenish
-            res[product.id][
-                "quantity_in_replenishments"
-            ] = quantities_in_replenishments[product.id]
-            res[product.id]["quantity_to_replenish"] = qties_replenished_for_location[
-                product
-            ]
-        return res, stock_dict
+            product.update(
+                {
+                    "quantity_in_replenishments": quantities_in_replenishments[
+                        product.id
+                    ],
+                    "quantity_to_replenish": qties_replenished_for_location[product],
+                }
+            )
+        return
 
     def _get_search_quantity_to_replenish_domain(self):
         return [("type", "=", "product")]
