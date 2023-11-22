@@ -456,6 +456,7 @@ class TestStockAvailableLocationOrderpointTemplate(TestLocationOrderpointCommon)
         self.assertEqual(move.state, "confirmed")
 
         self.template.invalidate_recordset()
+        self.template.product_variant_ids.invalidate_recordset()
         self.assertEqual(12.0, self.template.quantity_to_replenish)
 
         self.template.invalidate_recordset()
@@ -468,6 +469,7 @@ class TestStockAvailableLocationOrderpointTemplate(TestLocationOrderpointCommon)
         self.orderpoint_shelf_1.run_replenishment()
         # Test all variables in different contexts
         self.template.invalidate_recordset()
+        self.template.product_variant_ids.invalidate_recordset()
         self.assertEqual(5.0, self.template.quantity_to_replenish)
         self.assertEqual(7.0, self.template.quantity_in_replenishments)
         self.template.invalidate_recordset()
