@@ -25,6 +25,7 @@ addon | version | maintainers | summary
 [stock_available](stock_available/) | 16.0.1.1.0 |  | Stock available to promise
 [stock_available_base_exclude_location](stock_available_base_exclude_location/) | 16.0.1.0.0 | [![rousseldenis](https://github.com/rousseldenis.png?size=30px)](https://github.com/rousseldenis) | Base module to exclude locations for product available quantities
 [stock_available_immediately](stock_available_immediately/) | 16.0.1.0.0 |  | Ignore planned receptions in quantity available to promise
+[stock_available_immediately_exclude_location](stock_available_immediately_exclude_location/) | 16.0.1.0.0 |  | Exclude locations from immediately usable quantity
 [stock_available_mrp](stock_available_mrp/) | 16.0.1.0.0 |  | Consider the production potential is available to promise
 [stock_available_unreserved](stock_available_unreserved/) | 16.0.1.0.0 | [![LoisRForgeFlow](https://github.com/LoisRForgeFlow.png?size=30px)](https://github.com/LoisRForgeFlow) | Quantity of stock available for immediate use
 [stock_free_quantity](stock_free_quantity/) | 16.0.1.0.0 |  | Stock Free Quantity
