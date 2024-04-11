@@ -14,7 +14,7 @@
                 <button
                     type="object"
                     name="action_open_quants"
-                    attrs="{'invisible':[('type', 'not in', ['product'])]}"
+                    invisible="type not in ['product']"
                     class="oe_stat_button"
                     icon="fa-building-o"
                 >
@@ -55,7 +55,7 @@
                 <field name="qty_available" position="after">
                     <field
                     name="free_qty"
-                    attrs="{'invisible':[('type', '!=', 'product')]}"
+                    invisible="type != ('product')"
                     optional="show"
                     decoration-danger="free_qty &lt; 0"
                     decoration-bf="1"
@@ -71,7 +71,7 @@
                 <field name="qty_available" position="after">
                     <field
                     name="free_qty"
-                    attrs="{'invisible':[('type', '!=', 'product')]}"
+                    invisible="type != ('product')"
                     optional="show"
                     decoration-danger="free_qty &lt; 0"
                     decoration-warning="free_qty == 0"
