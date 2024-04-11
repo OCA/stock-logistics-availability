@@ -12,7 +12,7 @@
                 <button
                     type="object"
                     name="action_open_quants"
-                    attrs="{'invisible':[('type', 'not in', ['product'])]}"
+                    invisible="type not in ['product']"
                     class="oe_stat_button"
                     icon="fa-building-o"
                 >
