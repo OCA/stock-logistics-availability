@@ -3,8 +3,8 @@
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <templates>
     <t
-        t-name="sale_stock_available_info_popup.QtyDetailPopOver"
-        t-inherit="sale_stock.QtyDetailPopOver"
+        t-name="sale_stock_available_info_popup.QtyAtDatePopover"
+        t-inherit="sale_stock.QtyAtDatePopover"
         t-inherit-mode="extension"
         owl="1"
     >
@@ -13,7 +13,7 @@
                 <td>
                     <strong>Available to promise</strong>
                 </td>
-                <td>
+                <td class="text-end">
                     <b t-out='props.record.data.immediately_usable_qty_today' /> <t
                         t-out="props.record.data.product_uom[1]"
                     />
