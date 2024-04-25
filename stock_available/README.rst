@@ -17,25 +17,24 @@ Stock available to promise
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fstock--logistics--availability-lightgray.png?logo=github
-    :target: https://github.com/OCA/stock-logistics-availability/tree/16.0/stock_available
+    :target: https://github.com/OCA/stock-logistics-availability/tree/17.0/stock_available
     :alt: OCA/stock-logistics-availability
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/stock-logistics-availability-16-0/stock-logistics-availability-16-0-stock_available
+    :target: https://translation.odoo-community.org/projects/stock-logistics-availability-17-0/stock-logistics-availability-17-0-stock_available
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/stock-logistics-availability&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/stock-logistics-availability&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module proposes several options to compute the quantity available to
-promise for each product.
-This quantity is based on the projected stock and, depending on the
-configuration, it can account for various data such as sales quotations or
-immediate production capacity.
-In case of immediate production capacity, it is possible to configure on which
+This module proposes several options to compute the quantity available
+to promise for each product. This quantity is based on the projected
+stock and, depending on the configuration, it can account for various
+data such as sales quotations or immediate production capacity. In case
+of immediate production capacity, it is possible to configure on which
 field the potential is computed, by default Quantity On Hand is used.
-This can be configured in `Inventory` > `Configuration` > `Settings`.
+This can be configured in Inventory > Configuration > Settings.
 
 **Table of contents**
 
@@ -45,20 +44,20 @@ This can be configured in `Inventory` > `Configuration` > `Settings`.
 Configuration
 =============
 
-By default, this module computes the stock available to promise as the virtual
-stock.
-To take advantage of the additional features, you must define on which information you
-want to base the computation, by checking one or more boxes in the settings:
-`Inventory` > `Configuration` > `Settings` > `Stock available to promise`.
-In case of "Include the production potential", it is also possible to configure
-which field of product to use to compute the production potential.
+By default, this module computes the stock available to promise as the
+virtual stock. To take advantage of the additional features, you must
+define on which information you want to base the computation, by
+checking one or more boxes in the settings: Inventory > Configuration >
+Settings > Stock available to promise. In case of "Include the
+production potential", it is also possible to configure which field of
+product to use to compute the production potential.
 
 Usage
 =====
 
-This module adds a field named `Available for sale` on the Product form.
-Various additional fields may be added, depending on which information you
-chose to base the computation on.
+This module adds a field named Available for sale on the Product form.
+Various additional fields may be added, depending on which information
+you chose to base the computation on.
 
 Bug Tracker
 ===========
@@ -66,7 +65,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/stock-logistics-availability/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/stock-logistics-availability/issues/new?body=module:%20stock_available%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/stock-logistics-availability/issues/new?body=module:%20stock_available%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -74,36 +73,36 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Numérigraphe
 * Sodexis
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* `Numérigraphe <https://www.numerigraphe.com>`_:
+-  `Numérigraphe <https://www.numerigraphe.com>`__:
 
-    * Lionel Sausin <ls@numerigraphe.com>
+      -  Lionel Sausin <ls@numerigraphe.com>
 
-* `Sodexis <https://www.Sodexis.com>`_:
+-  `Sodexis <https://www.Sodexis.com>`__:
 
-    * Sodexis <sodexis@sodexis.com>
+      -  Sodexis <sodexis@sodexis.com>
 
-* `Factor Libre <https://www.factorlibre.com>`_:
+-  `Factor Libre <https://www.factorlibre.com>`__:
 
-    * Kiko Peiro <francisco.peiro@factorlibre.com>
+      -  Kiko Peiro <francisco.peiro@factorlibre.com>
 
-* `Tecnativa <https://www.tecnativa.com>`_:
+-  `Tecnativa <https://www.tecnativa.com>`__:
 
-    * Sergio Teruel <sergio.teruel@tecnativa.com>
+      -  Sergio Teruel <sergio.teruel@tecnativa.com>
 
-* `Ecosoft <http://ecosoft.co.th/>`_:
+-  `Ecosoft <http://ecosoft.co.th/>`__:
 
-    * Pimolnat Suntian <pimolnats@ecosoft.co.th>
+      -  Pimolnat Suntian <pimolnats@ecosoft.co.th>
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -115,6 +114,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/stock-logistics-availability <https://github.com/OCA/stock-logistics-availability/tree/16.0/stock_available>`_ project on GitHub.
+This module is part of the `OCA/stock-logistics-availability <https://github.com/OCA/stock-logistics-availability/tree/17.0/stock_available>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
