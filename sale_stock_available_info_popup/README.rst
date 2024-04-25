@@ -17,20 +17,20 @@ Sale Stock Available Info Popup
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fstock--logistics--availability-lightgray.png?logo=github
-    :target: https://github.com/OCA/stock-logistics-availability/tree/16.0/sale_stock_available_info_popup
+    :target: https://github.com/OCA/stock-logistics-availability/tree/17.0/sale_stock_available_info_popup
     :alt: OCA/stock-logistics-availability
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/stock-logistics-availability-16-0/stock-logistics-availability-16-0-sale_stock_available_info_popup
+    :target: https://translation.odoo-community.org/projects/stock-logistics-availability-17-0/stock-logistics-availability-17-0-sale_stock_available_info_popup
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/stock-logistics-availability&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/stock-logistics-availability&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module extends the functionality of 'Sale Stock' module
-to add the 'Available to promise' quantity of the corresponding product
-to the pop-up that show stock information at sales order line level.
+This module extends the functionality of 'Sale Stock' module to add the
+'Available to promise' quantity of the corresponding product to the
+pop-up that show stock information at sales order line level.
 
 **Table of contents**
 
@@ -42,19 +42,18 @@ Usage
 
 To use this module, you need to:
 
-#. Go to *Sales > Orders > quotations* and create a new one.
-#. Add a sale order line with a storable product
-#. Click on the icon |fa_info_circle| in the line and you will
-   see in the popover the 'Available to promise' quantity of the
-   corresponding product.
+1. Go to *Sales > Orders > quotations* and create a new one.
+2. Add a sale order line with a storable product
+3. Click on the icon |fa_info_circle| in the line and you will see in
+   the popover the 'Available to promise' quantity of the corresponding
+   product.
 
 Note: Now the color of the icon depends on the 'Available to promise'
-quantity of the corresponding product instead of 'Forecast Quantity'.
-If that quantity is less than the quantity to deliver, the color of
-the icon will be red, indicating an alert; otherwise it will be blue.
+quantity of the corresponding product instead of 'Forecast Quantity'. If
+that quantity is less than the quantity to deliver, the color of the
+icon will be red, indicating an alert; otherwise it will be blue.
 
-.. |fa_info_circle| image:: https://raw.githubusercontent.com/OCA/stock-logistics-availability/16.0/sale_stock_available_info_popup/static/src/img/info-circle-solid.png
-   :width: 10px
+.. |fa_info_circle| image:: https://raw.githubusercontent.com/OCA/stock-logistics-availability/17.0/sale_stock_available_info_popup/static/src/img/info-circle-solid.png
 
 Bug Tracker
 ===========
@@ -62,7 +61,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/stock-logistics-availability/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/stock-logistics-availability/issues/new?body=module:%20sale_stock_available_info_popup%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/stock-logistics-availability/issues/new?body=module:%20sale_stock_available_info_popup%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -70,22 +69,22 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Tecnativa
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* `Tecnativa <https://www.tecnativa.com>`_:
+-  `Tecnativa <https://www.tecnativa.com>`__:
 
-  * Ernesto Tejeda
-  * Pedro M. Baeza
-  * Víctor Martínez
-  * César A. Sánchez
+   -  Ernesto Tejeda
+   -  Pedro M. Baeza
+   -  Víctor Martínez
+   -  César A. Sánchez
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -97,6 +96,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/stock-logistics-availability <https://github.com/OCA/stock-logistics-availability/tree/16.0/sale_stock_available_info_popup>`_ project on GitHub.
+This module is part of the `OCA/stock-logistics-availability <https://github.com/OCA/stock-logistics-availability/tree/17.0/sale_stock_available_info_popup>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
