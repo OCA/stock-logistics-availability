@@ -45,33 +45,6 @@ msgid "Available to promise"
 msgstr "Dostupno za rezervirati:"
 
 #. module: stock_available
-#: model:ir.model.fields,help:stock_available.field_res_config_settings__stock_available_mrp_based_on
-msgid ""
-"Choose the field of the product which will be used to compute potential.\n"
-"If empty, Quantity On Hand is used.\n"
-"Only the quantity fields have meaning for computing stock"
-msgstr ""
-"Izaberite polje na proizvodu koje će se koristiti za izračun potencijala.\n"
-"Ukoliko je prazno, koristi se količina na raspolaganju.\n"
-"Samo polja količine imaju značaj pri izračunu zalihe."
-
-#. module: stock_available
-#: model:ir.model,name:stock_available.model_res_config_settings
-#, fuzzy
-msgid "Config Settings"
-msgstr "stock.config.settings"
-
-#. module: stock_available
-#: model:ir.model.fields,field_description:stock_available.field_res_config_settings__module_stock_available_immediately
-msgid "Exclude incoming goods"
-msgstr "Isključi robu u dolasku"
-
-#. module: stock_available
-#: model:ir.model.fields,field_description:stock_available.field_res_config_settings__module_stock_available_mrp
-msgid "Include the production potential"
-msgstr "Uključi potencijale proizvodnje"
-
-#. module: stock_available
 #: model:ir.model.fields,field_description:stock_available.field_product_product__potential_qty
 #: model:ir.model.fields,field_description:stock_available.field_product_template__potential_qty
 msgid "Potential"
@@ -108,11 +81,6 @@ msgstr ""
 "pokazati najveću količinu koja može biti proizvoedena za bilokoju varijantu."
 
 #. module: stock_available
-#: model_terms:ir.ui.view,arch_db:stock_available.view_stock_configuration
-msgid "Stock available to promise"
-msgstr "Zaliha dostupna za rezervacije"
-
-#. module: stock_available
 #: model:ir.model.fields,help:stock_available.field_product_template__immediately_usable_qty
 msgid ""
 "Stock for this Product that can be safely proposed for sale to Customers.\n"
@@ -131,34 +99,51 @@ msgstr ""
 "Zaliha ovog proizvoda koja može biti predložena za prodaju kupcima.\n"
 "Definicija ove vrijednosti može biti podešena da odgovara vašim potrebama."
 
-#. module: stock_available
-#: model:ir.model.fields,help:stock_available.field_res_config_settings__module_stock_available_mrp
-msgid ""
-"This will add the quantities of goods that can be immediately manufactured, "
-"to the quantities available to promise.\n"
-"This installs the module stock_available_mrp.\n"
-"If the module mrp is not installed, this will install it too"
-msgstr ""
-"Ovo će dodati količinu robe koja može biti odmah proizvedena, količinama "
-"raspoloživim za rezervacije.\n"
-"Ovo instalira modul stock_available_mrp.\n"
-"Ukoliko modul mrp nije instaliran, instalirati će i njega."
+#~ msgid ""
+#~ "Choose the field of the product which will be used to compute potential.\n"
+#~ "If empty, Quantity On Hand is used.\n"
+#~ "Only the quantity fields have meaning for computing stock"
+#~ msgstr ""
+#~ "Izaberite polje na proizvodu koje će se koristiti za izračun "
+#~ "potencijala.\n"
+#~ "Ukoliko je prazno, koristi se količina na raspolaganju.\n"
+#~ "Samo polja količine imaju značaj pri izračunu zalihe."
 
-#. module: stock_available
-#: model:ir.model.fields,help:stock_available.field_res_config_settings__module_stock_available_immediately
-msgid ""
-"This will subtract incoming quantities from the quantities available to "
-"promise.\n"
-"This installs the module stock_available_immediately."
-msgstr ""
-"Ovo će oduzeti količine robe u dolasku od količina raspoloživih za "
-"rezervacije.\n"
-"Ovo instalira modul_stock_available_emediatly."
+#, fuzzy
+#~ msgid "Config Settings"
+#~ msgstr "stock.config.settings"
 
-#. module: stock_available
-#: model:ir.model.fields,field_description:stock_available.field_res_config_settings__stock_available_mrp_based_on
-msgid "based on"
-msgstr "bazirano na"
+#~ msgid "Exclude incoming goods"
+#~ msgstr "Isključi robu u dolasku"
+
+#~ msgid "Include the production potential"
+#~ msgstr "Uključi potencijale proizvodnje"
+
+#~ msgid "Stock available to promise"
+#~ msgstr "Zaliha dostupna za rezervacije"
+
+#~ msgid ""
+#~ "This will add the quantities of goods that can be immediately "
+#~ "manufactured, to the quantities available to promise.\n"
+#~ "This installs the module stock_available_mrp.\n"
+#~ "If the module mrp is not installed, this will install it too"
+#~ msgstr ""
+#~ "Ovo će dodati količinu robe koja može biti odmah proizvedena, količinama "
+#~ "raspoloživim za rezervacije.\n"
+#~ "Ovo instalira modul stock_available_mrp.\n"
+#~ "Ukoliko modul mrp nije instaliran, instalirati će i njega."
+
+#~ msgid ""
+#~ "This will subtract incoming quantities from the quantities available to "
+#~ "promise.\n"
+#~ "This installs the module stock_available_immediately."
+#~ msgstr ""
+#~ "Ovo će oduzeti količine robe u dolasku od količina raspoloživih za "
+#~ "rezervacije.\n"
+#~ "Ovo instalira modul_stock_available_emediatly."
+
+#~ msgid "based on"
+#~ msgstr "bazirano na"
 
 #~ msgid "Product Template"
 #~ msgstr "Predložak proizvoda"
