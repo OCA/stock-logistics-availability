@@ -369,15 +369,14 @@ ul.auto-toc {
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! source digest: sha256:d4140e26779bc492db382b505bdd268792c5892c6e84395626e69a9f34bcf8ff
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Production/Stable" src="https://img.shields.io/badge/maturity-Production%2FStable-green.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/stock-logistics-availability/tree/16.0/stock_available"><img alt="OCA/stock-logistics-availability" src="https://img.shields.io/badge/github-OCA%2Fstock--logistics--availability-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/stock-logistics-availability-16-0/stock-logistics-availability-16-0-stock_available"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/stock-logistics-availability&amp;target_branch=16.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
-<p>This module proposes several options to compute the quantity available to
-promise for each product.
-This quantity is based on the projected stock and, depending on the
-configuration, it can account for various data such as sales quotations or
-immediate production capacity.
-In case of immediate production capacity, it is possible to configure on which
+<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Production/Stable" src="https://img.shields.io/badge/maturity-Production%2FStable-green.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/stock-logistics-availability/tree/17.0/stock_available"><img alt="OCA/stock-logistics-availability" src="https://img.shields.io/badge/github-OCA%2Fstock--logistics--availability-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/stock-logistics-availability-17-0/stock-logistics-availability-17-0-stock_available"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/stock-logistics-availability&amp;target_branch=17.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
+<p>This module proposes several options to compute the quantity available
+to promise for each product. This quantity is based on the projected
+stock and, depending on the configuration, it can account for various
+data such as sales quotations or immediate production capacity. In case
+of immediate production capacity, it is possible to configure on which
 field the potential is computed, by default Quantity On Hand is used.
-This can be configured in <cite>Inventory</cite> &gt; <cite>Configuration</cite> &gt; <cite>Settings</cite>.</p>
+This can be configured in Inventory &gt; Configuration &gt; Settings.</p>
 <p><strong>Table of contents</strong></p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
@@ -394,26 +393,26 @@ This can be configured in <cite>Inventory</cite> &gt; <cite>Configuration</cite>
 </div>
 <div class="section" id="configuration">
 <h1><a class="toc-backref" href="#toc-entry-1">Configuration</a></h1>
-<p>By default, this module computes the stock available to promise as the virtual
-stock.
-To take advantage of the additional features, you must define on which information you
-want to base the computation, by checking one or more boxes in the settings:
-<cite>Inventory</cite> &gt; <cite>Configuration</cite> &gt; <cite>Settings</cite> &gt; <cite>Stock available to promise</cite>.
-In case of “Include the production potential”, it is also possible to configure
-which field of product to use to compute the production potential.</p>
+<p>By default, this module computes the stock available to promise as the
+virtual stock. To take advantage of the additional features, you must
+define on which information you want to base the computation, by
+checking one or more boxes in the settings: Inventory &gt; Configuration &gt;
+Settings &gt; Stock available to promise. In case of “Include the
+production potential”, it is also possible to configure which field of
+product to use to compute the production potential.</p>
 </div>
 <div class="section" id="usage">
 <h1><a class="toc-backref" href="#toc-entry-2">Usage</a></h1>
-<p>This module adds a field named <cite>Available for sale</cite> on the Product form.
-Various additional fields may be added, depending on which information you
-chose to base the computation on.</p>
+<p>This module adds a field named Available for sale on the Product form.
+Various additional fields may be added, depending on which information
+you chose to base the computation on.</p>
 </div>
 <div class="section" id="bug-tracker">
 <h1><a class="toc-backref" href="#toc-entry-3">Bug Tracker</a></h1>
 <p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/stock-logistics-availability/issues">GitHub Issues</a>.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-<a class="reference external" href="https://github.com/OCA/stock-logistics-availability/issues/new?body=module:%20stock_available%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
+<a class="reference external" href="https://github.com/OCA/stock-logistics-availability/issues/new?body=module:%20stock_available%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
 <p>Do not contact contributors directly about support or help with technical issues.</p>
 </div>
 <div class="section" id="credits">
@@ -472,7 +471,7 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 <p>OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.</p>
-<p>This module is part of the <a class="reference external" href="https://github.com/OCA/stock-logistics-availability/tree/16.0/stock_available">OCA/stock-logistics-availability</a> project on GitHub.</p>
+<p>This module is part of the <a class="reference external" href="https://github.com/OCA/stock-logistics-availability/tree/17.0/stock_available">OCA/stock-logistics-availability</a> project on GitHub.</p>
 <p>You are welcome to contribute. To learn how please visit <a class="reference external" href="https://odoo-community.org/page/Contribute">https://odoo-community.org/page/Contribute</a>.</p>
 </div>
 </div>
