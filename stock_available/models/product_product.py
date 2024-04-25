@@ -8,7 +8,6 @@ from odoo.addons.stock.models.product import OPERATORS
 
 
 class ProductProduct(models.Model):
-
     """Add a field for the stock available to promise.
     Useful implementations need to be installed through the Settings menu or by
     installing one of the modules stock_available_*

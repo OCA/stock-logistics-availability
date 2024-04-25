@@ -43,33 +43,6 @@ msgid "Available to promise"
 msgstr "Disponibile da promettere"
 
 #. module: stock_available
-#: model:ir.model.fields,help:stock_available.field_res_config_settings__stock_available_mrp_based_on
-msgid ""
-"Choose the field of the product which will be used to compute potential.\n"
-"If empty, Quantity On Hand is used.\n"
-"Only the quantity fields have meaning for computing stock"
-msgstr ""
-"Scegliere il campo del prodotto che verrà utilizzato per calcolare il "
-"potenziale.\n"
-"Se vuoto, verrà usato Quantità disponibile.\n"
-"Solo i campi quantità hanno senso per calcolare la giacenza"
-
-#. module: stock_available
-#: model:ir.model,name:stock_available.model_res_config_settings
-msgid "Config Settings"
-msgstr "Impostazioni configurazione"
-
-#. module: stock_available
-#: model:ir.model.fields,field_description:stock_available.field_res_config_settings__module_stock_available_immediately
-msgid "Exclude incoming goods"
-msgstr "Esclude merce in arrivo"
-
-#. module: stock_available
-#: model:ir.model.fields,field_description:stock_available.field_res_config_settings__module_stock_available_mrp
-msgid "Include the production potential"
-msgstr "Include il potenziale del prodotto"
-
-#. module: stock_available
 #: model:ir.model.fields,field_description:stock_available.field_product_product__potential_qty
 #: model:ir.model.fields,field_description:stock_available.field_product_template__potential_qty
 msgid "Potential"
@@ -106,11 +79,6 @@ msgstr ""
 "quantità producibile per ogni singola variante."
 
 #. module: stock_available
-#: model_terms:ir.ui.view,arch_db:stock_available.view_stock_configuration
-msgid "Stock available to promise"
-msgstr "Giagenza disponibile alla promessa"
-
-#. module: stock_available
 #: model:ir.model.fields,help:stock_available.field_product_template__immediately_usable_qty
 msgid ""
 "Stock for this Product that can be safely proposed for sale to Customers.\n"
@@ -132,34 +100,50 @@ msgstr ""
 "La defnizione di questo valore può essere confgurata per adattarsi alle tue "
 "esgenze."
 
-#. module: stock_available
-#: model:ir.model.fields,help:stock_available.field_res_config_settings__module_stock_available_mrp
-msgid ""
-"This will add the quantities of goods that can be immediately manufactured, "
-"to the quantities available to promise.\n"
-"This installs the module stock_available_mrp.\n"
-"If the module mrp is not installed, this will install it too"
-msgstr ""
-"Questo aggiungerà la quantità di merce che può essere immediatamente "
-"lavorata alla quantità disponibile alla promessa.\n"
-"Questo installa il modulo stock_available_mrp.\n"
-"Se il modulo MRP non è installato, questo lo installerà"
+#~ msgid ""
+#~ "Choose the field of the product which will be used to compute potential.\n"
+#~ "If empty, Quantity On Hand is used.\n"
+#~ "Only the quantity fields have meaning for computing stock"
+#~ msgstr ""
+#~ "Scegliere il campo del prodotto che verrà utilizzato per calcolare il "
+#~ "potenziale.\n"
+#~ "Se vuoto, verrà usato Quantità disponibile.\n"
+#~ "Solo i campi quantità hanno senso per calcolare la giacenza"
 
-#. module: stock_available
-#: model:ir.model.fields,help:stock_available.field_res_config_settings__module_stock_available_immediately
-msgid ""
-"This will subtract incoming quantities from the quantities available to "
-"promise.\n"
-"This installs the module stock_available_immediately."
-msgstr ""
-"Questo toglierà le quantità in arrivo alle quantità disponibili per le "
-"promesse.\n"
-"Questo installa il modulo stock_available_immediately."
+#~ msgid "Config Settings"
+#~ msgstr "Impostazioni configurazione"
 
-#. module: stock_available
-#: model:ir.model.fields,field_description:stock_available.field_res_config_settings__stock_available_mrp_based_on
-msgid "based on"
-msgstr "basato su"
+#~ msgid "Exclude incoming goods"
+#~ msgstr "Esclude merce in arrivo"
+
+#~ msgid "Include the production potential"
+#~ msgstr "Include il potenziale del prodotto"
+
+#~ msgid "Stock available to promise"
+#~ msgstr "Giagenza disponibile alla promessa"
+
+#~ msgid ""
+#~ "This will add the quantities of goods that can be immediately "
+#~ "manufactured, to the quantities available to promise.\n"
+#~ "This installs the module stock_available_mrp.\n"
+#~ "If the module mrp is not installed, this will install it too"
+#~ msgstr ""
+#~ "Questo aggiungerà la quantità di merce che può essere immediatamente "
+#~ "lavorata alla quantità disponibile alla promessa.\n"
+#~ "Questo installa il modulo stock_available_mrp.\n"
+#~ "Se il modulo MRP non è installato, questo lo installerà"
+
+#~ msgid ""
+#~ "This will subtract incoming quantities from the quantities available to "
+#~ "promise.\n"
+#~ "This installs the module stock_available_immediately."
+#~ msgstr ""
+#~ "Questo toglierà le quantità in arrivo alle quantità disponibili per le "
+#~ "promesse.\n"
+#~ "Questo installa il modulo stock_available_immediately."
+
+#~ msgid "based on"
+#~ msgstr "basato su"
 
 #~ msgid "Product Template"
 #~ msgstr "Template Prodotto"

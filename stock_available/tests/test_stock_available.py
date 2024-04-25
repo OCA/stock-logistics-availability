@@ -6,17 +6,6 @@ from odoo.tests.common import TransactionCase
 
 
 class TestStockLogisticsWarehouse(TransactionCase):
-    def test_res_config(self):
-        """Test the config file"""
-        stock_setting = self.env["res.config.settings"].create({})
-
-        self.assertEqual(stock_setting.stock_available_mrp_based_on, "qty_available")
-        stock_setting.stock_available_mrp_based_on = "immediately_usable_qty"
-        stock_setting.set_values()
-        self.assertEqual(
-            stock_setting.stock_available_mrp_based_on, "immediately_usable_qty"
-        )
-
     def test01_stock_levels(self):
         """checking that immediately_usable_qty actually reflects \
            the variations in stock, both on product and template"""
