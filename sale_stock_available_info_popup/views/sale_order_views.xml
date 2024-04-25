@@ -11,7 +11,7 @@
                 expr="//page/field[@name='order_line']/tree/field[@name='product_uom_qty']"
                 position="after"
             >
-                <field name="immediately_usable_qty_today" invisible="1" />
+                <field name="immediately_usable_qty_today" column_invisible="1" />
             </xpath>
         </field>
     </record>
