@@ -43,33 +43,6 @@ msgid "Available to promise"
 msgstr "K dispozici na slib"
 
 #. module: stock_available
-#: model:ir.model.fields,help:stock_available.field_res_config_settings__stock_available_mrp_based_on
-msgid ""
-"Choose the field of the product which will be used to compute potential.\n"
-"If empty, Quantity On Hand is used.\n"
-"Only the quantity fields have meaning for computing stock"
-msgstr ""
-"Zvolit pole produktu, který bude použit pro výpočet potenciálu. • Pokud je "
-"prázdný, použije se množství On Hand. • Pouze množství polí má význam pro "
-"výpočet zásob"
-
-#. module: stock_available
-#: model:ir.model,name:stock_available.model_res_config_settings
-#, fuzzy
-msgid "Config Settings"
-msgstr "stock.config.settings"
-
-#. module: stock_available
-#: model:ir.model.fields,field_description:stock_available.field_res_config_settings__module_stock_available_immediately
-msgid "Exclude incoming goods"
-msgstr "Vylučte příchozí zboží"
-
-#. module: stock_available
-#: model:ir.model.fields,field_description:stock_available.field_res_config_settings__module_stock_available_mrp
-msgid "Include the production potential"
-msgstr "Zahrnout výrobní potenciál"
-
-#. module: stock_available
 #: model:ir.model.fields,field_description:stock_available.field_product_product__potential_qty
 #: model:ir.model.fields,field_description:stock_available.field_product_template__potential_qty
 msgid "Potential"
@@ -106,11 +79,6 @@ msgstr ""
 "množství, které lze vyrobit pro libovolnou variantu."
 
 #. module: stock_available
-#: model_terms:ir.ui.view,arch_db:stock_available.view_stock_configuration
-msgid "Stock available to promise"
-msgstr "Zásoby k dispozici"
-
-#. module: stock_available
 #: model:ir.model.fields,help:stock_available.field_product_template__immediately_usable_qty
 msgid ""
 "Stock for this Product that can be safely proposed for sale to Customers.\n"
@@ -131,32 +99,48 @@ msgstr ""
 "zákazníkům. Definice této hodnoty může být konfigurována tak, aby vyhovovala "
 "vašim potřebám"
 
-#. module: stock_available
-#: model:ir.model.fields,help:stock_available.field_res_config_settings__module_stock_available_mrp
-msgid ""
-"This will add the quantities of goods that can be immediately manufactured, "
-"to the quantities available to promise.\n"
-"This installs the module stock_available_mrp.\n"
-"If the module mrp is not installed, this will install it too"
-msgstr ""
-"Tím se přidá množství zboží, které lze okamžitě vyrobit, na množství, která "
-"je k dispozici pro slib. \"Instaluje modul stock_available_mrp.\" Pokud "
-"modul mrp není nainstalován, instaluje se taky"
+#~ msgid ""
+#~ "Choose the field of the product which will be used to compute potential.\n"
+#~ "If empty, Quantity On Hand is used.\n"
+#~ "Only the quantity fields have meaning for computing stock"
+#~ msgstr ""
+#~ "Zvolit pole produktu, který bude použit pro výpočet potenciálu. • Pokud "
+#~ "je prázdný, použije se množství On Hand. • Pouze množství polí má význam "
+#~ "pro výpočet zásob"
 
-#. module: stock_available
-#: model:ir.model.fields,help:stock_available.field_res_config_settings__module_stock_available_immediately
-msgid ""
-"This will subtract incoming quantities from the quantities available to "
-"promise.\n"
-"This installs the module stock_available_immediately."
-msgstr ""
-"Tím se odečtou příchozí veličiny z množství, která je k dispozici pro slib. "
-"\"Instaluje modul stock_available_immediately."
+#, fuzzy
+#~ msgid "Config Settings"
+#~ msgstr "stock.config.settings"
 
-#. module: stock_available
-#: model:ir.model.fields,field_description:stock_available.field_res_config_settings__stock_available_mrp_based_on
-msgid "based on"
-msgstr "na základě"
+#~ msgid "Exclude incoming goods"
+#~ msgstr "Vylučte příchozí zboží"
+
+#~ msgid "Include the production potential"
+#~ msgstr "Zahrnout výrobní potenciál"
+
+#~ msgid "Stock available to promise"
+#~ msgstr "Zásoby k dispozici"
+
+#~ msgid ""
+#~ "This will add the quantities of goods that can be immediately "
+#~ "manufactured, to the quantities available to promise.\n"
+#~ "This installs the module stock_available_mrp.\n"
+#~ "If the module mrp is not installed, this will install it too"
+#~ msgstr ""
+#~ "Tím se přidá množství zboží, které lze okamžitě vyrobit, na množství, "
+#~ "která je k dispozici pro slib. \"Instaluje modul stock_available_mrp.\" "
+#~ "Pokud modul mrp není nainstalován, instaluje se taky"
+
+#~ msgid ""
+#~ "This will subtract incoming quantities from the quantities available to "
+#~ "promise.\n"
+#~ "This installs the module stock_available_immediately."
+#~ msgstr ""
+#~ "Tím se odečtou příchozí veličiny z množství, která je k dispozici pro "
+#~ "slib. \"Instaluje modul stock_available_immediately."
+
+#~ msgid "based on"
+#~ msgstr "na základě"
 
 #~ msgid "Exclude goods already in sale quotations"
 #~ msgstr "Vyloučení zboží již v nabídkách prodeje"

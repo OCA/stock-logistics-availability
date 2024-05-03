@@ -44,32 +44,6 @@ msgid "Available to promise"
 msgstr "可供销售的数量"
 
 #. module: stock_available
-#: model:ir.model.fields,help:stock_available.field_res_config_settings__stock_available_mrp_based_on
-msgid ""
-"Choose the field of the product which will be used to compute potential.\n"
-"If empty, Quantity On Hand is used.\n"
-"Only the quantity fields have meaning for computing stock"
-msgstr ""
-"选择将用于计算潜力的产品字段。\n"
-"如果为空，则使用现有数量。\n"
-"只有数量字段才有计算库存的意义"
-
-#. module: stock_available
-#: model:ir.model,name:stock_available.model_res_config_settings
-msgid "Config Settings"
-msgstr "配置设定"
-
-#. module: stock_available
-#: model:ir.model.fields,field_description:stock_available.field_res_config_settings__module_stock_available_immediately
-msgid "Exclude incoming goods"
-msgstr "排除进货"
-
-#. module: stock_available
-#: model:ir.model.fields,field_description:stock_available.field_res_config_settings__module_stock_available_mrp
-msgid "Include the production potential"
-msgstr "包括生产潜力"
-
-#. module: stock_available
 #: model:ir.model.fields,field_description:stock_available.field_product_product__potential_qty
 #: model:ir.model.fields,field_description:stock_available.field_product_template__potential_qty
 msgid "Potential"
@@ -103,11 +77,6 @@ msgstr ""
 "制造的最大数量。"
 
 #. module: stock_available
-#: model_terms:ir.ui.view,arch_db:stock_available.view_stock_configuration
-msgid "Stock available to promise"
-msgstr "库存可供销售数量"
-
-#. module: stock_available
 #: model:ir.model.fields,help:stock_available.field_product_template__immediately_usable_qty
 msgid ""
 "Stock for this Product that can be safely proposed for sale to Customers.\n"
@@ -125,32 +94,47 @@ msgstr ""
 "该产品的库存可以安全地出售给客户。\n"
 "可以配置此值的定义以适合您的需求。"
 
-#. module: stock_available
-#: model:ir.model.fields,help:stock_available.field_res_config_settings__module_stock_available_mrp
-msgid ""
-"This will add the quantities of goods that can be immediately manufactured, "
-"to the quantities available to promise.\n"
-"This installs the module stock_available_mrp.\n"
-"If the module mrp is not installed, this will install it too"
-msgstr ""
-"这会将可立即生产的商品数量增加到可供销售的数量。\n"
-"这将安装模块stock_available_mrp。\n"
-"如果未安装模块mrp，则也将安装它"
+#~ msgid ""
+#~ "Choose the field of the product which will be used to compute potential.\n"
+#~ "If empty, Quantity On Hand is used.\n"
+#~ "Only the quantity fields have meaning for computing stock"
+#~ msgstr ""
+#~ "选择将用于计算潜力的产品字段。\n"
+#~ "如果为空，则使用现有数量。\n"
+#~ "只有数量字段才有计算库存的意义"
 
-#. module: stock_available
-#: model:ir.model.fields,help:stock_available.field_res_config_settings__module_stock_available_immediately
-msgid ""
-"This will subtract incoming quantities from the quantities available to "
-"promise.\n"
-"This installs the module stock_available_immediately."
-msgstr ""
-"这将从可供销售的数量中减去进货数量。\n"
-"这将立即安装模块stock_available_immediately。"
+#~ msgid "Config Settings"
+#~ msgstr "配置设定"
 
-#. module: stock_available
-#: model:ir.model.fields,field_description:stock_available.field_res_config_settings__stock_available_mrp_based_on
-msgid "based on"
-msgstr "基于"
+#~ msgid "Exclude incoming goods"
+#~ msgstr "排除进货"
+
+#~ msgid "Include the production potential"
+#~ msgstr "包括生产潜力"
+
+#~ msgid "Stock available to promise"
+#~ msgstr "库存可供销售数量"
+
+#~ msgid ""
+#~ "This will add the quantities of goods that can be immediately "
+#~ "manufactured, to the quantities available to promise.\n"
+#~ "This installs the module stock_available_mrp.\n"
+#~ "If the module mrp is not installed, this will install it too"
+#~ msgstr ""
+#~ "这会将可立即生产的商品数量增加到可供销售的数量。\n"
+#~ "这将安装模块stock_available_mrp。\n"
+#~ "如果未安装模块mrp，则也将安装它"
+
+#~ msgid ""
+#~ "This will subtract incoming quantities from the quantities available to "
+#~ "promise.\n"
+#~ "This installs the module stock_available_immediately."
+#~ msgstr ""
+#~ "这将从可供销售的数量中减去进货数量。\n"
+#~ "这将立即安装模块stock_available_immediately。"
+
+#~ msgid "based on"
+#~ msgstr "基于"
 
 #~ msgid "Exclude goods already in sale quotations"
 #~ msgstr "排除已经在报价中的商品"
