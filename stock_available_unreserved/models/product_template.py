@@ -2,7 +2,7 @@
 # Copyright 2016-19 ForgeFlow S.L. (https://www.forgeflow.com)
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 
 class ProductTemplate(models.Model):
@@ -32,7 +32,10 @@ class ProductTemplate(models.Model):
         quant_ids = quants.filtered(
             lambda x: x.product_id.qty_available_not_res > 0
         ).ids
-        result = self.env.ref("stock.group_stock_multi_locations").read()[0]
+        result = self.env["ir.actions.actions"]._for_xml_id(
+            "stock.dashboard_open_quants"
+        )
+        result["display_name"] = _("Stock On Hand (Unreserved)")
         result["domain"] = [("id", "in", quant_ids)]
         result["context"] = {
             "search_default_locationgroup": 1,

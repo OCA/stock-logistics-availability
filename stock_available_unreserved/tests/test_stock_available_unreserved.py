@@ -87,7 +87,7 @@ class TestStockLogisticsWarehouse(TransactionCase):
                             "product_id": cls.productA.id,
                             "product_uom": cls.productA.uom_id.id,
                             "product_uom_qty": 2,
-                            "quantity_done": 2,
+                            "quantity": 2,
                             "location_id": cls.supplier_location.id,
                             "location_dest_id": cls.stock_location.id,
                         },
@@ -110,7 +110,7 @@ class TestStockLogisticsWarehouse(TransactionCase):
                             "product_id": cls.productB.id,
                             "product_uom": cls.productB.uom_id.id,
                             "product_uom_qty": 3,
-                            "quantity_done": 3,
+                            "quantity": 3,
                             "location_id": cls.supplier_location.id,
                             "location_dest_id": cls.stock_location.id,
                         },
@@ -123,7 +123,6 @@ class TestStockLogisticsWarehouse(TransactionCase):
                 "picking_type_id": cls.env.ref("stock.picking_type_out").id,
                 "location_id": cls.stock_location.id,
                 "location_dest_id": cls.customer_location.id,
-                "immediate_transfer": False,
                 "move_ids": [
                     (
                         0,
@@ -142,7 +141,7 @@ class TestStockLogisticsWarehouse(TransactionCase):
         )
 
     def compare_qty_available_not_res(self, product, value):
-        product.invalidate_cache()
+        product.invalidate_recordset()
         self.assertEqual(product.qty_available_not_res, value)
 
     def test_01_stock_levels(self):

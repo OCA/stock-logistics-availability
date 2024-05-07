@@ -67,7 +67,7 @@ class ProductProduct(models.Model):
     def _search_quantity_unreserved(self, operator, value):
         if operator not in OPERATORS:
             raise UserError(_("Invalid domain operator %s") % operator)
-        if not isinstance(value, (float, int)):
+        if not isinstance(value, float | int):
             raise UserError(_("Invalid domain right operand %s") % value)
 
         ids = []
