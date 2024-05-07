@@ -58,7 +58,7 @@
                 <button
                     type="object"
                     name="action_open_quants_unreserved"
-                    attrs="{'invisible':[('type', '!=', 'product')]}"
+                    invisible="type != 'product'"
                     class="oe_stat_button"
                     icon="fa-building-o"
                 >
@@ -82,7 +82,7 @@
                     name="%(product_open_quants_unreserved)d"
                     icon="fa-building-o"
                     type="action"
-                    attrs="{'invisible':[('type', '!=', 'product')]}"
+                    invisible="type != 'product'"
                 >
                     <field
                         name="qty_available_not_res"
