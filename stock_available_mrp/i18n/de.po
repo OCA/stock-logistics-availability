@@ -25,8 +25,31 @@ msgid "Bolt"
 msgstr ""
 
 #. module: stock_available_mrp
+#: model:ir.model.fields,help:stock_available_mrp.field_res_config_settings__stock_available_mrp_based_on
+msgid ""
+"Choose the field of the product which will be used to compute potential.\n"
+"If empty, Quantity On Hand is used.\n"
+"Only the quantity fields have meaning for computing stock"
+msgstr ""
+
+#. module: stock_available_mrp
+#: model:ir.model,name:stock_available_mrp.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: stock_available_mrp
 #: model:ir.model,name:stock_available_mrp.model_product_product
 msgid "Product Variant"
+msgstr ""
+
+#. module: stock_available_mrp
+#: model_terms:ir.ui.view,arch_db:stock_available_mrp.view_stock_configuration
+msgid "Stock available to promise"
+msgstr ""
+
+#. module: stock_available_mrp
+#: model:ir.model.fields,field_description:stock_available_mrp.field_res_config_settings__stock_available_mrp_based_on
+msgid "based on"
 msgstr ""
 
 #~ msgid "Product"

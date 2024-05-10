@@ -2,6 +2,8 @@
 # Copyright 2021 Tecnativa - Víctor Martínez
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+from unittest.mock import Mock
+
 from odoo.osv.expression import TRUE_LEAF
 from odoo.tests.common import TransactionCase
 
@@ -11,7 +13,7 @@ class TestPotentialQty(TransactionCase):
 
     @classmethod
     def setUpClass(cls):
-        super(TestPotentialQty, cls).setUpClass()
+        super().setUpClass()
 
         cls.product_model = cls.env["product.product"]
         cls.bom_model = cls.env["mrp.bom"]
@@ -79,24 +81,6 @@ class TestPotentialQty(TransactionCase):
         else:
             self.env["stock.quant"]._update_available_quantity(product, location, qty)
 
-    def create_simple_bom(self, product, sub_product, product_qty=1, sub_product_qty=1):
-        bom = self.bom_model.create(
-            {
-                "product_tmpl_id": product.product_tmpl_id.id,
-                "product_id": product.id,
-                "product_qty": product_qty,
-            }
-        )
-        self.bom_line_model.create(
-            {
-                "bom_id": bom.id,
-                "product_id": sub_product.id,
-                "product_qty": sub_product_qty,
-            }
-        )
-
-        return bom
-
     def assertPotentialQty(self, record, qty, msg):
         record.invalidate_model()
         #  Check the potential
@@ -106,6 +90,17 @@ class TestPotentialQty(TransactionCase):
             (record.immediately_usable_qty - self.initial_usable_qties[record.id]),
             qty,
             msg,
+        )
+
+    def test_00_res_config(self):
+        """Test the config file"""
+        stock_setting = self.env["res.config.settings"].create({})
+        stock_setting.stock_available_mrp_based_on = "qty_available"
+        self.assertEqual(stock_setting.stock_available_mrp_based_on, "qty_available")
+        stock_setting.stock_available_mrp_based_on = "immediately_usable_qty"
+        stock_setting.set_values()
+        self.assertEqual(
+            stock_setting.stock_available_mrp_based_on, "immediately_usable_qty"
         )
 
     def test_01_potential_qty_no_bom(self):
@@ -351,32 +346,22 @@ class TestPotentialQty(TransactionCase):
         p1.invalidate_model()
         self.assertEqual(5.0, p1.potential_qty)
 
-    def test_05_potential_qty_list(self):
-        # Try to highlight a bug when _get_potential_qty is called on
-        # a recordset with multiple products
-        # Recursive compute is not working
+    def test_empty_component_needs(self):
+        product_with_bom = [Mock()]
+        product_with_bom[0].bom_ids = [Mock()]
 
-        p1 = self.product_model.create({"name": "Test P1"})
-        p2 = self.product_model.create({"name": "Test P2"})
-        p3 = self.product_model.create({"name": "Test P3", "type": "product"})
+        product_with_bom[0]._get_components_needs.return_value = {}
 
-        self.config.set_param("stock_available_mrp_based_on", "immediately_usable_qty")
+        product_with_bom[0].potential_qty = 0.0
 
-        # P1 need one P2
-        self.create_simple_bom(p1, p2)
-        # P2 need one P3
-        self.create_simple_bom(p2, p3)
+        for product in product_with_bom:
+            exploded_components = {}
+            component_needs = product._get_components_needs(exploded_components)
 
-        self.create_inventory(p3, 3)
-
-        self.product_model.invalidate_model()
-
-        products = self.product_model.search([("id", "in", [p1.id, p2.id, p3.id])])
-
-        self.assertEqual(
-            {p1.id: 3.0, p2.id: 3.0, p3.id: 0.0},
-            {p.id: p.potential_qty for p in products},
-        )
+            self.assertEqual(component_needs, {}, "Component needs should be empty")
+            self.assertEqual(
+                product.potential_qty, 0.0, "Potential quantity should be 0.0"
+            )
 
     def test_product_phantom(self):
         # Create a BOM product with 2 components

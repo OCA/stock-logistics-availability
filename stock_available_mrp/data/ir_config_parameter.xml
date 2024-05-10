@@ -1,0 +1,6 @@
+<odoo noupdate="1">
+    <record id="default_stock_available_mrp_based_on" model="ir.config_parameter">
+        <field name="key">stock_available_mrp_based_on</field>
+        <field name="value">qty_available</field>
+    </record>
+</odoo>

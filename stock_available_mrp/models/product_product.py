@@ -39,10 +39,10 @@ class ProductProduct(models.Model):
 
         # Compute stock for product components.
         # {'productid': {field_name: qty}}
-        if res and stock_available_mrp_based_on in list(res.values())[0]:
+        if stock_dict and stock_available_mrp_based_on in list(stock_dict.values())[0]:
             # If the qty is computed by the same method use it to avoid
             # stressing the cache
-            component_qties, _ = component_products._compute_available_quantities_dict()
+            _, component_qties = component_products._compute_available_quantities_dict()
         else:
             # The qty is a field computed by an other method than the
             # current one. Take the value on the record.
