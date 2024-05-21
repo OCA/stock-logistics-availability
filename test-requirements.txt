@@ -1,0 +1,1 @@
+odoo-addon-stock_available @ git+https://github.com/OCA/stock-logistics-availability.git@refs/pull/20/head#subdirectory=stock_available
