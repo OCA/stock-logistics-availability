@@ -1,0 +1,102 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * stock_available_unreserved
+#
+# Translators:
+# Bole <bole@dajmi5.com>, 2017
+# OCA Transbot <transbot@odoo-community.org>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-04 03:58+0000\n"
+"PO-Revision-Date: 2023-03-01 17:22+0000\n"
+"Last-Translator: Bole <bole@dajmi5.com>\n"
+"Language-Team: Croatian (https://www.transifex.com/oca/teams/23907/hr/)\n"
+"Language: hr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.14.1\n"
+
+#. module: stock_available_unreserved
+#: model:ir.model.fields,field_description:stock_available_unreserved.field_stock_quant__contains_unreserved
+msgid "Contains unreserved products"
+msgstr "Sadrži proizvode bez rezervacija"
+
+#. module: stock_available_unreserved
+#: model_terms:ir.ui.view,arch_db:stock_available_unreserved.quant_search_view
+msgid "Internal Unreserved"
+msgstr "Interno ne rezervirano"
+
+#. module: stock_available_unreserved
+#. odoo-python
+#: code:addons/stock_available_unreserved/models/product_product.py:0
+#, python-format
+msgid "Invalid domain operator %s"
+msgstr "Neispravan operator domene %s"
+
+#. module: stock_available_unreserved
+#. odoo-python
+#: code:addons/stock_available_unreserved/models/product_product.py:0
+#, python-format
+msgid "Invalid domain right operand %s"
+msgstr "Neispravan desni operand domene %s"
+
+#. module: stock_available_unreserved
+#: model:ir.model,name:stock_available_unreserved.model_product_template
+msgid "Product"
+msgstr "Proizvod"
+
+#. module: stock_available_unreserved
+#: model:ir.model,name:stock_available_unreserved.model_product_product
+msgid "Product Variant"
+msgstr ""
+
+#. module: stock_available_unreserved
+#: model:ir.model.fields,field_description:stock_available_unreserved.field_product_product__qty_available_not_res
+msgid "Qty Available Not Reserved"
+msgstr "Dostupna količina bez rezervacija"
+
+#. module: stock_available_unreserved
+#: model:ir.model.fields,field_description:stock_available_unreserved.field_product_template__qty_available_not_res
+msgid "Quantity On Hand Unreserved"
+msgstr "Dostupna količina pri ruci bez rezerv"
+
+#. module: stock_available_unreserved
+#: model:ir.model.fields,help:stock_available_unreserved.field_product_product__qty_available_not_res
+#: model:ir.model.fields,help:stock_available_unreserved.field_product_template__qty_available_not_res
+msgid ""
+"Quantity of this product that is not currently reserved for a stock move"
+msgstr ""
+
+#. module: stock_available_unreserved
+#: model:ir.model,name:stock_available_unreserved.model_stock_quant
+msgid "Quants"
+msgstr "Kvanti"
+
+#. module: stock_available_unreserved
+#: model_terms:ir.ui.view,arch_db:stock_available_unreserved.product_template_search_form_view_stock
+msgid "Reservable Products"
+msgstr "Proizvodi koje se može rezervirati"
+
+#. module: stock_available_unreserved
+#: model:ir.actions.act_window,name:stock_available_unreserved.product_open_quants_unreserved
+msgid "Stock On Hand (Unreserved)"
+msgstr "Dostupna zaliha (ne rezervirana)"
+
+#. module: stock_available_unreserved
+#: model_terms:ir.ui.view,arch_db:stock_available_unreserved.product_form_view_procurement_button
+#: model_terms:ir.ui.view,arch_db:stock_available_unreserved.product_template_form_view_procurement_button
+msgid "Unreserved"
+msgstr "Odrezervirano"
+
+#. module: stock_available_unreserved
+#: model_terms:ir.ui.view,arch_db:stock_available_unreserved.product_template_kanban_stock_view
+msgid "Unreserved:"
+msgstr "Odrezervirano:"
+
+#~ msgid "Product Template"
+#~ msgstr "Predložak proizvoda"
