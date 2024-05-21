@@ -1,0 +1,33 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * stock_available_mrp
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: stock-logistics-warehouse (9.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-04 10:11+0000\n"
+"PO-Revision-Date: 2023-11-24 16:35+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: Italian (http://www.transifex.com/oca/"
+"OCA-stock-logistics-warehouse-9-0/language/it/)\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: stock_available_mrp
+#: model:product.template,name:stock_available_mrp.product_computer_desk_bolt_white_product_template
+msgid "Bolt"
+msgstr "Bullone"
+
+#. module: stock_available_mrp
+#: model:ir.model,name:stock_available_mrp.model_product_product
+msgid "Product Variant"
+msgstr "Variante prodotto"
+
+#~ msgid "Product"
+#~ msgstr "Prodotto"
