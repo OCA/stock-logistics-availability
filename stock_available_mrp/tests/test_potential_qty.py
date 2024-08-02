@@ -451,3 +451,70 @@ class TestPotentialQty(TransactionCase):
         product.invalidate_model()
 
         self.assertEqual(product.immediately_usable_qty, 0.0)
+
+    def test_06_potential_qty(self):
+        # BoM only applies to white variant.
+        bom = self.env["mrp.bom"].search([("product_tmpl_id", "=", self.tmpl.id)])
+        bom.bom_line_ids.write({"bom_product_template_attribute_value_ids": False})
+        bom.product_id = self.var2.id
+        for i in [self.tmpl, self.var1, self.var2]:
+            self.assertPotentialQty(i, 0.0, "The potential quantity should start at 0")
+
+        # Receive 1000x Wood Panel
+        self.create_inventory(
+            product=self.env.ref("mrp.product_product_wood_panel"),
+            qty=1000.0,
+            location=self.wh_main.lot_stock_id,
+        )
+        for i in [self.tmpl, self.var1, self.var2]:
+            self.assertPotentialQty(
+                i,
+                0.0,
+                "Receiving a single component should not change the "
+                "potential of %s" % i,
+            )
+
+        # Receive second component
+        self.create_inventory(
+            product=self.env.ref("mrp.product_product_computer_desk_bolt"),
+            qty=1000.0,
+            location=self.wh_main.lot_stock_id,
+        )
+        self.assertPotentialQty(
+            self.tmpl,
+            0,
+            "Template potential changed after receiving partial variant 2 components",
+        )
+        self.assertPotentialQty(
+            self.var1,
+            0,
+            "Variant 1 potential changed after receiving partial variant 2 components",
+        )
+        self.assertPotentialQty(
+            self.var2,
+            0.0,
+            "Variant 2 potential changed after receiving partial components",
+        )
+
+        # Receive enough components to make 250 the 1st variant
+        self.create_inventory(
+            product=self.env.ref(
+                "stock_available_mrp.product_computer_desk_bolt_white"
+            ),
+            qty=1000.0,
+            location=self.wh_main.lot_stock_id,
+        )
+        self.var1.invalidate_model()
+        self.assertPotentialQty(
+            self.tmpl,
+            250.0,
+            "Wrong template potential after receiving variant 2 components",
+        )
+        self.assertPotentialQty(
+            self.var1,
+            0,
+            "Wrong variant 1 potential after receiving variant 2 components",
+        )
+        self.assertPotentialQty(
+            self.var2, 250.0, "Wrong variant 2 potential after receiving its components"
+        )

@@ -11,7 +11,13 @@ from odoo.tools import float_round
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
-    @api.depends("virtual_available", "bom_ids", "bom_ids.product_qty")
+    @api.depends(
+        "virtual_available",
+        "bom_ids",
+        "bom_ids.product_qty",
+        "variant_bom_ids",
+        "variant_bom_ids.product_qty",
+    )
     def _compute_available_quantities(self):
         res = super()._compute_available_quantities()
         return res
@@ -19,7 +25,11 @@ class ProductProduct(models.Model):
     def _compute_available_quantities_dict(self):
         res, stock_dict = super()._compute_available_quantities_dict()
         # compute qty for product with bom
-        product_with_bom = self.filtered("bom_ids")
+        product_with_bom = self.filtered("variant_bom_ids")
+        product_with_bom |= (self - product_with_bom).filtered(
+            lambda p: p.bom_ids
+            and any(not bom.product_id or bom.product_id == p for bom in p.bom_ids)
+        )
 
         if not product_with_bom:
             return res, stock_dict
@@ -53,7 +63,13 @@ class ProductProduct(models.Model):
 
         for product in product_with_bom:
             # Need by product (same product can be in many BOM lines/levels)
-            bom_id = first(product.bom_ids)
+            bom_id = first(
+                product.variant_bom_ids
+                or product.bom_ids.filtered(
+                    lambda b, product=product: not b.product_id
+                    or b.product_id == product
+                )
+            )
             exploded_components = exploded_boms[product.id]
             component_needs = product._get_components_needs(exploded_components)
             if not component_needs:
