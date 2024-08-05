@@ -49,13 +49,16 @@ class TestStockLogisticsWarehouse(TransactionCase):
         (move_stock | move_pack)._action_assign()
         move_stock.move_line_ids.write({"qty_done": 7.0})
         move_stock._action_done()
-        q = self.product.with_context(**ctx_loc).immediately_usable_qty
-        self.assertEqual(q, 7.0)
+        product = self.product.with_context(**ctx_loc)
+        self.assertEqual(product.immediately_usable_qty, 7.0)
+        self.assertEqual(product.free_qty, 7.0)
         move_pack.move_line_ids.write({"qty_done": 4.0})
         move_pack._action_done()
-        q = self.product.with_context(**ctx_loc).immediately_usable_qty
-        self.assertEqual(q, 11.0)
+        product = self.product.with_context(**ctx_loc)
+        self.assertEqual(product.immediately_usable_qty, 11.0)
+        self.assertEqual(product.free_qty, 11.0)
         self.pack_location.exclude_from_immediately_usable_qty = True
         self.product.invalidate_recordset()  # force recompute
-        q = self.product.with_context(**ctx_loc).immediately_usable_qty
-        self.assertEqual(q, 7.0)
+        product = self.product.with_context(**ctx_loc)
+        self.assertEqual(product.immediately_usable_qty, 7.0)
+        self.assertEqual(product.free_qty, 7.0)

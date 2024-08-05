@@ -9,33 +9,59 @@ class ProductProduct(models.Model):
 
     _inherit = "product.product"
 
+    def _compute_quantities_dict(
+        self, lot_id, owner_id, package_id, from_date=False, to_date=False
+    ):
+        """
+        Re-compute the the `free to use` qty by deducting the quants
+        in excluded locations
+        """
+        res = super()._compute_quantities_dict(
+            lot_id, owner_id, package_id, from_date=from_date, to_date=to_date
+        )
+        if self.env.context.get("compute_excluded_qty", False):
+            return res
+
+        excluded_qty_dict = self.with_context(
+            compute_excluded_qty=True
+        )._get_excluded_qty_dict()
+        if excluded_qty_dict:
+            for product_id in res:
+                excluded_qty = excluded_qty_dict[product_id]["qty_available"]
+                res[product_id]["free_qty"] -= excluded_qty
+        return res
+
     def _compute_available_quantities_dict(self):
         """
-        change the way immediately_usable_qty is computed by deducing the quants
+        change the way immediately_usable_qty is computed by deducting the quants
         in excluded locations
         """
         res, stock_dict = super()._compute_available_quantities_dict()
-        exclude_location_ids = (
-            self._get_locations_excluded_from_immediately_usable_qty().ids
-        )
-
-        if exclude_location_ids:
-            excluded_qty_dict = self.with_context(
-                location=exclude_location_ids, compute_child=False
-            )._compute_quantities_dict(
-                self._context.get("lot_id"),
-                self._context.get("owner_id"),
-                self._context.get("package_id"),
-                self._context.get("from_date"),
-                self._context.get("to_date"),
-            )
-
-        for product_id in res:
-            if exclude_location_ids:
+        excluded_qty_dict = self._get_excluded_qty_dict()
+        if excluded_qty_dict:
+            for product_id in res:
                 res[product_id]["immediately_usable_qty"] -= excluded_qty_dict[
                     product_id
                 ]["qty_available"]
         return res, stock_dict
+
+    def _get_excluded_qty_dict(self):
+        exclude_location_ids = (
+            self._get_locations_excluded_from_immediately_usable_qty().ids
+        )
+
+        if not exclude_location_ids:
+            return None
+
+        return self.with_context(
+            location=exclude_location_ids, compute_child=False
+        )._compute_quantities_dict(
+            self._context.get("lot_id"),
+            self._context.get("owner_id"),
+            self._context.get("package_id"),
+            self._context.get("from_date"),
+            self._context.get("to_date"),
+        )
 
     def _get_locations_excluded_from_immediately_usable_qty(self):
         return self.env["stock.location"].search(
