@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="stock.view_stock_quant_tree_editable" />
         <field name="arch" type="xml">
             <field name="reserved_quantity" position="after">
-                <field name="available_quantity"/>
+                <field name="available_quantity" />
             </field>
         </field>
     </record>
