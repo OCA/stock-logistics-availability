@@ -55,6 +55,7 @@
                     decoration-danger="free_qty &lt; 0"
                     decoration-bf="1"
                 />
+                    <field name="type" invisible="1" />
                 </field>
             </field>
         </record>
@@ -72,6 +73,7 @@
                     decoration-warning="free_qty == 0"
                     decoration-bf="1"
                 />
+                    <field name="type" invisible="1" />
                 </field>
             </field>
         </record>
