@@ -10,6 +10,26 @@ from odoo.addons.stock.models.product import OPERATORS
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
+    immediately_usable_qty = fields.Float(
+        digits="Product Unit of Measure",
+        compute="_compute_available_quantities",
+        search="_search_immediately_usable_qty",
+        string="Available to promise",
+        help="Stock for this Product that can be safely proposed "
+        "for sale to Customers.\n"
+        "The definition of this value can be configured to suit "
+        "your needs",
+    )
+    potential_qty = fields.Float(
+        compute="_compute_available_quantities",
+        digits="Product Unit of Measure",
+        string="Potential",
+        help="Quantity of this Product that could be produced using "
+        "the materials already at hand. "
+        "If the product has several variants, this will be the biggest "
+        "quantity that can be made for a any single variant.",
+    )
+
     @api.depends(
         "product_variant_ids.immediately_usable_qty",
         "product_variant_ids.potential_qty",
@@ -44,26 +64,6 @@ class ProductTemplate(models.Model):
                 "potential_qty": potential_qty,
             }
         return res
-
-    immediately_usable_qty = fields.Float(
-        digits="Product Unit of Measure",
-        compute="_compute_available_quantities",
-        search="_search_immediately_usable_qty",
-        string="Available to promise",
-        help="Stock for this Product that can be safely proposed "
-        "for sale to Customers.\n"
-        "The definition of this value can be configured to suit "
-        "your needs",
-    )
-    potential_qty = fields.Float(
-        compute="_compute_available_quantities",
-        digits="Product Unit of Measure",
-        string="Potential",
-        help="Quantity of this Product that could be produced using "
-        "the materials already at hand. "
-        "If the product has several variants, this will be the biggest "
-        "quantity that can be made for a any single variant.",
-    )
 
     @api.model
     def _search_immediately_usable_qty(self, operator, value):

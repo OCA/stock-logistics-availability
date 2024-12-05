@@ -4,7 +4,7 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
 <odoo>
     <record model="ir.ui.view" id="product_normal_form_view">
-        <field name="name">Quantity available to promise (variant tree)</field>
+        <field name="name">Quantity available to promise (variant form)</field>
         <field name="model">product.product</field>
         <field name="inherit_id" ref="stock.product_form_view_procurement_button" />
         <field name="arch" type="xml">
@@ -15,7 +15,7 @@
                 <button
                     type="object"
                     name="action_open_quants"
-                    invisible="type not in ('product', 'consu')"
+                    invisible="not is_storable"
                     class="oe_stat_button"
                     icon="fa-building-o"
                 >
@@ -35,7 +35,7 @@
                 <button
                     type="object"
                     name="action_open_quants"
-                    invisible="type not in ('product', 'consu')"
+                    invisible="not is_storable"
                     class="oe_stat_button"
                     icon="fa-building-o"
                 >
@@ -55,8 +55,8 @@
             </xpath>
         </field>
     </record>
-    <record model="ir.ui.view" id="view_stock_available_product_tree">
-        <field name="name">Quantity available to promise (variant tree)</field>
+    <record model="ir.ui.view" id="view_stock_available_product_list">
+        <field name="name">Quantity available to promise (variant list)</field>
         <field name="model">product.product</field>
         <field name="inherit_id" ref="stock.view_stock_product_tree" />
         <field name="arch" type="xml">
@@ -64,6 +64,8 @@
                 <field
                     name="immediately_usable_qty"
                     decoration-danger="immediately_usable_qty &lt; 0"
+                    optional="show"
+                    groups="stock.group_stock_user"
                 />
             </field>
         </field>

@@ -25,10 +25,11 @@ class TestStockLogisticsWarehouse(TransactionCase):
             {
                 "name": "product A",
                 "standard_price": 1,
-                "type": "product",
+                "type": "consu",
                 "uom_id": uom_unit.id,
                 "default_code": "A",
                 "product_tmpl_id": templateAB.id,
+                "is_storable": True,
             }
         )
 
@@ -36,10 +37,11 @@ class TestStockLogisticsWarehouse(TransactionCase):
             {
                 "name": "product B",
                 "standard_price": 1,
-                "type": "product",
+                "type": "consu",
                 "uom_id": uom_unit.id,
                 "default_code": "B",
                 "product_tmpl_id": templateAB.id,
+                "is_storable": True,
             }
         )
 
@@ -137,7 +139,8 @@ class TestStockLogisticsWarehouse(TransactionCase):
             {
                 "name": "product A",
                 "standard_price": 1,
-                "type": "product",
+                "type": "consu",
+                "is_storable": True,
                 "uom_id": uom_unit.id,
                 "default_code": "A",
             }
@@ -159,8 +162,10 @@ class TestStockLogisticsWarehouse(TransactionCase):
         )
         stockMoveIn._action_confirm()
         self.assertEqual(
-            productA.with_context(location=shelf1.id).immediately_usable_qty, 2.0
+            productA.with_context(location=shelf1.id).immediately_usable_qty,
+            2.0,
         )
         self.assertEqual(
-            productA.with_context(location=shelf2.id).immediately_usable_qty, 0.0
+            productA.with_context(location=shelf2.id).immediately_usable_qty,
+            0.0,
         )

@@ -15,13 +15,31 @@ class ProductProduct(models.Model):
 
     _inherit = "product.product"
 
+    immediately_usable_qty = fields.Float(
+        digits="Product Unit of Measure",
+        compute="_compute_available_quantities",
+        search="_search_immediately_usable_qty",
+        string="Available to promise",
+        help="Stock for this Product that can be safely proposed "
+        "for sale to Customers.\n"
+        "The definition of this value can be configured to suit "
+        "your needs.",
+    )
+    potential_qty = fields.Float(
+        compute="_compute_available_quantities",
+        digits="Product Unit of Measure",
+        string="Potential",
+        help="Quantity of this Product that could be produced using "
+        "the materials already at hand.",
+    )
+
     def _compute_available_quantities_dict(self):
         stock_dict = self._compute_quantities_dict(
-            self._context.get("lot_id"),
-            self._context.get("owner_id"),
-            self._context.get("package_id"),
-            self._context.get("from_date"),
-            self._context.get("to_date"),
+            self.env.context.get("lot_id"),
+            self.env.context.get("owner_id"),
+            self.env.context.get("package_id"),
+            self.env.context.get("from_date"),
+            self.env.context.get("to_date"),
         )
         res = {}
         for product in self:
@@ -48,26 +66,8 @@ class ProductProduct(models.Model):
                 if hasattr(product, key):
                     product[key] = value
 
-    immediately_usable_qty = fields.Float(
-        digits="Product Unit of Measure",
-        compute="_compute_available_quantities",
-        search="_search_immediately_usable_qty",
-        string="Available to promise",
-        help="Stock for this Product that can be safely proposed "
-        "for sale to Customers.\n"
-        "The definition of this value can be configured to suit "
-        "your needs.",
-    )
-    potential_qty = fields.Float(
-        compute="_compute_available_quantities",
-        digits="Product Unit of Measure",
-        string="Potential",
-        help="Quantity of this Product that could be produced using "
-        "the materials already at hand.",
-    )
-
     def _get_search_immediately_usable_qty_domain(self):
-        return [("type", "=", "product")]
+        return [("type", "=", "consu"), ("is_storable", "=", True)]
 
     @api.model
     def _search_immediately_usable_qty(self, operator, value):
