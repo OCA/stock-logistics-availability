@@ -1,9 +1,7 @@
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-
 {
     "name": "Stock Free Quantity",
-    "version": "17.0.1.0.0",
-    "author": "akretion,Odoo Community Association (OCA)",
+    "version": "18.0.1.0.0",
+    "author": "Akretion,Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/stock-logistics-availability",
     "development_status": "Production/Stable",
     "category": "Warehouse",

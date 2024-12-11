@@ -1,13 +1,12 @@
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl)
+# Copyright 2021 Akretion France (https://www.akretion.com)
 
-from odoo.tests.common import TransactionCase
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestTemplateFreeQty(TransactionCase):
+class TestTemplateFreeQty(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.template_with_variant = cls.env.ref(
             "product.product_product_11_product_template"
         )
