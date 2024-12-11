@@ -35,41 +35,41 @@
         </field>
     </record>
 
-        <record model="ir.ui.view" id="product_template_kanban_free_qty_view">
-            <field name="model">product.template</field>
-            <field name="inherit_id" ref="product.product_template_kanban_view" />
-            <field name="priority" eval="15" />
-            <field name="arch" type="xml">
-                <xpath expr="//div[@name='product_lst_price']" position="after">
-                    <div t-if="record.type.raw_value == 'product'">Free: <field
-                        name="free_qty"
-                    /> <field name="uom_id" /></div>
-                </xpath>
-            </field>
-        </record>
+    <record model="ir.ui.view" id="product_template_kanban_free_qty_view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_kanban_view" />
+        <field name="priority" eval="15" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='product_lst_price']" position="after">
+                <div t-if="record.type.raw_value == 'product'">Free: <field
+                    name="free_qty"
+                /> <field name="uom_id" /></div>
+            </xpath>
+        </field>
+    </record>
 
-        <record id="view_stock_product_template_free_qty_tree" model="ir.ui.view">
-            <field name="model">product.template</field>
-            <field name="inherit_id" ref="stock.view_stock_product_template_tree" />
-            <field name="arch" type="xml">
-                <field name="qty_available" position="after">
-                    <field
+    <record id="view_stock_product_template_free_qty_tree" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.view_stock_product_template_tree" />
+        <field name="arch" type="xml">
+            <field name="qty_available" position="after">
+                <field
                     name="free_qty"
                     invisible="type != ('product')"
                     optional="show"
                     decoration-danger="free_qty &lt; 0"
                     decoration-bf="1"
                 />
-                </field>
             </field>
-        </record>
+        </field>
+    </record>
 
-        <record id="view_stock_product_product_free_qty_tree" model="ir.ui.view">
-            <field name="model">product.product</field>
-            <field name="inherit_id" ref="stock.view_stock_product_tree" />
-            <field name="arch" type="xml">
-                <field name="qty_available" position="after">
-                    <field
+    <record id="view_stock_product_product_free_qty_tree" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock.view_stock_product_tree" />
+        <field name="arch" type="xml">
+            <field name="qty_available" position="after">
+                <field
                     name="free_qty"
                     invisible="type != ('product')"
                     optional="show"
@@ -77,8 +77,7 @@
                     decoration-warning="free_qty == 0"
                     decoration-bf="1"
                 />
-                </field>
             </field>
-        </record>
-
+        </field>
+    </record>
 </odoo>
