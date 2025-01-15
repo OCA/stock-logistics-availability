@@ -8,22 +8,19 @@
             name="name"
         >res.config.settings.view.form.inherit.stock (in stock_available_exclude_location)</field>
         <field name="model">res.config.settings</field>
-        <field name="priority" eval="30" />
         <field name="inherit_id" ref="stock.res_config_settings_view_form" />
         <field name="arch" type="xml">
-            <div id="manage_product_packaging" position="after">
+            <div id="track_product_location" position="after">
                 <div
                     class="col-12 col-lg-6 o_setting_box"
-                    id="stock_excluded_location_ids_setting"
+                    id="scrap_default_location"
+                    attrs="{'invisible': [('group_stock_multi_locations', '=', False)]}"
                 >
+                    <div class="o_setting_left_pane">
+                    </div>
                     <div class="o_setting_right_pane">
-                        <span
-                            class="o_form_label"
-                        >Excluded Locations for Availability</span>
-                        <div class="text-muted">
-                            Define the locations that will be excluded from product availability.
-                        </div>
-                        <div class="row col-12">
+                        <label for="stock_excluded_location_ids" />
+                        <div class="content-group">
                             <field
                                 name="stock_excluded_location_ids"
                                 widget="many2many_tags"
@@ -33,6 +30,7 @@
                     </div>
                 </div>
             </div>
+
         </field>
     </record>
 

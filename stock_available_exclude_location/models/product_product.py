@@ -39,7 +39,9 @@ class ProductProduct(models.Model):
     def _compute_quantities_dict(
         self, lot_id, owner_id, package_id, from_date=False, to_date=False
     ):
-        context = dict(self._context, excluded_location_ids=self.excluded_location_ids)
+        context = dict(
+            self.env.context, excluded_location_ids=self.excluded_location_ids
+        )
         return super(
-            ProductProduct, self.with_context(context)
+            ProductProduct, self.with_context(**context)
         )._compute_quantities_dict(lot_id, owner_id, package_id, from_date, to_date)

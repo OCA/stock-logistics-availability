@@ -1,13 +1,13 @@
 # Copyright 2024 - TODAY, Wesley Oliveira <wesley.oliveira@escodoo.com.br>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo.tests import SavepointCase
+from odoo.tests.common import TransactionCase
 
 
-class TestExcludeLocation(SavepointCase):
+class TestExcludeLocation(TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(TestExcludeLocation, cls).setUpClass()
+        super().setUpClass()
         cls.company = cls.env.company
         cls.warehouse = cls.env["stock.warehouse"].search(
             [("company_id", "=", cls.company.id)]
@@ -54,11 +54,11 @@ class TestExcludeLocation(SavepointCase):
         :param location: stock.location recordset
         :param qty: float
         """
-        self.env["stock.quant"].with_context(inventory_mode=True).create(
+        self.env["stock.quant"].create(
             {
                 "product_id": product.id,
                 "location_id": location.id,
-                "inventory_quantity": qty,
+                "quantity": qty,
             }
         )
 
