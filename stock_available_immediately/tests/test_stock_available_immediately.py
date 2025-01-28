@@ -71,7 +71,7 @@ class TestStockLogisticsWarehouse(TransactionCase):
         def compare_product_usable_qty(product, value):
             # Refresh, because the function field is not recalculated between
             # transactions
-            product.refresh()
+            product.invalidate_recordset(["immediately_usable_qty"])
             self.assertEqual(product.immediately_usable_qty, value)
 
         compare_product_usable_qty(productA, 0)
@@ -85,7 +85,7 @@ class TestStockLogisticsWarehouse(TransactionCase):
         compare_product_usable_qty(productA, 0)
         compare_product_usable_qty(templateAB, 0)
 
-        stockMoveInA.move_line_ids.write({"qty_done": 2.0})
+        stockMoveInA.move_line_ids.write({"quantity": 2.0, "picked": True})
         stockMoveInA._action_done()
         compare_product_usable_qty(productA, 2)
         compare_product_usable_qty(templateAB, 2)
@@ -93,7 +93,7 @@ class TestStockLogisticsWarehouse(TransactionCase):
         # will directly trigger action_done on productB
         stockMoveInB._action_confirm()
         stockMoveInB._action_assign()
-        stockMoveInB.move_line_ids.write({"qty_done": 3.0})
+        stockMoveInB.move_line_ids.write({"quantity": 3.0, "picked": True})
         stockMoveInB._action_done()
         compare_product_usable_qty(productA, 2)
         compare_product_usable_qty(productB, 3)
@@ -114,7 +114,7 @@ class TestStockLogisticsWarehouse(TransactionCase):
 
         stockMoveOutA._action_confirm()
         stockMoveOutA._action_assign()
-        stockMoveOutA.move_line_ids.write({"qty_done": 1.0})
+        stockMoveOutA.move_line_ids.write({"quantity": 1.0, "picked": True})
         stockMoveOutA._action_done()
         compare_product_usable_qty(productA, 1)
         compare_product_usable_qty(templateAB, 4)
