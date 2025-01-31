@@ -1,0 +1,69 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_available_exclude_location
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_available_exclude_location
+#: model:ir.model,name:stock_available_exclude_location.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: stock_available_exclude_location
+#: model:ir.model,name:stock_available_exclude_location.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: stock_available_exclude_location
+#: model:ir.model.fields,field_description:stock_available_exclude_location.field_res_company__stock_excluded_location_domain_char
+msgid "Domain to filter locations"
+msgstr ""
+
+#. module: stock_available_exclude_location
+#: model:ir.model.fields,field_description:stock_available_exclude_location.field_res_config_settings__stock_excluded_location_ids
+msgid "Excluded Locations for Product Availability"
+msgstr ""
+
+#. module: stock_available_exclude_location
+#: model:ir.model.fields,help:stock_available_exclude_location.field_res_company__stock_excluded_location_ids
+#: model:ir.model.fields,help:stock_available_exclude_location.field_res_config_settings__stock_excluded_location_ids
+msgid ""
+"Fill in this field to exclude locations for product available quantities."
+msgstr ""
+
+#. module: stock_available_exclude_location
+#: model:ir.model.fields,help:stock_available_exclude_location.field_res_company__stock_excluded_location_domain
+#: model:ir.model.fields,help:stock_available_exclude_location.field_res_company__stock_excluded_location_domain_char
+msgid ""
+"Fill in this with the domain you want to exclude locations for product "
+"available quantities"
+msgstr ""
+
+#. module: stock_available_exclude_location
+#: model:ir.model.fields,field_description:stock_available_exclude_location.field_product_product__excluded_location_ids
+msgid "Locations to Exclude as Available"
+msgstr ""
+
+#. module: stock_available_exclude_location
+#: model:ir.model,name:stock_available_exclude_location.model_product_product
+msgid "Product Variant"
+msgstr ""
+
+#. module: stock_available_exclude_location
+#: model:ir.model.fields,field_description:stock_available_exclude_location.field_res_company__stock_excluded_location_domain
+msgid "Stock Excluded Location Domain"
+msgstr ""
+
+#. module: stock_available_exclude_location
+#: model:ir.model.fields,field_description:stock_available_exclude_location.field_res_company__stock_excluded_location_ids
+msgid "Stock Excluded Locations"
+msgstr ""
