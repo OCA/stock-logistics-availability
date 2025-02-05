@@ -2,7 +2,7 @@
 # Copyright 2016-19 ForgeFlow S.L. (https://www.forgeflow.com)
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 
 
 class ProductTemplate(models.Model):
@@ -35,7 +35,7 @@ class ProductTemplate(models.Model):
         result = self.env["ir.actions.actions"]._for_xml_id(
             "stock.dashboard_open_quants"
         )
-        result["display_name"] = _("Stock On Hand (Unreserved)")
+        result["display_name"] = self.env._("Stock On Hand (Unreserved)")
         result["domain"] = [("id", "in", quant_ids)]
         result["context"] = {
             "search_default_locationgroup": 1,

@@ -44,7 +44,12 @@ class TestStockLogisticsWarehouse(TransactionCase):
 
         # Create product template
         cls.templateAB = cls.templateObj.create(
-            {"name": "templAB", "uom_id": cls.uom_unit.id, "type": "product"}
+            {
+                "name": "templAB",
+                "uom_id": cls.uom_unit.id,
+                "type": "consu",
+                "is_storable": True,
+            }
         )
 
         # Create product A and B

@@ -72,6 +72,7 @@ Contributors
 -  Atte Isopuro <atte.isopuro@avoin.systems>
 -  Lois Rilo <lois.rilo@forgeflow.com>
 -  Souheil Bejaoui <souheil.bejaoui@acsone.eu>
+-  Stefan Rijnhart <stefan@opener.amsterdam>
 
 Maintainers
 -----------

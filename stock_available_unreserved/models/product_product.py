@@ -2,7 +2,7 @@
 # Copyright 2016-19 ForgeFlow S.L. (https://www.forgeflow.com)
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools.float_utils import float_round
 
@@ -66,9 +66,9 @@ class ProductProduct(models.Model):
 
     def _search_quantity_unreserved(self, operator, value):
         if operator not in OPERATORS:
-            raise UserError(_("Invalid domain operator %s") % operator)
+            raise UserError(self.env._("Invalid domain operator %s") % operator)
         if not isinstance(value, float | int):
-            raise UserError(_("Invalid domain right operand %s") % value)
+            raise UserError(self.env._("Invalid domain right operand %s") % value)
 
         ids = []
         for product in self.search([]):
