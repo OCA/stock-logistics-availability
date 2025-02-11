@@ -20,7 +20,16 @@ class TestStockLogisticsWarehouse(TransactionCase):
         cls.supplier_location = cls.env.ref("stock.stock_location_suppliers")
         cls.stock_location = cls.env.ref("stock.stock_location_stock")
         cls.pack_location = cls.env.ref("stock.location_pack_zone")
+        cls.pack_location.usage = "view"
         (cls.stock_location | cls.pack_location).write({"active": True})
+
+        cls.pack_child_location = cls.env["stock.location"].create(
+            {
+                "name": "Pack Child Location",
+                "location_id": cls.pack_location.id,
+                "usage": "internal",
+            }
+        )
 
     def test01(self):
         location_ids = (self.stock_location | self.pack_location).ids
@@ -38,7 +47,7 @@ class TestStockLogisticsWarehouse(TransactionCase):
         move_pack = self.move_model.create(
             {
                 "location_id": self.supplier_location.id,
-                "location_dest_id": self.pack_location.id,
+                "location_dest_id": self.pack_child_location.id,
                 "name": "MOVE PACK ",
                 "product_id": self.product.id,
                 "product_uom": self.product.uom_id.id,
@@ -59,3 +68,19 @@ class TestStockLogisticsWarehouse(TransactionCase):
         self.product.invalidate_recordset()  # force recompute
         q = self.product.with_context(**ctx_loc).immediately_usable_qty
         self.assertEqual(q, 7.0)
+        # test with a date in the past
+        self.product.invalidate_recordset()
+        q = self.product.with_context(
+            **ctx_loc, to_date="2023-01-01"
+        ).immediately_usable_qty
+        self.assertEqual(q, 0.0)
+
+    def test_get_excluded_location_ids(self):
+        self.pack_location.exclude_from_immediately_usable_qty = True
+        excluded_location_ids = (
+            self.product._get_location_ids_excluded_from_immediately_usable_qty()
+        )
+        self.assertEqual(
+            set(excluded_location_ids),
+            set(self.pack_location.ids + self.pack_child_location.ids),
+        )
