@@ -9,5 +9,8 @@
     "depends": ["stock_available", "mrp"],
     "demo": ["demo/mrp_data.xml"],
     "license": "AGPL-3",
+    "data": [
+        "views/res_config_settings_views.xml",
+    ],
     "installable": True,
 }

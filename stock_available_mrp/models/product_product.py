@@ -24,6 +24,13 @@ class ProductProduct(models.Model):
 
     def _compute_available_quantities_dict(self):
         res, stock_dict = super()._compute_available_quantities_dict()
+        icp = self.env["ir.config_parameter"]
+        stock_available_potential_based = (
+            icp.sudo().get_param("stock_available_potential_based", True) == "True"
+        )
+        # Only compute potential stock if the user has it configured
+        if not stock_available_potential_based:
+            return res, stock_dict
         # compute qty for product with bom
         product_with_bom = self.filtered("variant_bom_ids")
         product_with_bom |= (self - product_with_bom).filtered(
@@ -33,7 +40,6 @@ class ProductProduct(models.Model):
 
         if not product_with_bom:
             return res, stock_dict
-        icp = self.env["ir.config_parameter"]
         stock_available_mrp_based_on = icp.sudo().get_param(
             "stock_available_mrp_based_on", "qty_available"
         )

@@ -58,3 +58,15 @@ msgstr "Variante del Producto"
 
 #~ msgid "Product Template"
 #~ msgstr "Plantilla de producto"
+
+#. module: stock_available_mrp
+#: model:ir.model.fields,field_description:stock_available_mrp.field_res_config_settings__stock_available_potential_based
+msgid "Consider potential stock for availability"
+msgstr "Incluye el potencial a producir"
+
+#. module: stock_available_mrp
+#: model:ir.model.fields,help:stock_available_mrp.field_res_config_settings__stock_available_potential_based
+msgid ""
+"This allow to add the quantities of goods that can be immediately "
+"manufactured, to the quantities available to promise.\n"
+msgstr "Permite añadir las cantidades que pueden ser inmediatamente fabricadas a la cantidad disponible para prometer"

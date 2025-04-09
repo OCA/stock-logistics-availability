@@ -22,3 +22,15 @@ msgstr ""
 #: model:ir.model,name:stock_available_mrp.model_product_product
 msgid "Product Variant"
 msgstr ""
+
+#. module: stock_available_mrp
+#: model:ir.model.fields,field_description:stock_available_mrp.field_res_config_settings__stock_available_potential_based
+msgid "Consider potential stock for availability"
+msgstr ""
+
+#. module: stock_available_mrp
+#: model:ir.model.fields,help:stock_available_mrp.field_res_config_settings__stock_available_potential_based
+msgid ""
+"This allow to add the quantities of goods that can be immediately "
+"manufactured, to the quantities available to promise.\n"
+msgstr ""
