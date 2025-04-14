@@ -2,13 +2,12 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo_test_helper import FakeModelLoader
 
-from odoo.tests.common import TransactionCase
-
+from odoo.addons.base.tests.common import BaseCommon
 from odoo.addons.stock.models.stock_location import Location
 from odoo.addons.stock.models.stock_move import StockMove
 
 
-class TestExcludeLocation(TransactionCase):
+class TestExcludeLocation(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
