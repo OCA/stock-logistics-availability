@@ -5,7 +5,6 @@ from odoo.tools.safe_eval import safe_eval
 
 
 class StockExcludeLocationMixin(models.AbstractModel):
-
     _name = "stock.exclude.location.mixin"
     _description = (
         "technical base module to allow defining excluded locations on an Odoo model"
