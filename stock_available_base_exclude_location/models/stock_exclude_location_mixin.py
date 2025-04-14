@@ -13,7 +13,7 @@ class StockExcludeLocationMixin(models.AbstractModel):
     stock_excluded_location_ids = fields.Many2many(
         comodel_name="stock.location",
         string="Stock Excluded Locations",
-        help="Fill in this field to exclude locations for product available"
+        help="Fill in this field to exclude locations for product available "
         "quantities.",
     )
     stock_excluded_location_domain = fields.Binary(
