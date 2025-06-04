@@ -22,7 +22,12 @@ class TestStockLogisticsWarehouse(TransactionCase):
 
         # Create product template with 2 variant
         templateAB = templateObj.create(
-            {"name": "templAB", "uom_id": uom_unit.id, "type": "product"}
+            {
+                "name": "templAB",
+                "uom_id": uom_unit.id,
+                "type": "consu",
+                "is_storable": True,
+            }
         )
         self.env["product.template.attribute.line"].create(
             {
