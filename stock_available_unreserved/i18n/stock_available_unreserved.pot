@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -26,14 +26,12 @@ msgstr ""
 #. module: stock_available_unreserved
 #. odoo-python
 #: code:addons/stock_available_unreserved/models/product_product.py:0
-#, python-format
 msgid "Invalid domain operator %s"
 msgstr ""
 
 #. module: stock_available_unreserved
 #. odoo-python
 #: code:addons/stock_available_unreserved/models/product_product.py:0
-#, python-format
 msgid "Invalid domain right operand %s"
 msgstr ""
 
@@ -75,6 +73,8 @@ msgid "Reservable Products"
 msgstr ""
 
 #. module: stock_available_unreserved
+#. odoo-python
+#: code:addons/stock_available_unreserved/models/product_template.py:0
 #: model:ir.actions.act_window,name:stock_available_unreserved.product_open_quants_unreserved
 msgid "Stock On Hand (Unreserved)"
 msgstr ""
