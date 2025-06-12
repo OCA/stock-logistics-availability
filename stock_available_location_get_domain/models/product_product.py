@@ -188,7 +188,6 @@ def extract_subdomains(domain, submodel_field):
 
 
 class ProductProduct(models.Model):
-
     _inherit = "product.product"
 
     def _get_domain_location_for_locations(self):
