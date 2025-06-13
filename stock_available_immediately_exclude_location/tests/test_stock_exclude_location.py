@@ -14,7 +14,8 @@ class TestStockLogisticsWarehouse(TransactionCase):
             {
                 "name": "Product Test",
                 "uom_id": cls.uom_unit.id,
-                "type": "product",
+                "type": "consu",
+                "is_storable": True,
             }
         )
         cls.supplier_location = cls.env.ref("stock.stock_location_suppliers")
@@ -56,11 +57,11 @@ class TestStockLogisticsWarehouse(TransactionCase):
         )
         (move_stock | move_pack)._action_confirm()
         (move_stock | move_pack)._action_assign()
-        move_stock.move_line_ids.write({"qty_done": 7.0})
+        move_stock.move_line_ids.write({"quantity": 7.0, "picked": True})
         move_stock._action_done()
         q = self.product.with_context(**ctx_loc).immediately_usable_qty
         self.assertEqual(q, 7.0)
-        move_pack.move_line_ids.write({"qty_done": 4.0})
+        move_pack.move_line_ids.write({"quantity": 4.0, "picked": True})
         move_pack._action_done()
         q = self.product.with_context(**ctx_loc).immediately_usable_qty
         self.assertEqual(q, 11.0)

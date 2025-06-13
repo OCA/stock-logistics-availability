@@ -27,7 +27,4 @@ class StockLocation(models.Model):
         return res
 
     def _invalidate_location_ids_excluded_from_immediatley_usable_qty_cache(self):
-        product_model = self.env["product.product"]
-        product_model._get_location_ids_excluded_from_immediately_usable_qty.clear_cache(
-            product_model
-        )
+        self.env.registry.clear_cache()

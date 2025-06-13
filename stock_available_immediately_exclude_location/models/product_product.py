@@ -73,12 +73,11 @@ class ProductProduct(models.Model):
         domain_quant = [("product_id", "in", self.ids)] + domain_quant_loc
         quant = self.env["stock.quant"].with_context(active_test=False)
         return {
-            item["product_id"][0]: item["quantity"]
-            for item in quant._read_group(
+            product.id: quantity
+            for product, quantity in quant._read_group(
                 domain_quant,
-                ["product_id", "quantity"],
                 ["product_id"],
-                orderby="id",
+                ["quantity:sum"],
             )
         }
 
@@ -94,7 +93,7 @@ class ProductProduct(models.Model):
         the view locations that are excluded from the immediately_usable_qty.
         """
         locations = self._get_locations_excluded_from_immediately_usable_qty()
-        view_locations = locations.filtered(lambda l: l.usage == "view")
+        view_locations = locations.filtered(lambda location: location.usage == "view")
         # we must exclude the children of the view locations
         locations |= self.env["stock.location"].search(
             [
