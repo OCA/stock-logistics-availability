@@ -73,7 +73,7 @@ class TestStockLocationDomain(TransactionCase):
 
         locations = self.env["stock.location"].search(
             self.env["product.product"]
-            .with_context(warehouse=self.warehouse_2.id)
+            .with_context(warehouse_id=self.warehouse_2.id)
             ._get_domain_location_for_locations()
         )
 

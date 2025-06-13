@@ -7,110 +7,8 @@ from odoo import models
 from odoo.osv import expression
 from odoo.osv.expression import (
     DOMAIN_OPERATORS,
-    FALSE_LEAF,
     TERM_OPERATORS,
-    TERM_OPERATORS_NEGATION,
-    TRUE_LEAF,
 )
-
-# The following methods comes from odoo 18.0 odoo.osv.expression
-# Copyrigth Odoo SA
-
-
-def _tree_from_domain(domain):
-    """Return the domain as a tree, with the following structure::
-
-        <tree> ::= ('?', <boolean>)
-                |  ('!', <tree>)
-                |  ('&', <tree>, <tree>, ...)
-                |  ('|', <tree>, <tree>, ...)
-                |  (<comparator>, <fname>, <value>)
-
-    By construction, AND (``&``) and OR (``|``) nodes are n-ary and have at
-    least two children.  Moreover, AND nodes (respectively OR nodes) do not have
-    AND nodes (resp. OR nodes) in their children.
-    """
-    stack = []
-    for item in reversed(domain):
-        if item == "!":
-            stack.append(_tree_not(stack.pop()))
-        elif item == "&":
-            stack.append(_tree_and((stack.pop(), stack.pop())))
-        elif item == "|":
-            stack.append(_tree_or((stack.pop(), stack.pop())))
-        elif item == TRUE_LEAF:
-            stack.append(("?", True))
-        elif item == FALSE_LEAF:
-            stack.append(("?", False))
-        else:
-            lhs, comparator, rhs = item
-            if comparator in ("any", "not any"):
-                rhs = _tree_from_domain(rhs)
-            stack.append((comparator, lhs, rhs))
-    return _tree_and(reversed(stack))
-
-
-def _tree_not(tree):
-    """Negate a tree node."""
-    if tree[0] == "=?":
-        # already update operator '=?' here, so that '!' is distributed correctly
-        assert len(tree) == 3
-        if tree[2]:
-            tree = ("=", tree[1], tree[2])
-        else:
-            return ("?", False)
-    if tree[0] == "?":
-        return ("?", not tree[1])
-    if tree[0] == "!":
-        return tree[1]
-    if tree[0] == "&":
-        return ("|", *(_tree_not(item) for item in tree[1:]))
-    if tree[0] == "|":
-        return ("&", *(_tree_not(item) for item in tree[1:]))
-    if tree[0] in TERM_OPERATORS_NEGATION:
-        return (TERM_OPERATORS_NEGATION[tree[0]], tree[1], tree[2])
-    return ("!", tree)
-
-
-def _tree_and(trees):
-    """Return the tree given by AND-ing all the given trees."""
-    children = []
-    for tree in trees:
-        if tree == ("?", True):
-            pass
-        elif tree == ("?", False):
-            return tree
-        elif tree[0] == "&":
-            children.extend(tree[1:])
-        else:
-            children.append(tree)
-    if not children:
-        return ("?", True)
-    if len(children) == 1:
-        return children[0]
-    return ("&", *children)
-
-
-def _tree_or(trees):
-    """Return the tree given by OR-ing all the given trees."""
-    children = []
-    for tree in trees:
-        if tree == ("?", True):
-            return tree
-        elif tree == ("?", False):
-            pass
-        elif tree[0] == "|":
-            children.extend(tree[1:])
-        else:
-            children.append(tree)
-    if not children:
-        return ("?", False)
-    if len(children) == 1:
-        return children[0]
-    return ("|", *children)
-
-
-# End of copyrigth Odoo SA
 
 
 def _extract_subtree(tree, submodel_field):
@@ -127,7 +25,13 @@ def _extract_subtree(tree, submodel_field):
             result_tree = (op, *result_tree)
     elif op in TERM_OPERATORS:
         fname = tree[1]
-        if submodel_field in fname:
+        # Handles 'any' operator domains on related fields, e.g.:
+        # ('location_id', 'any', [('parent_path', '=like', '1/7/8/%')]).
+        # Extracts subfields(e.g., 'parent_path') to evaluate the domain
+        # on the related model.
+        if op == "any":
+            result_tree = tree[2]
+        elif submodel_field in fname:
             if fname == submodel_field:
                 fname = "id"
             else:
@@ -177,7 +81,7 @@ def extract_subdomains(domain, submodel_field):
     """
     domain = expression.normalize_domain(domain)
     domain = expression.distribute_not(domain)
-    tree = _tree_from_domain(domain)
+    tree = expression._tree_from_domain(domain)
     subtree = _extract_subtree(tree, submodel_field)
     domain = []
     if subtree:
