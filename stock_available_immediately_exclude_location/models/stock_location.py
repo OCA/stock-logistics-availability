@@ -23,7 +23,7 @@ class StockLocation(models.Model):
 
     def write(self, vals):
         res = super().write(vals)
-        if vals.get("exclude_from_immediately_usable_qty"):
+        if "exclude_from_immediately_usable_qty" in vals:
             self._invalidate_location_ids_excluded_from_immediatley_usable_qty_cache()
         return res
 

@@ -3,7 +3,7 @@
 
 {
     "name": "Exclude locations from immediately usable quantity",
-    "version": "16.0.1.1.0",
+    "version": "16.0.1.1.1",
     "website": "https://github.com/OCA/stock-logistics-availability",
     "author": "ACSONE SA/NV,Odoo Community Association (OCA)",
     "license": "AGPL-3",
