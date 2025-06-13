@@ -7,7 +7,6 @@ from odoo.tools import ormcache_context
 
 
 class ProductProduct(models.Model):
-
     _inherit = "product.product"
 
     def _compute_available_quantities_dict(self):
