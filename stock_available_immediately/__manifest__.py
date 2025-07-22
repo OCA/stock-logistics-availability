@@ -11,6 +11,9 @@
     "website": "https://github.com/OCA/stock-logistics-availability",
     "author": "Camptocamp,Sodexis,Odoo Community Association (OCA),Sergio Díaz",
     "license": "AGPL-3",
+    "data": [
+        "views/res_config_settings_views.xml",
+    ],
     "category": "Hidden",
     "installable": True,
 }
