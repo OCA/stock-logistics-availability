@@ -11,10 +11,16 @@ class ProductProduct(models.Model):
 
     def _compute_available_quantities_dict(self):
         res, stock_dict = super()._compute_available_quantities_dict()
-        for product in self:
-            res[product.id]["immediately_usable_qty"] -= stock_dict[product.id][
-                "incoming_qty"
-            ]
+        param = (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("compute_stock_available_immediately")
+        )
+        if param == "True":
+            for product in self:
+                res[product.id]["immediately_usable_qty"] -= stock_dict[product.id][
+                    "incoming_qty"
+                ]
         return res, stock_dict
 
     @api.depends("virtual_available", "incoming_qty")
