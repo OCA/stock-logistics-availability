@@ -8,18 +8,23 @@ class ResConfigSettings(models.TransientModel):
         string="Exclude incoming goods",
         help="This will subtract incoming quantities from the quantities "
         "available to promise.",
-        default=True,
-        config_parameter="compute_stock_available_immediately",
     )
 
     @api.model
     def get_values(self):
         res = super().get_values()
         param_env = self.env["ir.config_parameter"].sudo()
-        value = param_env.get_param("compute_stock_available_immediately")
-        if value is None:
-            value = param_env.get_param(
-                "module_stock_available_immediately", default="False"
-            )
-        res["compute_stock_available_immediately"] = value == "True"
+        value = param_env.get_param(
+            "stock_available_immediately.compute_stock_available_immediately", "True"
+        )
+        res.update(compute_stock_available_immediately=value == "True")
+        return res
+
+    def set_values(self):
+        res = super().set_values()
+        ir_config_sudo = self.env["ir.config_parameter"].sudo()
+        ir_config_sudo.set_param(
+            "stock_available_immediately.compute_stock_available_immediately",
+            str(self.compute_stock_available_immediately),
+        )
         return res

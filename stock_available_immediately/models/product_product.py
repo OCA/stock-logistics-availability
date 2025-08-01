@@ -14,8 +14,12 @@ class ProductProduct(models.Model):
         param = (
             self.env["ir.config_parameter"]
             .sudo()
-            .get_param("compute_stock_available_immediately")
+            .get_param(
+                "stock_available_immediately.compute_stock_available_immediately",
+                "True",
+            )
         )
+
         if param == "True":
             for product in self:
                 res[product.id]["immediately_usable_qty"] -= stock_dict[product.id][
