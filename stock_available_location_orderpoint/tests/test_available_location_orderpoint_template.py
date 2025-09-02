@@ -110,12 +110,11 @@ class TestStockAvailableLocationOrderpointTemplate(TestLocationOrderpointCommon)
                 "product_id": self.product_2.id,
             }
         )._apply_inventory()
-        move = self._create_outgoing_move(12)
-        move = self._create_outgoing_move(1)
+        move = self._create_outgoing_move(12, product=self.product)
+        move = self._create_outgoing_move(1, product=self.product)
         self.assertEqual(move.state, "confirmed")
-        self.product = self.product_2
-        self._create_outgoing_move(10)
-        self._create_outgoing_move(1)
+        self._create_outgoing_move(10, product=self.product_2)
+        self._create_outgoing_move(1, product=self.product_2)
         self.template.invalidate_recordset()
         self.assertEqual(11.0, self.template.quantity_to_replenish)
         templates = self.template.search([("quantity_to_replenish", "=", 11.0)])
@@ -148,13 +147,12 @@ class TestStockAvailableLocationOrderpointTemplate(TestLocationOrderpointCommon)
                 "product_id": self.product_2.id,
             }
         )._apply_inventory()
-        move = self._create_outgoing_move(12)
-        move = self._create_outgoing_move(1)
+        move = self._create_outgoing_move(12, product=self.product)
+        move = self._create_outgoing_move(1, product=self.product)
         self.assertEqual(move.state, "confirmed")
 
-        self.product = self.product_2
-        move = self._create_outgoing_move(10)
-        move = self._create_outgoing_move(1)
+        move = self._create_outgoing_move(10, product=self.product_2)
+        move = self._create_outgoing_move(1, product=self.product_2)
         self.assertEqual(move.state, "confirmed")
         self.template.invalidate_recordset()
         self.assertEqual(13.0, self.template.quantity_to_replenish)
@@ -223,11 +221,12 @@ class TestStockAvailableLocationOrderpointTemplate(TestLocationOrderpointCommon)
         self.shelf = self.env["stock.location"].create(
             {"name": "Shelf to Replenish", "location_id": self.location_dest.id}
         )
-        self.location_dest = self.shelf
         (
             self.orderpoint_shelf,
             self.location_src_shelf,
-        ) = self._create_orderpoint_complete("Shelf Replenishment", trigger="manual")
+        ) = self._create_orderpoint_complete(
+            "Shelf Replenishment", trigger="manual", location_dest=self.shelf
+        )
 
         self.env["stock.quant"].with_context(inventory_mode=True).create(
             {
@@ -250,11 +249,12 @@ class TestStockAvailableLocationOrderpointTemplate(TestLocationOrderpointCommon)
                 "product_id": self.product.id,
             }
         )._apply_inventory()
-        move = self._create_outgoing_move(2)
+        move = self._create_outgoing_move(2, product=self.product, location=self.shelf)
         self.assertEqual(move.state, "confirmed")
 
-        self.product = self.product_2
-        move = self._create_outgoing_move(5)
+        move = self._create_outgoing_move(
+            5, product=self.product_2, location=self.shelf
+        )
         self.assertEqual(move.state, "confirmed")
         self.template.invalidate_recordset()
         self.assertEqual(
@@ -286,11 +286,12 @@ class TestStockAvailableLocationOrderpointTemplate(TestLocationOrderpointCommon)
         self.shelf = self.env["stock.location"].create(
             {"name": "Shelf to Replenish", "location_id": self.location_dest.id}
         )
-        self.location_dest = self.shelf
         (
             self.orderpoint_shelf,
             self.location_src_shelf,
-        ) = self._create_orderpoint_complete("Shelf Replenishment", trigger="manual")
+        ) = self._create_orderpoint_complete(
+            "Shelf Replenishment", trigger="manual", location_dest=self.shelf
+        )
 
         self.env["stock.quant"].with_context(inventory_mode=True).create(
             {
@@ -313,13 +314,11 @@ class TestStockAvailableLocationOrderpointTemplate(TestLocationOrderpointCommon)
                 "product_id": self.product.id,
             }
         )._apply_inventory()
-        self.location_dest = self.warehouse.lot_stock_id
-        move = self._create_outgoing_move(12)
-        move = self._create_outgoing_move(1)
+        move = self._create_outgoing_move(12, location=self.warehouse.lot_stock_id)
+        move = self._create_outgoing_move(1, location=self.warehouse.lot_stock_id)
         self.assertEqual(move.state, "confirmed")
 
-        self.location_dest = self.shelf
-        move = self._create_outgoing_move(5.0)
+        move = self._create_outgoing_move(5.0, location=self.shelf)
         self.template.invalidate_recordset()
         self.assertEqual(15.0, self.template.quantity_to_replenish)
 
@@ -393,17 +392,19 @@ class TestStockAvailableLocationOrderpointTemplate(TestLocationOrderpointCommon)
         )
 
         # Create an orderpoint by shelf
-        self.location_dest = self.area_1
         (
             self.orderpoint_shelf_1,
             self.location_src_shelf_1,
-        ) = self._create_orderpoint_complete("Area 1 Replenishment", trigger="manual")
+        ) = self._create_orderpoint_complete(
+            "Area 1 Replenishment", trigger="manual", location_dest=self.area_1
+        )
 
-        self.location_dest = self.area_2
         (
             self.orderpoint_shelf_2,
             self.location_src_shelf_2,
-        ) = self._create_orderpoint_complete("Area 2 Replenishment", trigger="manual")
+        ) = self._create_orderpoint_complete(
+            "Area 2 Replenishment", trigger="manual", location_dest=self.area_2
+        )
 
         # Set stock on replenishment locations
         self.env["stock.quant"].with_context(inventory_mode=True).create(
@@ -437,22 +438,22 @@ class TestStockAvailableLocationOrderpointTemplate(TestLocationOrderpointCommon)
         )._apply_inventory()
 
         # Product 1
-        self.location_dest = self.area_1
-        move = self._create_outgoing_move(12)
+
+        move = self._create_outgoing_move(12, location=self.area_1)
         self.assertEqual(move.state, "confirmed")
 
-        self.location_dest = self.area_2
-        move = self._create_outgoing_move(2)
+        move = self._create_outgoing_move(2, location=self.area_2)
         self.assertEqual(move.state, "confirmed")
 
         # Product 2 - with less quantity than in replenishment location
-        self.product = self.product_2
-        self.location_dest = self.area_1
-        move = self._create_outgoing_move(1)
+        move = self._create_outgoing_move(
+            1, product=self.product_2, location=self.area_1
+        )
         self.assertEqual(move.state, "confirmed")
 
-        self.location_dest = self.area_2
-        move = self._create_outgoing_move(3)
+        move = self._create_outgoing_move(
+            3, product=self.product_2, location=self.area_2
+        )
         self.assertEqual(move.state, "confirmed")
 
         self.template.invalidate_recordset()

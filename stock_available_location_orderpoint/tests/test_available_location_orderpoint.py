@@ -168,11 +168,12 @@ class TestStockAvailableLocationOrderpoint(TestLocationOrderpointCommon):
         self.shelf = self.env["stock.location"].create(
             {"name": "Shelf to Replenish", "location_id": self.location_dest.id}
         )
-        self.location_dest = self.shelf
         (
             self.orderpoint_shelf,
             self.location_src_shelf,
-        ) = self._create_orderpoint_complete("Shelf Replenishment", trigger="manual")
+        ) = self._create_orderpoint_complete(
+            "Shelf Replenishment", trigger="manual", location_dest=self.shelf
+        )
 
         self.env["stock.quant"].with_context(inventory_mode=True).create(
             {
@@ -195,13 +196,11 @@ class TestStockAvailableLocationOrderpoint(TestLocationOrderpointCommon):
                 "product_id": self.product.id,
             }
         )._apply_inventory()
-        self.location_dest = self.warehouse.lot_stock_id
-        move = self._create_outgoing_move(12)
-        move = self._create_outgoing_move(1)
+        move = self._create_outgoing_move(12, location=self.warehouse.lot_stock_id)
+        move = self._create_outgoing_move(1, location=self.warehouse.lot_stock_id)
         self.assertEqual(move.state, "confirmed")
 
-        self.location_dest = self.shelf
-        move = self._create_outgoing_move(5.0)
+        move = self._create_outgoing_move(5.0, location=self.shelf)
         self.product.invalidate_recordset()
         self.assertEqual(15.0, self.product.quantity_to_replenish)
 
@@ -271,17 +270,19 @@ class TestStockAvailableLocationOrderpoint(TestLocationOrderpointCommon):
         )
 
         # Create an orderpoint by shelf
-        self.location_dest = self.area_1
         (
             self.orderpoint_shelf_1,
             self.location_src_shelf_1,
-        ) = self._create_orderpoint_complete("Area 1 Replenishment", trigger="manual")
+        ) = self._create_orderpoint_complete(
+            "Area 1 Replenishment", location_dest=self.area_1, trigger="manual"
+        )
 
-        self.location_dest = self.area_2
         (
             self.orderpoint_shelf_2,
             self.location_src_shelf_2,
-        ) = self._create_orderpoint_complete("Area 2 Replenishment", trigger="manual")
+        ) = self._create_orderpoint_complete(
+            "Area 2 Replenishment", location_dest=self.area_2, trigger="manual"
+        )
 
         # Set stock on replenishment locations
         self.env["stock.quant"].with_context(inventory_mode=True).create(
@@ -299,12 +300,10 @@ class TestStockAvailableLocationOrderpoint(TestLocationOrderpointCommon):
             }
         )._apply_inventory()
 
-        self.location_dest = self.area_1
-        move = self._create_outgoing_move(12)
+        move = self._create_outgoing_move(12, location=self.area_1)
         self.assertEqual(move.state, "confirmed")
 
-        self.location_dest = self.area_2
-        move = self._create_outgoing_move(2)
+        move = self._create_outgoing_move(2, location=self.area_2)
         self.assertEqual(move.state, "confirmed")
 
         self.product.invalidate_recordset()
