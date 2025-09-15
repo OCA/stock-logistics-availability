@@ -1,7 +1,3 @@
-.. image:: https://odoo-community.org/readme-banner-image
-   :target: https://odoo-community.org/get-involved?utm_source=readme
-   :alt: Odoo Community Association
-
 ==========================
 Stock Available Unreserved
 ==========================
@@ -17,7 +13,7 @@ Stock Available Unreserved
 .. |badge1| image:: https://img.shields.io/badge/maturity-Production%2FStable-green.png
     :target: https://odoo-community.org/page/development-status
     :alt: Production/Stable
-.. |badge2| image:: https://img.shields.io/badge/license-LGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/licence-LGPL--3-blue.png
     :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
     :alt: License: LGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fstock--logistics--availability-lightgray.png?logo=github
@@ -32,22 +28,25 @@ Stock Available Unreserved
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module allows users to check the quantity of a stocked product that
-is available on-hand, and that has not yet been reserved for use
-anywhere else.
+Extend the visibility of the Free to Use Quantity field from odoo's
+stock module.
 
-This key figure is very important during the monitoring of the warehouse
-execution, because it assists users to ensure that the flow of products
-will not be stuck due to a sudden unavailability of stock.
-
-If the warehouse personnel ensures that the unreserved quantity on hand
-> 0, then nobody will be stuck in pickings or manufacturing orders
-waiting for the availability of unreserved stock.
+-  Make the field available on products (standard visibility is only on
+   product variants).
+-  Make the field visible in all product views.
+-  Add a flag on the quant model to signal unreserved quantities.
+-  Add an action to open related quants from the product template form.
 
 **Table of contents**
 
 .. contents::
    :local:
+
+Known issues / Roadmap
+======================
+
+Migration note: after 18.0, remove the redundant qty_available_not_res
+fields on products and product variants.
 
 Bug Tracker
 ===========
@@ -70,13 +69,13 @@ Authors
 Contributors
 ------------
 
-- Jordi Ballester Alomar <jordi.ballester@forgeflow.com>
-- Stefan Rijnhart <stefan@opener.amsterdam>
-- Mykhailo Panarin <m.panarin@mobilunity.com>
-- Atte Isopuro <atte.isopuro@avoin.systems>
-- Lois Rilo <lois.rilo@forgeflow.com>
-- Souheil Bejaoui <souheil.bejaoui@acsone.eu>
-- Stefan Rijnhart <stefan@opener.amsterdam>
+-  Jordi Ballester Alomar <jordi.ballester@forgeflow.com>
+-  Stefan Rijnhart <stefan@opener.amsterdam>
+-  Mykhailo Panarin <m.panarin@mobilunity.com>
+-  Atte Isopuro <atte.isopuro@avoin.systems>
+-  Lois Rilo <lois.rilo@forgeflow.com>
+-  Souheil Bejaoui <souheil.bejaoui@acsone.eu>
+-  Stefan Rijnhart <stefan@opener.amsterdam>
 
 Maintainers
 -----------

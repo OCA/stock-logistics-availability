@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="stock.view_stock_product_template_tree" />
         <field name="arch" type="xml">
             <field name="qty_available" position="after">
-                <field groups="stock.group_stock_user" name="qty_available_not_res" />
+                <field groups="stock.group_stock_user" name="free_qty" />
             </field>
         </field>
     </record>
@@ -19,7 +19,7 @@
                 <filter
                     name="real_stock_unreserved"
                     string="Reservable Products"
-                    domain="[('qty_available_not_res','&gt;',0)]"
+                    domain="[('free_qty','&gt;',0)]"
                 />
             </filter>
         </field>
@@ -33,9 +33,7 @@
                 <div
                     groups="stock.group_stock_user"
                     t-if="record.show_on_hand_qty_status_button.raw_value"
-                >Unreserved: <field name="qty_available_not_res" /> <field
-                    name="uom_id"
-                /></div>
+                >Unreserved: <field name="free_qty" /> <field name="uom_id" /></div>
             </xpath>
         </field>
     </record>
@@ -49,7 +47,7 @@
                 name="qty_available"
                 position="after"
             >
-                <field name="qty_available_not_res" />
+                <field name="free_qty" />
             </field>
         </field>
     </record>
@@ -70,11 +68,7 @@
                     class="oe_stat_button"
                     icon="fa-building-o"
                 >
-                    <field
-                        name="qty_available_not_res"
-                        widget="statinfo"
-                        string="Unreserved"
-                    />
+                    <field name="free_qty" widget="statinfo" string="Unreserved" />
                 </button>
             </div>
         </field>
@@ -93,11 +87,7 @@
                     invisible="not show_on_hand_qty_status_button"
                     groups="stock.group_stock_user"
                 >
-                    <field
-                        name="qty_available_not_res"
-                        widget="statinfo"
-                        string="Unreserved"
-                    />
+                    <field name="free_qty" widget="statinfo" string="Unreserved" />
                 </button>
             </div>
         </field>
