@@ -80,4 +80,5 @@ class ProductTemplate(models.Model):
             ("product_id", "in", self.product_variant_ids.ids),
         ]
         action["context"] = dict(safe_eval(action["context"]), search_default_future=1)
+        action["context"].pop("search_default_last_month", None)
         return action
