@@ -130,10 +130,10 @@ class ProductProduct(models.Model):
         action = self.env["ir.actions.act_window"]._for_xml_id(
             "stock.stock_move_action"
         )
-
         action["domain"] = [
             ("location_orderpoint_id", "!=", False),
             ("product_id", "=", self.id),
         ]
         action["context"] = dict(safe_eval(action["context"]), search_default_future=1)
+        action["context"].pop("search_default_last_month", None)
         return action
