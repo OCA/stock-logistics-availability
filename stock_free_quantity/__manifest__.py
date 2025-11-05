@@ -1,6 +1,6 @@
 {
     "name": "Stock Free Quantity",
-    "version": "18.0.1.1.0",
+    "version": "19.0.1.0.0",
     "author": "Akretion,Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/stock-logistics-availability",
     "development_status": "Production/Stable",
@@ -10,6 +10,7 @@
     "data": [
         "views/product_template_view.xml",
         "views/product_product_view.xml",
+        "views/stock_quant_view.xml",
     ],
     "installable": True,
 }
