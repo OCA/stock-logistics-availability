@@ -4,7 +4,7 @@
 
 from odoo import api, fields, models
 
-from odoo.addons.stock.models.product import OPERATORS
+from odoo.addons.stock.models.product import PY_OPERATORS as OPERATORS
 
 
 class ProductProduct(models.Model):
