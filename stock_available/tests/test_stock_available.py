@@ -2,19 +2,19 @@
 # Copyright 2016 Sodexis
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo.tests.common import TransactionCase
+from odoo.addons.stock.tests.common import TestStockCommon
 
 
-class TestStockLogisticsWarehouse(TransactionCase):
+class TestStockLogisticsWarehouse(TestStockCommon):
     def test01_stock_levels(self):
         """checking that immediately_usable_qty actually reflects \
            the variations in stock, both on product and template"""
         moveObj = self.env["stock.move"]
         productObj = self.env["product.product"]
         templateObj = self.env["product.template"]
-        supplier_location = self.env.ref("stock.stock_location_suppliers")
-        stock_location = self.env.ref("stock.stock_location_stock")
-        customer_location = self.env.ref("stock.stock_location_customers")
+        supplier_location = self.supplier_location
+        stock_location = self.stock_location
+        customer_location = self.customer_location
         uom_unit = self.env.ref("uom.product_uom_unit")
 
         # Create product template
@@ -50,7 +50,6 @@ class TestStockLogisticsWarehouse(TransactionCase):
             {
                 "location_id": supplier_location.id,
                 "location_dest_id": stock_location.id,
-                "name": "MOVE INCOMING -> STOCK ",
                 "product_id": productA.id,
                 "product_uom": productA.uom_id.id,
                 "product_uom_qty": 2,
@@ -61,7 +60,6 @@ class TestStockLogisticsWarehouse(TransactionCase):
             {
                 "location_id": supplier_location.id,
                 "location_dest_id": stock_location.id,
-                "name": "MOVE INCOMING -> STOCK ",
                 "product_id": productB.id,
                 "product_uom": productB.uom_id.id,
                 "product_uom_qty": 3,
@@ -117,7 +115,6 @@ class TestStockLogisticsWarehouse(TransactionCase):
             {
                 "location_id": stock_location.id,
                 "location_dest_id": customer_location.id,
-                "name": " STOCK --> CUSTOMER ",
                 "product_id": productA.id,
                 "product_uom": productA.uom_id.id,
                 "product_uom_qty": 1,
@@ -145,16 +142,15 @@ class TestStockLogisticsWarehouse(TransactionCase):
                 "default_code": "A",
             }
         )
-        supplier_location = self.env.ref("stock.stock_location_suppliers")
-        shelf1 = self.env.ref("stock.stock_location_components")
-        shelf2 = self.env.ref("stock.stock_location_14")
+        supplier_location = self.supplier_location
+        shelf1 = self.shelf_1
+        shelf2 = self.shelf_2
 
         # Create a stock move from INCOMING to STOCK
         stockMoveIn = self.env["stock.move"].create(
             {
                 "location_id": supplier_location.id,
                 "location_dest_id": shelf1.id,
-                "name": "MOVE INCOMING -> STOCK ",
                 "product_id": productA.id,
                 "product_uom": productA.uom_id.id,
                 "product_uom_qty": 2,

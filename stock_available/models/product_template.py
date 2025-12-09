@@ -4,7 +4,7 @@
 
 from odoo import api, fields, models
 
-from odoo.addons.stock.models.product import OPERATORS
+from odoo.addons.stock.models.product import PY_OPERATORS as OPERATORS
 
 
 class ProductTemplate(models.Model):
@@ -74,7 +74,7 @@ class ProductTemplate(models.Model):
         :param value: str
         :return: list of tuple (domain)
         """
-        products = self.search([])
+        products = self.search([], limit=None)
         # Force prefetch
         products.mapped("immediately_usable_qty")
         product_ids = []
