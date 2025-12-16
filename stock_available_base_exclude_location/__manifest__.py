@@ -12,5 +12,4 @@
     "author": "ACSONE SA/NV,Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/stock-logistics-availability",
     "depends": ["stock"],
-    "external_dependencies": {"python": ["odoo_test_helper"]},
 }
