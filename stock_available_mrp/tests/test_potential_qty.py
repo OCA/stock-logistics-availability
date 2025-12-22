@@ -4,6 +4,7 @@
 
 from unittest.mock import Mock
 
+from odoo.fields import Command
 from odoo.osv.expression import TRUE_LEAF
 from odoo.tests.common import TransactionCase
 
@@ -24,7 +25,13 @@ class TestPotentialQty(TransactionCase):
         cls.main_company = cls.env.ref("base.main_company")
         # Get the warehouses
         cls.wh_main = cls.env.ref("stock.warehouse0")
-        cls.wh_ch = cls.env.ref("stock.stock_warehouse_shop0")
+
+        cls.company2 = cls.env["res.company"].create(
+            {"name": __name__, "parent_id": cls.main_company.id}
+        )
+        cls.wh_ch = cls.env["stock.warehouse"].search(
+            [("company_id", "=", cls.company2.id)]
+        )
 
         # We need to compute parent_left and parent_right of the locations as
         # they are used to compute qty_available of the product.
@@ -37,15 +44,18 @@ class TestPotentialQty(TransactionCase):
         cls.tmpl = cls.env.ref("mrp.product_product_table_kit_product_template")
         #  First variant
         cls.var1 = cls.env.ref("mrp.product_product_table_kit")
-        cls.var1.type = "product"
+        cls.var1.type = "consu"
+        cls.var1.is_storable = True
         #  Second variant
         cls.var2 = cls.env.ref("stock_available_mrp.product_kit_1a")
-        cls.var2.type = "product"
+        cls.var2.type = "consu"
+        cls.var2.is_storable = True
         # Make bolt a stockable product to be able to change its stock
         # we need to unreserve the existing move before being able to do it.
         bolt = cls.env.ref("mrp.product_product_computer_desk_bolt")
         bolt.stock_move_ids._do_unreserve()
-        bolt.type = "product"
+        bolt.type = "consu"
+        bolt.is_storable = True
         # Components that can be used to make the product
         components = [
             # Bolt
@@ -65,15 +75,13 @@ class TestPotentialQty(TransactionCase):
         #  A product without a BoM
         cls.product_wo_bom = cls.env.ref("product.product_product_11")
 
-    def create_inventory(self, product, qty, location=None, company_id=None):
+    def create_inventory(self, product, qty, location=None, company=None):
         if location is None:
             location = self.wh_main.lot_stock_id
-        if company_id:
-            self.env["stock.quant"].with_company(company_id)._update_available_quantity(
-                product, location, qty
-            )
-        else:
-            self.env["stock.quant"]._update_available_quantity(product, location, qty)
+        quant = self.env["stock.quant"]
+        if company:
+            quant = quant.with_company(company)
+        quant._update_available_quantity(product, location, qty)
 
     def assertPotentialQty(self, record, qty, msg):
         record.invalidate_model()
@@ -98,20 +106,19 @@ class TestPotentialQty(TransactionCase):
         )
 
     def test_02_potential_qty_no_bom_for_company(self):
-        chicago_id = self.ref("stock.res_company_1")
-        # Receive 1000x Wood Panel owned by Chicago
+        # Receive 1000x Wood Panel owned by Company2
         self.create_inventory(
             product=self.env.ref("mrp.product_product_wood_panel"),
             qty=1000.0,
             location=self.wh_ch.lot_stock_id,
-            company_id=chicago_id,
+            company=self.company2,
         )
-        # Put Bolt owned by Chicago for 1000x the 1st variant in main WH
+        # Put Bolt owned by Company2 for 1000x the 1st variant in main WH
         self.create_inventory(
             product=self.env.ref("mrp.product_product_computer_desk_bolt"),
             qty=1000.0,
             location=self.wh_ch.lot_stock_id,
-            company_id=chicago_id,
+            company=self.company2,
         )
         self.assertPotentialQty(
             self.tmpl, 250.0, "Wrong template potential after receiving components"
@@ -122,15 +129,16 @@ class TestPotentialQty(TransactionCase):
                 "name": "test_demo",
                 "login": "test_demo",
                 "company_id": self.main_company.id,
-                "company_ids": [(4, self.main_company.id), (4, chicago_id)],
+                "company_ids": [
+                    Command.link(self.main_company.id),
+                    Command.link(self.company2.id),
+                ],
                 "groups_id": [
-                    (4, self.ref("stock.group_stock_user")),
-                    (4, self.ref("mrp.group_mrp_user")),
+                    Command.link(self.ref("stock.group_stock_user")),
+                    Command.link(self.ref("mrp.group_mrp_user")),
                 ],
             }
         )
-
-        bom = self.env["mrp.bom"].search([("product_tmpl_id", "=", self.tmpl.id)])
 
         test_user_tmpl = self.tmpl.with_user(test_user)
         self.assertPotentialQty(
@@ -139,9 +147,10 @@ class TestPotentialQty(TransactionCase):
 
         # Set the bom on the main company (visible to members of main company)
         # and all products without company (visible to all)
-        # and the demo user on Chicago (child of main company)
+        # and the demo user on Company2 (child of main company)
+        bom = self.env["mrp.bom"].search([("product_tmpl_id", "=", self.tmpl.id)])
         self.env["product.product"].search([TRUE_LEAF]).write({"company_id": False})
-        test_user.write({"company_ids": [(6, 0, self.main_company.ids)]})
+        test_user.write({"company_ids": [Command.set(self.main_company.ids)]})
         bom.company_id = self.main_company
         self.assertPotentialQty(
             test_user_tmpl,
@@ -149,8 +158,8 @@ class TestPotentialQty(TransactionCase):
             "The bom should not be visible to non members of the bom's "
             "company or company child of the bom's company",
         )
-        bom.company_id = chicago_id
-        test_user.write({"company_ids": [(4, chicago_id)]})
+        bom.company_id = self.company2
+        test_user.write({"company_ids": [Command.link(self.company2.id)]})
         self.assertPotentialQty(test_user_tmpl, 250.0, "")
 
     def test_03_potential_qty(self):
@@ -190,18 +199,18 @@ class TestPotentialQty(TransactionCase):
             "variant 2's potential",
         )
 
-        # Receive enough components to make 213 the 2nd variant at Chicago
+        # Receive enough components to make 213 the 2nd variant at Company2
         self.create_inventory(
             self.env.ref("mrp.product_product_wood_panel"),
             1000.0,
             self.wh_ch.lot_stock_id,
-            self.ref("stock.res_company_1"),
+            self.company2,
         )
         self.create_inventory(
             self.env.ref("stock_available_mrp.product_computer_desk_bolt_white"),
             852.0,
             self.wh_ch.lot_stock_id,
-            self.ref("stock.res_company_1"),
+            self.company2,
         )
         self.assertPotentialQty(
             self.tmpl.with_context(test=True),
@@ -219,14 +228,15 @@ class TestPotentialQty(TransactionCase):
         )
         # Check by warehouse
         self.assertPotentialQty(
-            self.tmpl.with_context(warehouse=self.wh_main.id),
+            self.tmpl.with_context(warehouse_id=self.wh_main.id),
             250.0,
             "Wrong potential quantity in main WH",
         )
+        self.tmpl.invalidate_recordset()
         self.assertPotentialQty(
-            self.tmpl.with_context(warehouse=self.wh_ch.id),
+            self.tmpl.with_context(warehouse_id=self.wh_ch.id),
             213.0,
-            "Wrong potential quantity in Chicago WH",
+            "Wrong potential quantity in Company2's WH",
         )
         # Check by location
         self.assertPotentialQty(
@@ -237,7 +247,7 @@ class TestPotentialQty(TransactionCase):
         self.assertPotentialQty(
             self.tmpl.with_context(location=self.wh_ch.lot_stock_id.id),
             213.0,
-            "Wrong potential quantity in Chicago WH location",
+            "Wrong potential quantity in Company2's WH location",
         )
 
     def test_04_multi_unit_recursive_bom(self):
@@ -247,7 +257,8 @@ class TestPotentialQty(TransactionCase):
         p1 = self.product_model.create(
             {
                 "name": "Test product with BOM",
-                "type": "product",
+                "type": "consu",
+                "is_storable": True,
                 "uom_id": self.env.ref("uom.product_uom_unit").id,
             }
         )
@@ -263,7 +274,8 @@ class TestPotentialQty(TransactionCase):
         p3 = self.product_model.create(
             {
                 "name": "Test component",
-                "type": "product",
+                "type": "consu",
+                "is_storable": True,
                 "uom_id": self.env.ref("uom.product_uom_unit").id,
             }
         )
@@ -362,7 +374,8 @@ class TestPotentialQty(TransactionCase):
         product = self.product_model.create(
             {
                 "name": "Test product with BOM",
-                "type": "product",
+                "type": "consu",
+                "is_storable": True,
                 "uom_id": self.env.ref("uom.product_uom_unit").id,
             }
         )
@@ -377,7 +390,8 @@ class TestPotentialQty(TransactionCase):
         bom_product = self.product_model.create(
             {
                 "name": "BOM product",
-                "type": "product",
+                "type": "consu",
+                "is_storable": True,
                 "uom_id": self.env.ref("uom.product_uom_unit").id,
             }
         )
@@ -394,7 +408,8 @@ class TestPotentialQty(TransactionCase):
         bom_product_2 = self.product_model.create(
             {
                 "name": "BOM product 2",
-                "type": "product",
+                "type": "consu",
+                "is_storable": True,
                 "uom_id": self.env.ref("uom.product_uom_unit").id,
             }
         )

@@ -8,19 +8,19 @@
         />
         <field
             name="product_template_attribute_value_ids"
-            eval="[(6,0,[ref('product.product_attribute_value_3')])]"
+            eval="[Command.set([ref('product.product_attribute_value_3')])]"
         />
     </record>
     <record id="mrp.product_product_table_kit" model="product.product">
         <field
             name="product_template_attribute_value_ids"
-            eval="[(6,0,[ref('product.product_attribute_value_4')])]"
+            eval="[Command.set([ref('product.product_attribute_value_4')])]"
         />
     </record>
     <record id="mrp.mrp_bom_kit_line_2" model="mrp.bom.line">
         <field
             name="bom_product_template_attribute_value_ids"
-            eval="[(6,0,[ref('product.product_attribute_value_4')])]"
+            eval="[Command.set([ref('product.product_attribute_value_4')])]"
         />
     </record>
     <record id="product_computer_desk_bolt_white" model="product.product">
@@ -28,7 +28,8 @@
         <field name="categ_id" ref="product.product_category_5" />
         <field name="standard_price">1.0</field>
         <field name="list_price">5.0</field>
-        <field name="type">product</field>
+        <field name="type">consu</field>
+        <field name="is_storable" eval="True" />
         <field name="uom_id" ref="uom.product_uom_unit" />
         <field name="uom_po_id" ref="uom.product_uom_unit" />
         <field name="default_code">BOLT-WHITE</field>
@@ -41,7 +42,7 @@
         <field name="bom_id" ref="mrp.mrp_bom_kit" />
         <field
             name="bom_product_template_attribute_value_ids"
-            eval="[(6,0,[ref('product.product_attribute_value_3')])]"
+            eval="[Command.set([ref('product.product_attribute_value_3')])]"
         />
     </record>
 </odoo>
