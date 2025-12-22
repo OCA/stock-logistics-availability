@@ -9,7 +9,6 @@
     "depends": ["stock_available", "mrp"],
     "demo": ["demo/mrp_data.xml"],
     "data": [
-        "data/ir_config_parameter.xml",
         "views/res_config_settings_views.xml",
     ],
     "license": "AGPL-3",

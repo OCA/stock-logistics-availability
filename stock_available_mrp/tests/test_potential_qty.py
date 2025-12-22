@@ -36,6 +36,10 @@ class TestPotentialQty(TransactionCase):
         # We need to compute parent_left and parent_right of the locations as
         # they are used to compute qty_available of the product.
         cls.location._parent_store_compute()
+        cls.env["ir.config_parameter"].set_param(
+            "stock_available_mrp.stock_available_mrp_based_on",
+            "qty_available",
+        )
         cls.setup_demo_data()
 
     @classmethod
@@ -97,6 +101,12 @@ class TestPotentialQty(TransactionCase):
         stock_setting.set_values()
         self.assertEqual(
             stock_setting.stock_available_mrp_based_on, "immediately_usable_qty"
+        )
+        self.assertEqual(
+            self.env["ir.config_parameter"].get_param(
+                "stock_available_mrp.stock_available_mrp_based_on"
+            ),
+            "immediately_usable_qty",
         )
 
     def test_01_potential_qty_no_bom(self):

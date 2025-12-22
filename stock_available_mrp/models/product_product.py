@@ -35,7 +35,8 @@ class ProductProduct(models.Model):
             return res, stock_dict
         icp = self.env["ir.config_parameter"]
         stock_available_mrp_based_on = icp.sudo().get_param(
-            "stock_available_mrp_based_on", "qty_available"
+            "stock_available_mrp.stock_available_mrp_based_on",
+            "qty_available",
         )
 
         # explode all boms at once
