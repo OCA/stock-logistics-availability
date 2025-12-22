@@ -17,7 +17,7 @@ class ResConfigSettings(models.TransientModel):
 
     stock_available_mrp_based_on = fields.Selection(
         _get_stock_available_mrp_based_on,
-        string="based on",
+        string="Availability of BoM products is based on",
         config_parameter="stock_available_mrp.stock_available_mrp_based_on",
         help="Choose the field of the product which will be used to compute "
         "potential.\nIf empty, Quantity On Hand is used.\n"

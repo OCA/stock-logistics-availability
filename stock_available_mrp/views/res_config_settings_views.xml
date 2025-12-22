@@ -7,13 +7,11 @@
         <field name="arch" type="xml">
             <xpath expr="//block[@id='schedule_info']" position="after">
                 <block title="Stock available to promise" name="available_info">
-                    <setting>
-                        <label for="stock_available_mrp_based_on" />
-                        <div class="content-group">
-                            <div class="mt16">
-                                <field name="stock_available_mrp_based_on" />
-                            </div>
-                        </div>
+                    <setting
+                        id="setting_stock_available_mrp_based_on"
+                        help="Choose the product field that will be used to compute the production potential. The components of each BoM product will be queried for this field to determine how many items can be manufactured. If empty, Quantity On Hand is used. Note that only the quantity fields have meaning for computing stock."
+                    >
+                        <field name="stock_available_mrp_based_on" />
                     </setting>
                 </block>
             </xpath>
