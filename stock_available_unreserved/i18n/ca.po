@@ -25,22 +25,19 @@ msgid "Contains unreserved products"
 msgstr "Conté productes sense reservar"
 
 #. module: stock_available_unreserved
-#: model_terms:ir.ui.view,arch_db:stock_available_unreserved.quant_search_view
-msgid "Internal Unreserved"
+#: model:ir.model.fields,field_description:stock_available_unreserved.field_product_template__free_qty
+msgid "Free Quantity"
 msgstr ""
 
 #. module: stock_available_unreserved
 #. odoo-python
-#: code:addons/stock_available_unreserved/models/product_product.py:0
-#, python-format
-msgid "Invalid domain operator %s"
-msgstr "Operador de domini %s no és vàlid"
+#: code:addons/stock_available_unreserved/models/product_template.py:0
+msgid "Free to Use Quantity"
+msgstr ""
 
 #. module: stock_available_unreserved
-#. odoo-python
-#: code:addons/stock_available_unreserved/models/product_product.py:0
-#, python-format
-msgid "Invalid domain right operand %s"
+#: model_terms:ir.ui.view,arch_db:stock_available_unreserved.quant_search_view
+msgid "Internal Unreserved"
 msgstr ""
 
 #. module: stock_available_unreserved
@@ -95,6 +92,10 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_available_unreserved.product_template_kanban_stock_view
 msgid "Unreserved:"
 msgstr ""
+
+#, python-format
+#~ msgid "Invalid domain operator %s"
+#~ msgstr "Operador de domini %s no és vàlid"
 
 #~ msgid "Product Template"
 #~ msgstr "Plantilla del producte"
