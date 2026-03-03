@@ -12,23 +12,26 @@ class TestExcludeLocation(BaseCommon):
     def setUpClass(cls):
         super().setUpClass()
         cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
-        cls.loader = FakeModelLoader(cls.env, cls.__module__)
-        cls.loader.backup_registry()
-        from .common import ResPartner
-
-        cls.loader.update_registry((ResPartner,))
-
-        cls.fake = cls.env["res.partner"].create({"name": "name"})
         cls.location_shop = cls.env.ref("stock.stock_location_stock")
         vals = {"location_id": cls.location_shop.id, "name": "Sub Location 1"}
         cls.sub_location_1 = cls.env["stock.location"].create(vals)
         cls.sub_location_1._parent_store_compute()
         cls.product = cls.env.ref("product.product_product_4")
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.loader.restore_registry()
-        super().tearDownClass()
+    def setUp(self):
+        super().setUp()
+        self.loader = FakeModelLoader(self.env, self.__module__)
+        self.loader.backup_registry()
+
+        from .common import ResPartner
+
+        self.loader.update_registry((ResPartner,))
+
+        self.fake = self.env["res.partner"].create({"name": "name"})
+
+    def tearDown(self):
+        self.loader.restore_registry()
+        super().tearDown()
 
     @classmethod
     def _create_stock_move(
