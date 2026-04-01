@@ -3,6 +3,7 @@
 # Copyright 2019 JARSA Sistemas S.A. de C.V.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
+from odoo import release
 from odoo.tests.common import TransactionCase
 
 
@@ -148,6 +149,14 @@ class TestStockLogisticsWarehouse(TransactionCase):
     def compare_qty_available_not_res(self, product, value):
         product.invalidate_recordset()
         self.assertEqual(product.qty_available_not_res, value)
+        self.assertEqual(product.free_qty, value)
+
+    def test_deprecation(self):
+        if release.version_info[0] > 18:
+            raise DeprecationWarning(
+                "Please remove the redundant fields in the migration to 19.0 "
+                "(and this test)."
+            )
 
     def test_01_stock_levels(self):
         """checking that qty_available_not_res actually reflects \
@@ -225,6 +234,18 @@ class TestStockLogisticsWarehouse(TransactionCase):
 
     def check_found_correctly(self, model, domain, operator, value, expected):
         found = model.search(domain + [("qty_available_not_res", operator, value)])
+        if found != expected:
+            self.fail(
+                "Searching for products failed: search for unreserved "
+                "quantity {operator} {value}; expected to find "
+                "{expected}, but found {found}".format(
+                    operator=operator,
+                    value=value,
+                    expected=expected or "no products",
+                    found=found,
+                )
+            )
+        found = model.search(domain + [("free_qty", operator, value)])
         if found != expected:
             self.fail(
                 "Searching for products failed: search for unreserved "

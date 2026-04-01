@@ -1,5 +1,5 @@
 # Do NOT update manually; changes here will be overwritten by Copier
-_commit: v1.29
+_commit: v1.39
 _src_path: git+https://github.com/OCA/oca-addons-repo-template
 additional_ruff_rules: []
 ci: GitHub
@@ -18,8 +18,12 @@ odoo_version: 18.0
 org_name: Odoo Community Association (OCA)
 org_slug: OCA
 rebel_module_groups: []
-repo_description: stock-logistics-availability
-repo_name: stock-logistics-availability
+repo_description: 'This repository contains modules to provide more information about
+    product stock availability in terms of quantities
+
+    Are you looking for modules related to logistics? Or would like to contribute
+    to? There are many repositories with specific purposes. Have a look at this [README](https://github.com/OCA/wms/blob/18.0/README.md).'
+repo_name: Stock Availability
 repo_slug: stock-logistics-availability
 repo_website: https://github.com/OCA/stock-logistics-availability
 use_pyproject_toml: true

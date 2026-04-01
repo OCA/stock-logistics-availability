@@ -23,23 +23,20 @@ msgid "Contains unreserved products"
 msgstr "يحتوي على كميات غير محجوزة"
 
 #. module: stock_available_unreserved
+#: model:ir.model.fields,field_description:stock_available_unreserved.field_product_template__free_qty
+msgid "Free Quantity"
+msgstr ""
+
+#. module: stock_available_unreserved
+#. odoo-python
+#: code:addons/stock_available_unreserved/models/product_template.py:0
+msgid "Free to Use Quantity"
+msgstr ""
+
+#. module: stock_available_unreserved
 #: model_terms:ir.ui.view,arch_db:stock_available_unreserved.quant_search_view
 msgid "Internal Unreserved"
 msgstr "الغير محجوز داخلياً"
-
-#. module: stock_available_unreserved
-#. odoo-python
-#: code:addons/stock_available_unreserved/models/product_product.py:0
-#, python-format
-msgid "Invalid domain operator %s"
-msgstr ""
-
-#. module: stock_available_unreserved
-#. odoo-python
-#: code:addons/stock_available_unreserved/models/product_product.py:0
-#, python-format
-msgid "Invalid domain right operand %s"
-msgstr ""
 
 #. module: stock_available_unreserved
 #: model:ir.model,name:stock_available_unreserved.model_product_template

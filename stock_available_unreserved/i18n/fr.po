@@ -25,23 +25,20 @@ msgid "Contains unreserved products"
 msgstr "Contient des articles non réservés"
 
 #. module: stock_available_unreserved
+#: model:ir.model.fields,field_description:stock_available_unreserved.field_product_template__free_qty
+msgid "Free Quantity"
+msgstr ""
+
+#. module: stock_available_unreserved
+#. odoo-python
+#: code:addons/stock_available_unreserved/models/product_template.py:0
+msgid "Free to Use Quantity"
+msgstr ""
+
+#. module: stock_available_unreserved
 #: model_terms:ir.ui.view,arch_db:stock_available_unreserved.quant_search_view
 msgid "Internal Unreserved"
 msgstr "Stock Interne Non Réservé"
-
-#. module: stock_available_unreserved
-#. odoo-python
-#: code:addons/stock_available_unreserved/models/product_product.py:0
-#, python-format
-msgid "Invalid domain operator %s"
-msgstr "Opérateur de domaine invalide %s"
-
-#. module: stock_available_unreserved
-#. odoo-python
-#: code:addons/stock_available_unreserved/models/product_product.py:0
-#, python-format
-msgid "Invalid domain right operand %s"
-msgstr "Champ de droite du domaine invalide %s"
 
 #. module: stock_available_unreserved
 #: model:ir.model,name:stock_available_unreserved.model_product_template
@@ -95,6 +92,14 @@ msgstr "Non réservé"
 #: model_terms:ir.ui.view,arch_db:stock_available_unreserved.product_template_kanban_stock_view
 msgid "Unreserved:"
 msgstr "Non réservé :"
+
+#, python-format
+#~ msgid "Invalid domain operator %s"
+#~ msgstr "Opérateur de domaine invalide %s"
+
+#, python-format
+#~ msgid "Invalid domain right operand %s"
+#~ msgstr "Champ de droite du domaine invalide %s"
 
 #~ msgid "Product Template"
 #~ msgstr "Article"

@@ -17,8 +17,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 4.14.1\n"
 
 #. module: stock_available_unreserved
@@ -27,23 +27,20 @@ msgid "Contains unreserved products"
 msgstr "Sadrži proizvode bez rezervacija"
 
 #. module: stock_available_unreserved
+#: model:ir.model.fields,field_description:stock_available_unreserved.field_product_template__free_qty
+msgid "Free Quantity"
+msgstr ""
+
+#. module: stock_available_unreserved
+#. odoo-python
+#: code:addons/stock_available_unreserved/models/product_template.py:0
+msgid "Free to Use Quantity"
+msgstr ""
+
+#. module: stock_available_unreserved
 #: model_terms:ir.ui.view,arch_db:stock_available_unreserved.quant_search_view
 msgid "Internal Unreserved"
 msgstr "Interno ne rezervirano"
-
-#. module: stock_available_unreserved
-#. odoo-python
-#: code:addons/stock_available_unreserved/models/product_product.py:0
-#, python-format
-msgid "Invalid domain operator %s"
-msgstr "Neispravan operator domene %s"
-
-#. module: stock_available_unreserved
-#. odoo-python
-#: code:addons/stock_available_unreserved/models/product_product.py:0
-#, python-format
-msgid "Invalid domain right operand %s"
-msgstr "Neispravan desni operand domene %s"
 
 #. module: stock_available_unreserved
 #: model:ir.model,name:stock_available_unreserved.model_product_template
@@ -97,6 +94,14 @@ msgstr "Odrezervirano"
 #: model_terms:ir.ui.view,arch_db:stock_available_unreserved.product_template_kanban_stock_view
 msgid "Unreserved:"
 msgstr "Odrezervirano:"
+
+#, python-format
+#~ msgid "Invalid domain operator %s"
+#~ msgstr "Neispravan operator domene %s"
+
+#, python-format
+#~ msgid "Invalid domain right operand %s"
+#~ msgstr "Neispravan desni operand domene %s"
 
 #~ msgid "Product Template"
 #~ msgstr "Predložak proizvoda"
