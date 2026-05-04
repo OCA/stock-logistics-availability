@@ -17,7 +17,7 @@ class SaleStockAvailableInfoPopup(common.TransactionCase):
             groups="sales_team.group_sale_salesman",
         )
         cls.product = cls.env["product.product"].create(
-            {"name": "Storable product", "detailed_type": "product"}
+            {"name": "Storable product", "type": "consu", "is_storable": True}
         )
         cls.partner = cls.env["res.partner"].create({"name": "Mr. Odoo"})
         cls.env["stock.quant"].create(

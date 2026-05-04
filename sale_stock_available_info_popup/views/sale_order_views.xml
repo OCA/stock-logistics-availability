@@ -8,7 +8,7 @@
         <field name="inherit_id" ref="sale.view_order_form" />
         <field name="arch" type="xml">
             <xpath
-                expr="//page/field[@name='order_line']/tree/field[@name='product_uom_qty']"
+                expr="//page/field[@name='order_line']/list/field[@name='product_uom_qty']"
                 position="after"
             >
                 <field name="immediately_usable_qty_today" column_invisible="1" />

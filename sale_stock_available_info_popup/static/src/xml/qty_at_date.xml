@@ -6,7 +6,6 @@
         t-name="sale_stock_available_info_popup.QtyAtDatePopover"
         t-inherit="sale_stock.QtyAtDatePopover"
         t-inherit-mode="extension"
-        owl="1"
     >
         <xpath expr="//table/tbody/t[1]" position="before">
             <tr>
