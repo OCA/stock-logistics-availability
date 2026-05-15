@@ -1,4 +1,7 @@
 
+[![Support the OCA](https://odoo-community.org/readme-banner-image)](https://odoo-community.org/get-involved?utm_source=repo-readme)
+
+# Stock Availability modules
 [![Runboat](https://img.shields.io/badge/runboat-Try%20me-875A7B.png)](https://runboat.odoo-community.org/builds?repo=OCA/stock-logistics-availability&target_branch=16.0)
 [![Pre-commit Status](https://github.com/OCA/stock-logistics-availability/actions/workflows/pre-commit.yml/badge.svg?branch=16.0)](https://github.com/OCA/stock-logistics-availability/actions/workflows/pre-commit.yml?query=branch%3A16.0)
 [![Build Status](https://github.com/OCA/stock-logistics-availability/actions/workflows/test.yml/badge.svg?branch=16.0)](https://github.com/OCA/stock-logistics-availability/actions/workflows/test.yml?query=branch%3A16.0)
@@ -6,8 +9,6 @@
 [![Translation Status](https://translation.odoo-community.org/widgets/stock-logistics-availability-16-0/-/svg-badge.svg)](https://translation.odoo-community.org/engage/stock-logistics-availability-16-0/?utm_source=widget)
 
 <!-- /!\ do not modify above this line -->
-
-# Stock Availability
 
 This repository contains modules to provide more information about product stock availability in terms of quantities
 
