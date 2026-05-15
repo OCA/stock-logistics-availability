@@ -314,8 +314,8 @@ class TestStockAvailableLocationOrderpointTemplate(TestLocationOrderpointCommon)
                 "product_id": self.product.id,
             }
         )._apply_inventory()
-        move = self._create_outgoing_move(12, location=self.warehouse.lot_stock_id)
-        move = self._create_outgoing_move(1, location=self.warehouse.lot_stock_id)
+        move = self._create_outgoing_move(12, location=self.location_dest)
+        move = self._create_outgoing_move(1, location=self.location_dest)
         self.assertEqual(move.state, "confirmed")
 
         move = self._create_outgoing_move(5.0, location=self.shelf)
@@ -396,14 +396,20 @@ class TestStockAvailableLocationOrderpointTemplate(TestLocationOrderpointCommon)
             self.orderpoint_shelf_1,
             self.location_src_shelf_1,
         ) = self._create_orderpoint_complete(
-            "Area 1 Replenishment", trigger="manual", location_dest=self.area_1
+            "Area 1 Replenishment",
+            trigger="manual",
+            location_dest=self.area_1,
+            proc_run_async=False,
         )
 
         (
             self.orderpoint_shelf_2,
             self.location_src_shelf_2,
         ) = self._create_orderpoint_complete(
-            "Area 2 Replenishment", trigger="manual", location_dest=self.area_2
+            "Area 2 Replenishment",
+            trigger="manual",
+            location_dest=self.area_2,
+            proc_run_async=False,
         )
 
         # Set stock on replenishment locations
