@@ -46,14 +46,6 @@ class ProductProduct(models.Model):
             )
             return
 
-        # Merge both source locations and destination locations
-        location_ids = set(
-            orderpoints.location_id.ids + orderpoints.location_src_id.ids
-        )
-        qties_on_locations = orderpoints._compute_quantities_dict(
-            self.env["stock.location"].browse(location_ids),
-            self,
-        )
         # Get current replenishments
         current_moves = self.env["stock.move"].read_group(
             [
@@ -69,31 +61,33 @@ class ProductProduct(models.Model):
             quantities_in_replenishments[current_move["product_id"][0]] = current_move[
                 "product_uom_qty"
             ]
-        for product in self:
-            qties_replenished_for_location = {product: 0.0}
-            for orderpoint in orderpoints:
-                # As we compute global quantities for the product, pass
-                # always 0 to the already replenished quantity
-                qty_to_replenish = orderpoint._get_qty_to_replenish(
-                    product,
-                    qties_on_locations,
-                    0,
-                )
+
+        # Compute quantities to replenish
+        qties_replenished_for_location = defaultdict(lambda: 0.0)
+        for orderpoint in orderpoints:
+            replenishment_qty_computer = orderpoint._get_replenishment_computer()
+            procurement_qty = replenishment_qty_computer.compute(
+                products=self, demand_only=False
+            )
+            for product_id, qty_to_replenish in procurement_qty.items():
                 if (
                     float_compare(
-                        qty_to_replenish, 0, precision_rounding=product.uom_id.rounding
+                        qty_to_replenish,
+                        0,
+                        precision_rounding=self.env["product.product"]
+                        .browse(product_id)
+                        .uom_id.rounding,
                     )
                     > 0
                 ):
-                    # We take the maximum value from all the concerned orderpoints
-                    # for the product
-                    qties_replenished_for_location[product] += qty_to_replenish
+                    qties_replenished_for_location[product_id] += qty_to_replenish
+        for product in self:
             product.update(
                 {
                     "quantity_in_replenishments": quantities_in_replenishments[
                         product.id
                     ],
-                    "quantity_to_replenish": qties_replenished_for_location[product],
+                    "quantity_to_replenish": qties_replenished_for_location[product.id],
                 }
             )
         return

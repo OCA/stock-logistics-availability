@@ -10,10 +10,10 @@ class TestStockAvailableLocationOrderpoint(TestLocationOrderpointCommon):
     def setUp(self):
         super().setUp()
         self.orderpoint, self.location_src = self._create_orderpoint_complete(
-            "Stock2", trigger="manual"
+            "Stock2", trigger="manual", proc_run_async=False
         )
         self.orderpoint2, self.location_src2 = self._create_orderpoint_complete(
-            "Stock2.2", trigger="manual"
+            "Stock2.2", trigger="manual", proc_run_async=False
         )
 
     def test_available_on_replenish_zero(self):
@@ -112,7 +112,9 @@ class TestStockAvailableLocationOrderpoint(TestLocationOrderpointCommon):
         (
             self.orderpoint_shelf,
             self.location_src_shelf,
-        ) = self._create_orderpoint_complete("Shelf Replenishment", trigger="manual")
+        ) = self._create_orderpoint_complete(
+            "Shelf Replenishment", trigger="manual", location_dest=self.shelf
+        )
 
         self.env["stock.quant"].with_context(inventory_mode=True).create(
             {
@@ -142,7 +144,7 @@ class TestStockAvailableLocationOrderpoint(TestLocationOrderpointCommon):
         # The quantity to replenish is equal to the total of replenishment locations
         # quantity as they are in shelf parents path.
         self.assertEqual(
-            17.0,
+            10.0,
             self.product.with_context(location=self.shelf.id).quantity_to_replenish,
         )
 
@@ -172,7 +174,10 @@ class TestStockAvailableLocationOrderpoint(TestLocationOrderpointCommon):
             self.orderpoint_shelf,
             self.location_src_shelf,
         ) = self._create_orderpoint_complete(
-            "Shelf Replenishment", trigger="manual", location_dest=self.shelf
+            "Shelf Replenishment",
+            trigger="manual",
+            location_dest=self.shelf,
+            proc_run_async=False,
         )
 
         self.env["stock.quant"].with_context(inventory_mode=True).create(
@@ -227,9 +232,9 @@ class TestStockAvailableLocationOrderpoint(TestLocationOrderpointCommon):
         Create a location structure like:
             - Stock
                 - Area 1
-                    - Shelf 1
+                    - Shelf 1 (qty in shelf: 6.0)
                 - Area 2
-                    - Shelf 2
+                    - Shelf 2 (qty in shelf: 4.0)
 
         Create orderpoints for both areas.
 
@@ -274,14 +279,20 @@ class TestStockAvailableLocationOrderpoint(TestLocationOrderpointCommon):
             self.orderpoint_shelf_1,
             self.location_src_shelf_1,
         ) = self._create_orderpoint_complete(
-            "Area 1 Replenishment", location_dest=self.area_1, trigger="manual"
+            "Area 1 Replenishment",
+            location_dest=self.area_1,
+            trigger="manual",
+            proc_run_async=False,
         )
 
         (
             self.orderpoint_shelf_2,
             self.location_src_shelf_2,
         ) = self._create_orderpoint_complete(
-            "Area 2 Replenishment", location_dest=self.area_2, trigger="manual"
+            "Area 2 Replenishment",
+            location_dest=self.area_2,
+            trigger="manual",
+            proc_run_async=False,
         )
 
         # Set stock on replenishment locations
@@ -319,7 +330,10 @@ class TestStockAvailableLocationOrderpoint(TestLocationOrderpointCommon):
         self.orderpoint_shelf_1.run_replenishment()
         # Test all variables in different contexts
         self.product.invalidate_recordset()
+        # The 6.0 qty for shelf 1 are now in replenishment so at the global level,
+        # we only have 2.0 remaining to replenish
         self.assertEqual(2.0, self.product.quantity_to_replenish)
+        # The 6.0 qty are for shelf 1
         self.assertEqual(6.0, self.product.quantity_in_replenishments)
         self.product.invalidate_recordset()
         self.assertEqual(

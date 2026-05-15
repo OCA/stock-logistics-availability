@@ -396,14 +396,20 @@ class TestStockAvailableLocationOrderpointTemplate(TestLocationOrderpointCommon)
             self.orderpoint_shelf_1,
             self.location_src_shelf_1,
         ) = self._create_orderpoint_complete(
-            "Area 1 Replenishment", trigger="manual", location_dest=self.area_1
+            "Area 1 Replenishment",
+            trigger="manual",
+            location_dest=self.area_1,
+            proc_run_async=False,
         )
 
         (
             self.orderpoint_shelf_2,
             self.location_src_shelf_2,
         ) = self._create_orderpoint_complete(
-            "Area 2 Replenishment", trigger="manual", location_dest=self.area_2
+            "Area 2 Replenishment",
+            trigger="manual",
+            location_dest=self.area_2,
+            proc_run_async=False,
         )
 
         # Set stock on replenishment locations
