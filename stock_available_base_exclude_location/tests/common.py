@@ -3,6 +3,7 @@
 from odoo import models
 
 
-class ResPartner(models.Model):
-    _name = "res.partner"
-    _inherit = ["res.partner", "stock.exclude.location.mixin"]
+class TestExcludeLocationOwner(models.Model):
+    _name = "test.exclude.location.owner"
+    _inherit = ["stock.exclude.location.mixin"]
+    _description = "Test model for stock exclude location mixin"

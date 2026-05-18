@@ -1,37 +1,38 @@
 # Copyright 2020 ACSONE SA/NV
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo_test_helper import FakeModelLoader
+from odoo.orm.model_classes import add_to_registry
+from odoo.tests import common
 
-from odoo.addons.base.tests.common import BaseCommon
-from odoo.addons.stock.models.stock_location import Location
+from odoo.addons.stock.models.stock_location import StockLocation as Location
 from odoo.addons.stock.models.stock_move import StockMove
 
 
-class TestExcludeLocation(BaseCommon):
+class TestExcludeLocation(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        from .common import TestExcludeLocationOwner
+
+        add_to_registry(cls.registry, TestExcludeLocationOwner)
+        cls.registry._setup_models__(cls.env.cr, [TestExcludeLocationOwner._name])
+        cls.registry.init_models(
+            cls.env.cr,
+            [TestExcludeLocationOwner._name],
+            {"models_to_check": True},
+        )
+        cls.addClassCleanup(cls.registry.__delitem__, TestExcludeLocationOwner._name)
         cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.location_shop = cls.env.ref("stock.stock_location_stock")
         vals = {"location_id": cls.location_shop.id, "name": "Sub Location 1"}
         cls.sub_location_1 = cls.env["stock.location"].create(vals)
-        cls.sub_location_1._parent_store_compute()
-        cls.product = cls.env.ref("product.product_product_4")
-
-    def setUp(self):
-        super().setUp()
-        self.loader = FakeModelLoader(self.env, self.__module__)
-        self.loader.backup_registry()
-
-        from .common import ResPartner
-
-        self.loader.update_registry((ResPartner,))
-
-        self.fake = self.env["res.partner"].create({"name": "name"})
-
-    def tearDown(self):
-        self.loader.restore_registry()
-        super().tearDown()
+        cls.product = cls.env["product.product"].create(
+            {
+                "name": "Test Product",
+                "type": "consu",
+                "is_storable": True,
+            }
+        )
+        cls.fake = cls.env[TestExcludeLocationOwner._name].create({})
 
     @classmethod
     def _create_stock_move(
@@ -39,7 +40,6 @@ class TestExcludeLocation(BaseCommon):
     ) -> StockMove:
         move = cls.env["stock.move"].create(
             {
-                "name": "Move",
                 "location_id": location.id,
                 "location_dest_id": location_dest.id,
                 "product_id": cls.product.id,
