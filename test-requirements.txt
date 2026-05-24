@@ -1,1 +1,2 @@
 odoo_test_helper
+odoo-addon-stock-location-orderpoint @ git+https://github.com/OCA/stock-logistics-orderpoint.git@refs/pull/85/head#subdirectory=setup/stock_location_orderpoint
