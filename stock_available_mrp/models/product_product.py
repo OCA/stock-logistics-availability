@@ -134,15 +134,50 @@ class ProductProduct(models.Model):
         The 'MrpBom.explode()' method includes the same information, with other
         things, but is under-optimized to be used for the purpose of this
         module. The killer is particularly the call to `_bom_find()` which can
-        generate thousands of SELECT for searches.
+        generate thousands of SELECT for searches. To keep the variant-aware
+        resolution semantics of ``_bom_find`` without paying that cost we cache
+        its result by product within the call.
+
+        Behaviour notes:
+
+        * The applicable BoM is resolved through ``mrp.bom._bom_find`` rather
+          than ``first(product.bom_ids)``. ``bom_ids`` is template-wide via
+          ``_inherits`` and would surface BoMs of sibling variants of the
+          same template, which produces infinite recursion when a kit uses
+          another variant of its own template as a component.
+        * As a consequence the top-level BoM is now selected by
+          ``_bom_find`` ordering (``sequence, product_id, id``) instead of
+          the raw ``bom_ids`` order. Both orderings agree in well-configured
+          setups; they may diverge only when ``sequence`` is set against
+          ``id``.
+        * The sub-BoM lookup uses ``bom_type='phantom'``, aligning with the
+          core ``mrp.bom.explode`` flow. A component carrying both a
+          ``normal`` and a ``phantom`` BoM under the same template now
+          properly expands the phantom one (previously masked by the
+          fragile ``first(bom_ids)`` ordering).
+        * Cross-template cycles (``A -> B -> A`` across distinct templates)
+          are not protected here; the module never had cycle detection and
+          this fix does not introduce it. Only the sibling-variant trap is
+          closed.
         """
         result = {}
+        Bom = self.env["mrp.bom"]
+        # Cache of (product, bom_type) -> applicable BoM. See docstring.
+        bom_cache = {}
+
+        def _resolve_bom(product, bom_type=False):
+            key = (product.id, bom_type)
+            if key not in bom_cache:
+                # ``_bom_find`` returns a defaultdict(self.env['mrp.bom']),
+                # so missing keys yield an empty recordset naturally.
+                bom_cache[key] = Bom._bom_find(product, bom_type=bom_type)[product]
+            return bom_cache[key]
 
         for product in self:
+            top_bom = _resolve_bom(product)
             lines_done = []
             bom_lines = [
-                (first(product.bom_ids), bom_line, product, 1.0)
-                for bom_line in first(product.bom_ids).bom_line_ids
+                (top_bom, bom_line, product, 1.0) for bom_line in top_bom.bom_line_ids
             ]
 
             while bom_lines:
@@ -154,7 +189,7 @@ class ProductProduct(models.Model):
 
                 line_quantity = current_qty * current_line.product_qty
 
-                sub_bom = first(current_line.product_id.bom_ids)
+                sub_bom = _resolve_bom(current_line.product_id, bom_type="phantom")
                 if sub_bom.type == "phantom":
                     product_uom = current_line.product_uom_id
                     converted_line_quantity = product_uom._compute_quantity(
