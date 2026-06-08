@@ -87,6 +87,16 @@ class TestPotentialQty(TransactionCase):
             quant = quant.with_company(company)
         quant._update_available_quantity(product, location, qty)
 
+    def create_storable_product(self, name):
+        return self.product_model.create(
+            {
+                "name": name,
+                "type": "consu",
+                "is_storable": True,
+                "uom_id": self.env.ref("uom.product_uom_unit").id,
+            }
+        )
+
     def assertPotentialQty(self, record, qty, msg):
         record.invalidate_model()
         #  Check the potential
@@ -516,3 +526,95 @@ class TestPotentialQty(TransactionCase):
         self.assertPotentialQty(
             self.var2, 250.0, "Wrong variant 2 potential after receiving its components"
         )
+
+    def test_07_product_specific_bom_takes_precedence(self):
+        finished_product = self.create_storable_product("Finished product")
+        generic_component = self.create_storable_product("Generic component")
+        variant_component = self.create_storable_product("Variant component")
+
+        generic_bom = self.bom_model.create(
+            {"product_tmpl_id": finished_product.product_tmpl_id.id}
+        )
+        self.bom_line_model.create(
+            {
+                "bom_id": generic_bom.id,
+                "product_id": generic_component.id,
+                "product_qty": 1,
+            }
+        )
+        variant_bom = self.bom_model.create(
+            {
+                "product_tmpl_id": finished_product.product_tmpl_id.id,
+                "product_id": finished_product.id,
+            }
+        )
+        self.bom_line_model.create(
+            {
+                "bom_id": variant_bom.id,
+                "product_id": variant_component.id,
+                "product_qty": 2,
+            }
+        )
+
+        self.create_inventory(variant_component, 10)
+        finished_product.invalidate_model()
+
+        self.assertEqual(finished_product.potential_qty, 5.0)
+        self.assertEqual(finished_product.immediately_usable_qty, 5.0)
+
+    def test_08_product_specific_phantom_bom_takes_precedence(self):
+        finished_product = self.create_storable_product("Finished product")
+        subassembly = self.create_storable_product("Subassembly")
+        component = self.create_storable_product("Component")
+        generic_component = self.create_storable_product("Generic component")
+
+        finished_bom = self.bom_model.create(
+            {
+                "product_tmpl_id": finished_product.product_tmpl_id.id,
+                "product_id": finished_product.id,
+            }
+        )
+        self.bom_line_model.create(
+            [
+                {
+                    "bom_id": finished_bom.id,
+                    "product_id": component.id,
+                    "product_qty": 1,
+                },
+                {
+                    "bom_id": finished_bom.id,
+                    "product_id": subassembly.id,
+                    "product_qty": 1,
+                },
+            ]
+        )
+        generic_bom = self.bom_model.create(
+            {"product_tmpl_id": subassembly.product_tmpl_id.id}
+        )
+        self.bom_line_model.create(
+            {
+                "bom_id": generic_bom.id,
+                "product_id": generic_component.id,
+                "product_qty": 1,
+            }
+        )
+        variant_bom = self.bom_model.create(
+            {
+                "product_tmpl_id": subassembly.product_tmpl_id.id,
+                "product_id": subassembly.id,
+                "type": "phantom",
+            }
+        )
+        self.bom_line_model.create(
+            {
+                "bom_id": variant_bom.id,
+                "product_id": component.id,
+                "product_qty": 1,
+            }
+        )
+
+        self.create_inventory(component, 2)
+        finished_product.invalidate_model()
+
+        self.assertEqual(finished_product.potential_qty, 1.0)
+        self.assertEqual(finished_product.immediately_usable_qty, 1.0)

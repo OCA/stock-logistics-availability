@@ -64,13 +64,7 @@ class ProductProduct(models.Model):
 
         for product in product_with_bom:
             # Need by product (same product can be in many BOM lines/levels)
-            bom_id = first(
-                product.variant_bom_ids
-                or product.bom_ids.filtered(
-                    lambda b, product=product: not b.product_id
-                    or b.product_id == product
-                )
-            )
+            bom_id = product._get_applicable_bom()
             exploded_components = exploded_boms[product.id]
             component_needs = product._get_components_needs(exploded_components)
             if not component_needs:
@@ -97,6 +91,15 @@ class ProductProduct(models.Model):
             res[product.id]["immediately_usable_qty"] += potential_qty
 
         return res, stock_dict
+
+    def _get_applicable_bom(self):
+        self.ensure_one()
+        return first(
+            self.variant_bom_ids
+            or self.bom_ids.filtered(
+                lambda bom: not bom.product_id or bom.product_id == self
+            )
+        )
 
     def _explode_boms(self):
         """
@@ -141,10 +144,8 @@ class ProductProduct(models.Model):
 
         for product in self:
             lines_done = []
-            bom_lines = [
-                (first(product.bom_ids), bom_line, product, 1.0)
-                for bom_line in first(product.bom_ids).bom_line_ids
-            ]
+            bom = product._get_applicable_bom()
+            bom_lines = [(bom, bom_line, product, 1.0) for bom_line in bom.bom_line_ids]
 
             while bom_lines:
                 (current_bom, current_line, current_product, current_qty) = bom_lines[0]
@@ -155,7 +156,7 @@ class ProductProduct(models.Model):
 
                 line_quantity = current_qty * current_line.product_qty
 
-                sub_bom = first(current_line.product_id.bom_ids)
+                sub_bom = current_line.product_id._get_applicable_bom()
                 if sub_bom.type == "phantom":
                     product_uom = current_line.product_uom_id
                     converted_line_quantity = product_uom._compute_quantity(
