@@ -562,6 +562,39 @@ class TestPotentialQty(TransactionCase):
         self.assertEqual(finished_product.potential_qty, 5.0)
         self.assertEqual(finished_product.immediately_usable_qty, 5.0)
 
+    def test_09_phantom_bom_immediately_usable_qty(self):
+        """Kits must not have their buildable qty counted twice.
+
+        For a phantom (kit) BoM, Odoo's MRP already derives the kit's availability
+        from the availability of its components. Check that available quantities of
+        kit products are not counted double.
+        """
+        kit = self.create_storable_product("Kit product")
+        component = self.create_storable_product("Kit component")
+
+        kit_bom = self.bom_model.create(
+            {
+                "product_tmpl_id": kit.product_tmpl_id.id,
+                "product_id": kit.id,
+                "type": "phantom",
+            }
+        )
+        self.bom_line_model.create(
+            {
+                "bom_id": kit_bom.id,
+                "product_id": component.id,
+                "product_qty": 2,
+            }
+        )
+
+        # Enough components to build 5 kits.
+        self.create_inventory(component, 10)
+
+        self.assertEqual(kit.qty_available, 5.0)
+        self.assertEqual(kit.virtual_available, 5.0)
+        self.assertEqual(kit.potential_qty, 5.0)
+        self.assertEqual(kit.immediately_usable_qty, 5.0)
+
     def test_08_product_specific_phantom_bom_takes_precedence(self):
         finished_product = self.create_storable_product("Finished product")
         subassembly = self.create_storable_product("Subassembly")

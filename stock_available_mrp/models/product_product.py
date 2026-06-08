@@ -88,7 +88,14 @@ class ProductProduct(models.Model):
                 )
 
             res[product.id]["potential_qty"] = potential_qty
-            res[product.id]["immediately_usable_qty"] += potential_qty
+            if bom_id.type == "phantom":
+                # For kits, Odoo already derives qty_available/virtual_available
+                # (and thus immediately_usable_qty) from the components, so the
+                # buildable quantity is already reflected. Adding potential_qty
+                # on top would double count it.
+                res[product.id]["immediately_usable_qty"] = potential_qty
+            else:
+                res[product.id]["immediately_usable_qty"] += potential_qty
 
         return res, stock_dict
 
