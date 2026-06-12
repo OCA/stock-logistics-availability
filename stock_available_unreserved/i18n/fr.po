@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-04 03:58+0000\n"
-"PO-Revision-Date: 2021-11-05 14:35+0000\n"
-"Last-Translator: Rémi <remi@le-filament.com>\n"
+"PO-Revision-Date: 2026-06-12 15:47+0000\n"
+"Last-Translator: Yann Papouin <ypa@decgroupe.com>\n"
 "Language-Team: French (https://www.transifex.com/oca/teams/23907/fr/)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.3.2\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: stock_available_unreserved
 #: model:ir.model.fields,field_description:stock_available_unreserved.field_stock_quant__contains_unreserved
@@ -27,38 +27,38 @@ msgstr "Contient des articles non réservés"
 #. module: stock_available_unreserved
 #: model:ir.model.fields,field_description:stock_available_unreserved.field_product_template__free_qty
 msgid "Free Quantity"
-msgstr ""
+msgstr "Quantité disponible"
 
 #. module: stock_available_unreserved
 #. odoo-python
 #: code:addons/stock_available_unreserved/models/product_template.py:0
 msgid "Free to Use Quantity"
-msgstr ""
+msgstr "Quantité à usage libre"
 
 #. module: stock_available_unreserved
 #: model_terms:ir.ui.view,arch_db:stock_available_unreserved.quant_search_view
 msgid "Internal Unreserved"
-msgstr "Stock Interne Non Réservé"
+msgstr "Stock interne et non réservé"
 
 #. module: stock_available_unreserved
 #: model:ir.model,name:stock_available_unreserved.model_product_template
 msgid "Product"
-msgstr "Variante d'Article"
+msgstr "Article"
 
 #. module: stock_available_unreserved
 #: model:ir.model,name:stock_available_unreserved.model_product_product
 msgid "Product Variant"
-msgstr ""
+msgstr "Variante d'article"
 
 #. module: stock_available_unreserved
 #: model:ir.model.fields,field_description:stock_available_unreserved.field_product_product__qty_available_not_res
 msgid "Qty Available Not Reserved"
-msgstr "Quantité Disponible Non Réservée"
+msgstr "Quantité disponible non réservée"
 
 #. module: stock_available_unreserved
 #: model:ir.model.fields,field_description:stock_available_unreserved.field_product_template__qty_available_not_res
 msgid "Quantity On Hand Unreserved"
-msgstr "Quantité Disponible Non Réservée"
+msgstr "Quantité disponible sans réserve"
 
 #. module: stock_available_unreserved
 #: model:ir.model.fields,help:stock_available_unreserved.field_product_product__qty_available_not_res
@@ -66,21 +66,23 @@ msgstr "Quantité Disponible Non Réservée"
 msgid ""
 "Quantity of this product that is not currently reserved for a stock move"
 msgstr ""
+"Quantité de ce produit qui n'est pas actuellement réservée pour un mouvement "
+"de stock"
 
 #. module: stock_available_unreserved
 #: model:ir.model,name:stock_available_unreserved.model_stock_quant
 msgid "Quants"
-msgstr ""
+msgstr "Quantités"
 
 #. module: stock_available_unreserved
 #: model_terms:ir.ui.view,arch_db:stock_available_unreserved.product_template_search_form_view_stock
 msgid "Reservable Products"
-msgstr "Articles Réservables"
+msgstr "Articles réservables"
 
 #. module: stock_available_unreserved
 #: model:ir.actions.act_window,name:stock_available_unreserved.product_open_quants_unreserved
 msgid "Stock On Hand (Unreserved)"
-msgstr "Quantités en stock (Non réservées)"
+msgstr "Quantités en stock (non réservées)"
 
 #. module: stock_available_unreserved
 #: model_terms:ir.ui.view,arch_db:stock_available_unreserved.product_form_view_procurement_button
@@ -91,7 +93,7 @@ msgstr "Non réservé"
 #. module: stock_available_unreserved
 #: model_terms:ir.ui.view,arch_db:stock_available_unreserved.product_template_kanban_stock_view
 msgid "Unreserved:"
-msgstr "Non réservé :"
+msgstr "Non réservé :"
 
 #, python-format
 #~ msgid "Invalid domain operator %s"
