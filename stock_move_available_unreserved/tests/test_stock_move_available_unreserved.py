@@ -34,5 +34,11 @@ class TestStockMoveAvailableUnreserved(TransactionCase):
         )
 
     def test_available_unreserved_quantity_is_not_capped_by_demand(self):
+        self.move._compute_available_unreserved_quantity()
         self.assertEqual(self.move.availability, 4.0)
         self.assertEqual(self.move.available_unreserved_quantity, 10.0)
+
+    def test_available_unreserved_quantity_without_product_or_location(self):
+        move = self.env["stock.move"].new({})
+        move._compute_available_unreserved_quantity()
+        self.assertEqual(move.available_unreserved_quantity, 0.0)
