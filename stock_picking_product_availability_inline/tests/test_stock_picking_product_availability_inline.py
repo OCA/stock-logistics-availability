@@ -46,7 +46,7 @@ class TestStockPickingProductAvailabilityInline(TransactionCase):
         )
 
     def test_stock_picking_product_rec_name(self):
-        self.env.ref("product.decimal_product_uom").write({"digits": 3})
+        self.env.ref("uom.decimal_product_uom").write({"digits": 3})
         # Show free_qty in warehouse1
         self.assertEqual(
             self.product.with_context(warehouse_id=self.warehouse1.id).free_qty,

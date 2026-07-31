@@ -3,7 +3,7 @@
 {
     "name": "Stock Picking Product Availability Inline",
     "summary": "Show product availability in product drop-down of picking form view.",
-    "version": "18.0.1.0.0",
+    "version": "19.0.1.0.0",
     "development_status": "Production/Stable",
     "category": "Warehouse Management",
     "website": "https://github.com/OCA/stock-logistics-availability",
