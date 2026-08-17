@@ -57,7 +57,8 @@ class ProductProduct(models.Model):
         "from_date",
         "to_date",
         "location",
-        "warehouse",
+        "warehouse_id",
+        "allowed_company_ids",
     )
     def _compute_available_quantities(self):
         res, _ = self._compute_available_quantities_dict()
