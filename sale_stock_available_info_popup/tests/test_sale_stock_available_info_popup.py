@@ -17,7 +17,7 @@ class SaleStockAvailableInfoPopup(common.TransactionCase):
             groups="sales_team.group_sale_salesman",
         )
         cls.product = cls.env["product.product"].create(
-            {"name": "Storable product", "detailed_type": "product"}
+            {"name": "Storable product", "type": "consu", "is_storable": True}
         )
         cls.partner = cls.env["res.partner"].create({"name": "Mr. Odoo"})
         cls.env["stock.quant"].create(
@@ -41,7 +41,7 @@ class SaleStockAvailableInfoPopup(common.TransactionCase):
     def _create_picking(self, picking_type, qty):
         picking_form = Form(self.env["stock.picking"])
         picking_form.picking_type_id = picking_type
-        with picking_form.move_ids_without_package.new() as move:
+        with picking_form.move_ids.new() as move:
             move.product_id = self.product
             move.product_uom_qty = qty
         return picking_form.save()
