@@ -9,17 +9,15 @@
         owl="1"
     >
         <xpath expr="//table/tbody/t[1]" position="before">
-                    <tr>
+            <tr>
                 <td>
                     <strong>Available to promise</strong>
                 </td>
                 <td class="text-end">
-                    <b t-out='props.record.data.immediately_usable_qty_today' /> <t
-                        t-out="props.record.data.product_uom[1]"
-                    />
+                    <b t-out='props.record.data.immediately_usable_qty_today' />
+                    <t t-out="props.record.data.product_uom[1]" />
                 </td>
             </tr>
-
         </xpath>
     </t>
 </templates>
