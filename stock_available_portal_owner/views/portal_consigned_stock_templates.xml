@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <template id="portal_my_consigned_stock" name="My Consigned Stock">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">My Consigned Stock</t>
+            </t>
+
+            <t t-if="not owner">
+                <div class="alert alert-warning mt-3" role="alert">
+                    We were unable to identify a goods owner
+                    associated with your account.
+                </div>
+            </t>
+
+            <t t-else="">
+                <div
+                    class="d-flex flex-wrap justify-content-between align-items-center mb-3"
+                >
+                    <div class="d-flex flex-wrap align-items-center gap-2">
+                        <t t-if="warehouses and len(warehouses) &gt; 1">
+                            <form
+                                method="get"
+                                t-attf-action="/my/consigned-stock"
+                                class="d-flex align-items-center"
+                            >
+                                <input
+                                    type="hidden"
+                                    name="search"
+                                    t-att-value="search"
+                                />
+                                <input
+                                    type="hidden"
+                                    name="search_in"
+                                    t-att-value="search_in"
+                                />
+                                <input
+                                    type="hidden"
+                                    name="sortby"
+                                    t-att-value="sortby"
+                                />
+                                <label
+                                    class="me-2 mb-0"
+                                    for="warehouse_id"
+                                >Warehouse:</label>
+                                <select
+                                    name="warehouse_id"
+                                    id="warehouse_id"
+                                    class="form-select form-select-sm w-auto"
+                                    onchange="this.form.submit()"
+                                >
+                                    <option value="">All</option>
+                                    <t t-foreach="warehouses" t-as="wh">
+                                        <option
+                                            t-att-value="wh.id"
+                                            t-att-selected="warehouse_id and int(warehouse_id) == wh.id"
+                                        >
+                                            <t t-esc="wh.name" />
+                                        </option>
+                                    </t>
+                                </select>
+                            </form>
+                        </t>
+                    </div>
+                </div>
+
+                <t t-if="not product_values">
+                    <div class="alert alert-info" role="alert">
+                        No products with stock associated with your
+                        owner were found.
+                    </div>
+                </t>
+
+                <t t-else="">
+                    <table class="table table-hover o_portal_my_doc_table">
+                        <thead>
+                            <tr class="active">
+                                <th>Product</th>
+                                <th>Internal Reference</th>
+                                <th class="text-end">On Hand Stock</th>
+                                <th class="text-end">Free Stock</th>
+                                <th class="text-end">Incoming</th>
+                                <th class="text-end">Outgoing</th>
+                                <th class="text-end">Forecasted Stock</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="product_values" t-as="product_value">
+                                <tr>
+                                    <td>
+                                        <span
+                                            t-esc="product_value['product'].display_name"
+                                        />
+                                    </td>
+                                    <td>
+                                        <span
+                                            t-esc="product_value['product'].default_code or '-'"
+                                        />
+                                    </td>
+                                    <td class="text-end">
+                                        <span
+                                            t-esc="'%.2f' % product_value['qty_available']"
+                                        />
+                                    </td>
+                                    <td class="text-end">
+                                        <span
+                                            t-esc="'%.2f' % product_value['free_qty']"
+                                        />
+                                    </td>
+                                    <td class="text-end">
+                                        <span
+                                            t-esc="'%.2f' % product_value['incoming_qty']"
+                                        />
+                                    </td>
+                                    <td class="text-end">
+                                        <span
+                                            t-esc="'%.2f' % product_value['outgoing_qty']"
+                                        />
+                                    </td>
+                                    <td class="text-end">
+                                        <span
+                                            t-esc="'%.2f' % product_value['virtual_available']"
+                                        />
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <div class="o_portal_pager text-center">
+                        <t t-call="portal.pager" />
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template
+        id="portal_my_home_menu_consigned_stock"
+        name="Portal layout: My Consigned Stock menu entry"
+        inherit_id="portal.portal_breadcrumbs"
+        priority="99"
+    >
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'consigned_stock'" class="breadcrumb-item active">
+                My Consigned Stock
+            </li>
+        </xpath>
+    </template>
+
+</odoo>
