@@ -1,7 +1,8 @@
 [project]
 name = "odoo-addons-oca-stock-logistics-availability"
-version = "19.0.20260824.0"
+version = "19.0.20260824.1"
 dependencies = [
+    "odoo-addon-sale_stock_available_info_popup==19.0.*",
     "odoo-addon-stock_available==19.0.*",
     "odoo-addon-stock_available_immediately==19.0.*",
 ]

@@ -25,6 +25,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[sale_stock_available_info_popup](sale_stock_available_info_popup/) | 19.0.1.0.0 |  | Adds an 'Available to promise' quantity to the popover shown in sale order line that display stock info of the product
 [stock_available](stock_available/) | 19.0.1.0.0 |  | Stock available to promise
 [stock_available_immediately](stock_available_immediately/) | 19.0.1.0.0 |  | Ignore planned receptions in quantity available to promise
 
