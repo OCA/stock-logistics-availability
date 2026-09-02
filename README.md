@@ -26,7 +26,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[stock_available](stock_available/) | 18.0.1.0.0 |  | Stock available to promise
+[stock_available](stock_available/) | 18.0.1.0.1 |  | Stock available to promise
 [stock_available_base_exclude_location](stock_available_base_exclude_location/) | 18.0.1.0.2 | <a href='https://github.com/rousseldenis'><img src='https://github.com/rousseldenis.png' width='32' height='32' style='border-radius:50%;' alt='rousseldenis'/></a> | Base module to exclude locations for product available quantities
 [stock_available_immediately](stock_available_immediately/) | 18.0.1.0.0 |  | Ignore planned receptions in quantity available to promise
 [stock_available_immediately_exclude_location](stock_available_immediately_exclude_location/) | 18.0.1.0.0 |  | Exclude locations from immediately usable quantity
