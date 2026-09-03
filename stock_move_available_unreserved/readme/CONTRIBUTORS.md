@@ -1,0 +1,2 @@
+- [Dealtech Srl](https://dealtech.eu/):
+  - Alessandro Boldrini
