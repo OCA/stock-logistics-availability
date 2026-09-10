@@ -1,0 +1,87 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#       * stock_available_portal_owner
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-01 08:28+0000\n"
+"PO-Revision-Date: 2026-09-01 08:28+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_available_portal_owner
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner.portal_my_consigned_stock
+msgid "<option value=\"\">All</option>"
+msgstr ""
+
+#. module: stock_available_portal_owner
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner.portal_my_home_consigned_stock
+msgid "Follow, view your consigned stock"
+msgstr ""
+
+#. module: stock_available_portal_owner
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner.portal_my_consigned_stock
+msgid "Forecasted Stock"
+msgstr ""
+
+#. module: stock_available_portal_owner
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner.portal_my_consigned_stock
+msgid "Free Stock"
+msgstr ""
+
+#. module: stock_available_portal_owner
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner.portal_my_consigned_stock
+msgid "Incoming"
+msgstr ""
+
+#. module: stock_available_portal_owner
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner.portal_my_consigned_stock
+msgid "Internal Reference"
+msgstr ""
+
+#. module: stock_available_portal_owner
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner.portal_my_consigned_stock
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner.portal_my_home_consigned_stock
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner.portal_my_home_menu_consigned_stock
+msgid "My Consigned Stock"
+msgstr ""
+
+#. module: stock_available_portal_owner
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner.portal_my_consigned_stock
+msgid ""
+"No products with stock associated with your\n"
+"                        owner were found."
+msgstr ""
+
+#. module: stock_available_portal_owner
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner.portal_my_consigned_stock
+msgid "On Hand Stock"
+msgstr ""
+
+#. module: stock_available_portal_owner
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner.portal_my_consigned_stock
+msgid "Outgoing"
+msgstr ""
+
+#. module: stock_available_portal_owner
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner.portal_my_consigned_stock
+msgid "Product"
+msgstr ""
+
+#. module: stock_available_portal_owner
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner.portal_my_consigned_stock
+msgid "Warehouse:"
+msgstr ""
+
+#. module: stock_available_portal_owner
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner.portal_my_consigned_stock
+msgid ""
+"We were unable to identify a goods owner\n"
+"                    associated with your account."
+msgstr ""
