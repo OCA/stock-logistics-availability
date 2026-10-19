@@ -2,7 +2,6 @@
 <!-- Copyright 2024 - TODAY, Wesley Oliveira <wesley.oliveira@escodoo.com.br>
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
-
     <record id="res_config_settings_view_form" model="ir.ui.view">
         <field
             name="name"
@@ -10,28 +9,22 @@
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="stock.res_config_settings_view_form" />
         <field name="arch" type="xml">
-            <div id="track_product_location" position="after">
-                <div
-                    class="col-12 col-lg-6 o_setting_box"
-                    id="scrap_default_location"
-                    attrs="{'invisible': [('group_stock_multi_locations', '=', False)]}"
+            <setting id="track_product_location" position="after">
+                <setting
+                    id="stock_excluded_location"
+                    company_dependent="1"
+                    string="Excluded Locations for Product Availability"
+                    help="Selected locations and their children are excluded from product availability."
+                    invisible="not group_stock_multi_locations"
                 >
-                    <div class="o_setting_left_pane">
-                    </div>
-                    <div class="o_setting_right_pane">
-                        <label for="stock_excluded_location_ids" />
-                        <div class="content-group">
-                            <field
-                                name="stock_excluded_location_ids"
-                                widget="many2many_tags"
-                                domain="[('company_id', '=', company_id)]"
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+                    <field
+                        name="stock_excluded_location_ids"
+                        widget="many2many_tags"
+                        domain="[('company_id', '=', company_id)]"
+                        options="{'no_create': True}"
+                    />
+                </setting>
+            </setting>
         </field>
     </record>
-
 </odoo>

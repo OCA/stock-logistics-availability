@@ -1,10 +1,10 @@
 # Copyright 2024 - TODAY, Wesley Oliveira <wesley.oliveira@escodoo.com.br>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo.tests.common import TransactionCase
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestExcludeLocation(TransactionCase):
+class TestExcludeLocation(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -43,7 +43,7 @@ class TestExcludeLocation(TransactionCase):
         cls.product = cls.env["product.product"].create(
             {
                 "name": "Test Product",
-                "type": "product",
+                "is_storable": True,
             }
         )
 

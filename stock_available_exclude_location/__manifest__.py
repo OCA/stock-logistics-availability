@@ -5,7 +5,7 @@
     "name": "Stock Available Exclude Location",
     "summary": """
         Exclude locations for product available quantities""",
-    "version": "16.0.1.0.0",
+    "version": "19.0.1.0.0",
     "category": "Stock",
     "license": "AGPL-3",
     "author": "Escodoo,Odoo Community Association (OCA)",
