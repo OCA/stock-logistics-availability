@@ -21,7 +21,14 @@ class StockLocation(models.Model):
 
     def write(self, vals):
         res = super().write(vals)
-        if "exclude_from_immediately_usable_qty" in vals:
+        # The excluded locations also depend on the parent and the usage of
+        # the locations: see
+        # ``product.product._get_location_ids_excluded_from_immediately_usable_qty``
+        if vals.keys() & {
+            "exclude_from_immediately_usable_qty",
+            "location_id",
+            "usage",
+        }:
             self._invalidate_location_ids_excluded_from_immediately_usable_qty_cache()
         return res
 
