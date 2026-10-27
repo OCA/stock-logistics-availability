@@ -58,6 +58,16 @@ class ProductProduct(models.Model):
         return res
 
     @api.depends("stock_move_ids.product_qty", "stock_move_ids.state")
+    @api.depends_context(
+        "lot_id",
+        "owner_id",
+        "package_id",
+        "from_date",
+        "to_date",
+        "location",
+        "warehouse",
+        "allowed_company_ids",
+    )
     def _compute_qty_available_not_reserved(self):
         res = self._compute_product_available_not_res_dict()
         for prod in self:
