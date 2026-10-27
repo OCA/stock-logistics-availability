@@ -4,3 +4,4 @@
 * Atte Isopuro <atte.isopuro@avoin.systems>
 * Lois Rilo <lois.rilo@forgeflow.com>
 * Souheil Bejaoui <souheil.bejaoui@acsone.eu>
+* Azucena Luque <azucena@trey.es>

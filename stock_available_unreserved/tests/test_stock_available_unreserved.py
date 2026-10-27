@@ -205,6 +205,18 @@ class TestStockLogisticsWarehouse(TransactionCase):
             }
         )
         self.compare_qty_available_not_res(self.productA, 80)
+        self.assertEqual(
+            self.productA.with_context(
+                location=self.stock_location.id
+            ).qty_available_not_res,
+            80,
+        )
+        self.assertEqual(
+            self.productA.with_context(location=self.bin_a.id).qty_available_not_res, 10
+        )
+        self.assertEqual(
+            self.productA.with_context(location=self.bin_b.id).qty_available_not_res, 60
+        )
 
     def check_variants_found_correctly(self, operator, value, expected):
         domain = [("id", "in", self.templateAB.product_variant_ids.ids)]
