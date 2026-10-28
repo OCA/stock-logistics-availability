@@ -165,3 +165,26 @@ class TestStockLogisticsWarehouse(TestStockCommon):
             productA.with_context(location=shelf2.id).immediately_usable_qty,
             0.0,
         )
+
+    def test_template_quantities_per_warehouse(self):
+        """The template quantities depend on the warehouse of the context."""
+        warehouse = self.env.ref("stock.warehouse0")
+        other_warehouse = self.env["stock.warehouse"].create(
+            {"name": "Other Warehouse", "code": "OTH"}
+        )
+        product = self.env["product.product"].create(
+            {"name": "Storable product", "is_storable": True}
+        )
+        self.env["stock.quant"]._update_available_quantity(
+            product, warehouse.lot_stock_id, 5
+        )
+        template = product.product_tmpl_id
+        self.assertEqual(
+            template.with_context(warehouse_id=warehouse.id).immediately_usable_qty, 5
+        )
+        self.assertEqual(
+            template.with_context(
+                warehouse_id=other_warehouse.id
+            ).immediately_usable_qty,
+            0,
+        )
