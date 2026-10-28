@@ -58,7 +58,14 @@ class ProductProduct(models.Model):
         }
 
     @api.model
-    @ormcache("tuple(self.env.companies.ids)")
+    @ormcache(
+        "tuple(self.env.companies.ids)",
+        "str(self.env.context.get('location'))",
+        "str(self.env.context.get('search_location'))",
+        "str(self.env.context.get('warehouse_id'))",
+        "str(self.env.context.get('search_warehouse'))",
+        "bool(self.env.context.get('strict'))",
+    )
     def _get_location_ids_excluded_from_immediately_usable_qty(self):
         """
         Return the ids of the locations that should be excluded from the
@@ -75,7 +82,7 @@ class ProductProduct(models.Model):
                 ("usage", "in", ["internal", "transit"]),
             ]
         )
-        return locations.ids
+        return tuple(locations.ids)
 
     @api.model
     def _get_locations_excluded_from_immediately_usable_qty(self):

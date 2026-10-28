@@ -106,6 +106,33 @@ class TestStockLogisticsWarehouse(TransactionCase):
             set(self.pack_location.ids + self.pack_child_location.ids),
         )
 
+    def test_get_excluded_location_ids_out_of_context_scope(self):
+        """The excluded locations are cached apart for each location of the context.
+
+        Scenario:
+            1. Exclude the pack location.
+            2. Get the excluded locations of the stock and pack locations, then
+               of the stock location alone.
+        Expected:
+            - The pack location and its child are excluded for the stock and
+              pack locations.
+            - No location is excluded for the stock location alone: the pack
+              location is not in it.
+        """
+        self.pack_location.exclude_from_immediately_usable_qty = True
+        location_ids = (self.stock_location | self.pack_location).ids
+        excluded_location_ids = self.product.with_context(
+            location=location_ids
+        )._get_location_ids_excluded_from_immediately_usable_qty()
+        self.assertEqual(
+            set(excluded_location_ids),
+            set(self.pack_location.ids + self.pack_child_location.ids),
+        )
+        excluded_location_ids = self.product.with_context(
+            location=self.stock_location.id
+        )._get_location_ids_excluded_from_immediately_usable_qty()
+        self.assertFalse(excluded_location_ids)
+
     def test_delivery_reserved_in_excluded_location(self):
         """A delivery reserved in an excluded location is not deduced twice.
 
@@ -230,3 +257,36 @@ class TestStockLogisticsWarehouse(TransactionCase):
             product, self.pack_child_location, 5, lot_id=lot_b
         )
         self.assertEqual(self._get_immediately_usable_qty(product, lot_id=lot_a.id), 10)
+
+    def test_excluded_location_ids_with_and_without_strict(self):
+        """The excluded locations are cached apart with and without ``strict``.
+
+        With ``strict``, only the locations of the context are taken, not their
+        children: a child location excluded on its own is not among them.
+        Without it, the children are taken too, and that child location is
+        excluded. The same locations asked for with and without ``strict`` must
+        not share their cached excluded locations.
+
+        Scenario:
+            1. Have 10 units in stock, and 5 units in a child location of the
+               pack location, excluded on its own.
+            2. Get the immediately usable quantity of the stock and pack
+               locations with ``strict``, then without it.
+        Expected:
+            - With ``strict``, the 10 units in stock are immediately usable:
+              the child location is not taken.
+            - Without it, the 10 units in stock are still the only immediately
+              usable ones: the child location is taken, and it is excluded.
+        """
+        self.pack_child_location.exclude_from_immediately_usable_qty = True
+        quant_model = self.env["stock.quant"]
+        quant_model._update_available_quantity(self.product, self.stock_location, 10)
+        quant_model._update_available_quantity(
+            self.product, self.pack_child_location, 5
+        )
+        self.assertEqual(
+            self._get_immediately_usable_qty(self.product, strict=True), 10
+        )
+        # The field values do not depend on ``strict``: recompute them.
+        self.product.invalidate_recordset()
+        self.assertEqual(self._get_immediately_usable_qty(self.product), 10)
