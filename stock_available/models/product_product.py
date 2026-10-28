@@ -61,8 +61,13 @@ class ProductProduct(models.Model):
         "allowed_company_ids",
     )
     def _compute_available_quantities(self):
-        res, _ = self._compute_available_quantities_dict()
-        for product in self:
+        # Like the stock module, the services have no quantities.
+        services = self.filtered(lambda product: product.type == "service")
+        services.immediately_usable_qty = 0.0
+        services.potential_qty = 0.0
+        products = self - services
+        res, _ = products._compute_available_quantities_dict()
+        for product in products:
             for key, value in res[product.id].items():
                 if hasattr(product, key):
                     product[key] = value
