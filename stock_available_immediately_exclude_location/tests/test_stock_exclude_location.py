@@ -39,7 +39,6 @@ class TestStockLogisticsWarehouse(TransactionCase):
             {
                 "location_id": self.supplier_location.id,
                 "location_dest_id": self.stock_location.id,
-                "name": "MOVE STOCK ",
                 "product_id": self.product.id,
                 "product_uom": self.product.uom_id.id,
                 "product_uom_qty": 15,
@@ -49,7 +48,6 @@ class TestStockLogisticsWarehouse(TransactionCase):
             {
                 "location_id": self.supplier_location.id,
                 "location_dest_id": self.pack_child_location.id,
-                "name": "MOVE PACK ",
                 "product_id": self.product.id,
                 "product_uom": self.product.uom_id.id,
                 "product_uom_qty": 5,

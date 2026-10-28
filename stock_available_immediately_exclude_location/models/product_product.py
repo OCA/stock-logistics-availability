@@ -2,18 +2,16 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, fields, models
-from odoo.osv import expression
-from odoo.tools import ormcache_context
+from odoo.fields import Domain
+from odoo.tools import ormcache
 
 
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
     def _compute_available_quantities_dict(self):
-        """
-        change the way immediately_usable_qty is computed by deducing the quants
-        in excluded locations
-        """
+        # OVERRIDE: deduce the quants in the excluded locations from the
+        # immediately usable quantity.
         res, stock_dict = super()._compute_available_quantities_dict()
         excluded_qty_dict = (
             self._get_qty_available_in_locations_excluded_from_immadiatly_usable_qty()
@@ -82,9 +80,7 @@ class ProductProduct(models.Model):
         }
 
     @api.model
-    @ormcache_context(
-        "tuple(self.env.companies.ids)", keys=("tuple(location)", "tuple(warehouse)")
-    )
+    @ormcache("tuple(self.env.companies.ids)")
     def _get_location_ids_excluded_from_immediately_usable_qty(self):
         """
         Return the ids of the locations that should be excluded from the
@@ -115,11 +111,8 @@ class ProductProduct(models.Model):
         Parses the context and returns a list of location_ids based on it that
         should be excluded from the immediately_usable_qty
         """
-        location_domain = self.env[
-            "product.product"
-        ]._get_domain_location_for_locations()
-        return expression.AND(
-            [location_domain, [("exclude_from_immediately_usable_qty", "=", True)]]
+        return self._get_domain_location_for_locations() & Domain(
+            "exclude_from_immediately_usable_qty", "=", True
         )
 
     def _get_domain_locations_new(self, location_ids):
