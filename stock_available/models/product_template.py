@@ -4,8 +4,6 @@
 
 from odoo import api, fields, models
 
-from odoo.addons.stock.models.product import PY_OPERATORS as OPERATORS
-
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
@@ -42,9 +40,7 @@ class ProductTemplate(models.Model):
                     product[key] = value
 
     def _compute_available_quantities_dict(self):
-        variants_dict, _ = self.mapped(
-            "product_variant_ids"
-        )._compute_available_quantities_dict()
+        variants_dict, _ = self.product_variant_ids._compute_available_quantities_dict()
         res = {}
         for template in self:
             immediately_usable_qty = sum(
@@ -67,18 +63,12 @@ class ProductTemplate(models.Model):
 
     @api.model
     def _search_immediately_usable_qty(self, operator, value):
-        """Search function for the immediately_usable_qty field.
-        The search is quite similar to the Odoo search about quantity available
-        (addons/stock/models/product.py,341; _search_product_quantity function)
-        :param operator: str
-        :param value: str
-        :return: list of tuple (domain)
-        """
-        products = self.search([], limit=None)
-        # Force prefetch
-        products.mapped("immediately_usable_qty")
-        product_ids = []
-        for product in products:
-            if OPERATORS[operator](product.immediately_usable_qty, value):
-                product_ids.append(product.id)
-        return [("id", "in", product_ids)]
+        # Like ``_search_product_quantity`` of the stock module.
+        templates = (
+            self.with_context(prefetch_fields=False)
+            .search_fetch(
+                [("is_storable", "=", True)], ["immediately_usable_qty"], order="id"
+            )
+            .filtered_domain([("immediately_usable_qty", operator, value)])
+        )
+        return [("id", "in", templates.ids)]
