@@ -16,14 +16,14 @@ class StockLocation(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         res = super().create(vals_list)
-        self._invalidate_location_ids_excluded_from_immediatley_usable_qty_cache()
+        self._invalidate_location_ids_excluded_from_immediately_usable_qty_cache()
         return res
 
     def write(self, vals):
         res = super().write(vals)
         if "exclude_from_immediately_usable_qty" in vals:
-            self._invalidate_location_ids_excluded_from_immediatley_usable_qty_cache()
+            self._invalidate_location_ids_excluded_from_immediately_usable_qty_cache()
         return res
 
-    def _invalidate_location_ids_excluded_from_immediatley_usable_qty_cache(self):
+    def _invalidate_location_ids_excluded_from_immediately_usable_qty_cache(self):
         self.env.registry.clear_cache()
