@@ -40,9 +40,7 @@ class ProductTemplate(models.Model):
                     product[key] = value
 
     def _compute_available_quantities_dict(self):
-        variants_dict, _ = self.mapped(
-            "product_variant_ids"
-        )._compute_available_quantities_dict()
+        variants_dict, _ = self.product_variant_ids._compute_available_quantities_dict()
         res = {}
         for template in self:
             immediately_usable_qty = sum(
