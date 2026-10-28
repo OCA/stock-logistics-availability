@@ -99,30 +99,3 @@ class ProductProduct(models.Model):
         return self._get_domain_location_for_locations() & Domain(
             "exclude_from_immediately_usable_qty", "=", True
         )
-
-    def _get_domain_locations_new(self, location_ids):
-        # We override this method to add the possibility to work with a strict
-        # context parameter. This parameter is used to force the method to
-        # restrict the domain to the location_ids passed as parameter in place
-        # if considering all locations children of the location_ids.
-        # Prior to Odoo 16, this behavior was possible by setting the context
-        # parameter 'compute_child' to False. This parameter has been removed
-        # in Odoo 16 in commit https://github.com/odoo/odoo/commit/
-        # f054af31b098d8cb1ef64369e857a36c70918033 and reintroduced in Odoo >= 17
-        # in commit https://github.com/odoo/odoo/commit/
-        # add97b3c2dc1df70d22f87047cf012463f3e12c4 as 'strict' context parameter.
-        # The original design of this addon developped for Odoo 10 has always
-        # been to consider only the locations passed as parameter and not their
-        # children to avoid performance issues. This is why we reintroduce this
-        # behavior.
-        if not self.env.context.get("strict"):
-            return super()._get_domain_locations_new(location_ids)
-
-        location_ids = list(location_ids)
-        loc_domain = [("location_id", "in", location_ids)]
-        dest_loc_domain = [("location_dest_id", "in", location_ids)]
-        return (
-            loc_domain,
-            dest_loc_domain + ["!"] + loc_domain if loc_domain else dest_loc_domain,
-            loc_domain + ["!"] + dest_loc_domain if dest_loc_domain else loc_domain,
-        )
