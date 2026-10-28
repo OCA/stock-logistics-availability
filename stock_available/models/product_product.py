@@ -4,8 +4,6 @@
 
 from odoo import api, fields, models
 
-from odoo.addons.stock.models.product import PY_OPERATORS as OPERATORS
-
 
 class ProductProduct(models.Model):
     """Add a field for the stock available to promise.
@@ -72,19 +70,15 @@ class ProductProduct(models.Model):
 
     @api.model
     def _search_immediately_usable_qty(self, operator, value):
-        """Search function for the immediately_usable_qty field.
-        The search is quite similar to the Odoo search about quantity available
-        (addons/stock/models/product.py,253; _search_product_quantity function)
-        :param operator: str
-        :param value: str
-        :return: list of tuple (domain)
-        """
-        product_domain = self._get_search_immediately_usable_qty_domain()
-        products = self.with_context(prefetch_fields=False).search(
-            product_domain, order="id"
+        # Like ``_search_product_quantity`` of the stock module, on the
+        # products of ``_get_search_immediately_usable_qty_domain``.
+        products = (
+            self.with_context(prefetch_fields=False)
+            .search_fetch(
+                self._get_search_immediately_usable_qty_domain(),
+                ["immediately_usable_qty"],
+                order="id",
+            )
+            .filtered_domain([("immediately_usable_qty", operator, value)])
         )
-        product_ids = []
-        for product in products:
-            if OPERATORS[operator](product.immediately_usable_qty, value):
-                product_ids.append(product.id)
-        return [("id", "in", product_ids)]
+        return [("id", "in", products.ids)]
