@@ -11,7 +11,7 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     immediately_usable_qty = fields.Float(
-        digits="Product Unit of Measure",
+        digits="Product Unit",
         compute="_compute_available_quantities",
         search="_search_immediately_usable_qty",
         string="Available to promise",
@@ -22,7 +22,7 @@ class ProductTemplate(models.Model):
     )
     potential_qty = fields.Float(
         compute="_compute_available_quantities",
-        digits="Product Unit of Measure",
+        digits="Product Unit",
         string="Potential",
         help="Quantity of this Product that could be produced using "
         "the materials already at hand. "
