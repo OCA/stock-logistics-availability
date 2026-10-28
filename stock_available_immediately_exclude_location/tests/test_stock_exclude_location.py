@@ -290,3 +290,46 @@ class TestStockLogisticsWarehouse(TransactionCase):
         # The field values do not depend on ``strict``: recompute them.
         self.product.invalidate_recordset()
         self.assertEqual(self._get_immediately_usable_qty(self.product), 10)
+
+    def test_archived_excluded_location(self):
+        """The goods of an archived excluded location are not usable.
+
+        An archived location can still hold goods, which are counted in the
+        quantities.
+
+        Scenario:
+            1. Have 10 units in stock.
+            2. Exclude a location, archive it, and put 5 units in it.
+        Expected:
+            - Only the 10 units in stock are immediately usable.
+        """
+        self.pack_child_location.exclude_from_immediately_usable_qty = True
+        self.pack_child_location.active = False
+        quant_model = self.env["stock.quant"]
+        quant_model._update_available_quantity(self.product, self.stock_location, 10)
+        quant_model._update_available_quantity(
+            self.product, self.pack_child_location, 5
+        )
+        self.assertEqual(self._get_immediately_usable_qty(self.product), 10)
+
+    def test_archived_child_of_excluded_view_location(self):
+        """The goods of an archived location under an excluded view are not usable.
+
+        An archived location can still hold goods, which are counted in the
+        quantities.
+
+        Scenario:
+            1. Have 10 units in stock.
+            2. Exclude the view location, archive its child location, and put 5
+               units in it.
+        Expected:
+            - Only the 10 units in stock are immediately usable.
+        """
+        self.pack_location.exclude_from_immediately_usable_qty = True
+        self.pack_child_location.active = False
+        quant_model = self.env["stock.quant"]
+        quant_model._update_available_quantity(self.product, self.stock_location, 10)
+        quant_model._update_available_quantity(
+            self.product, self.pack_child_location, 5
+        )
+        self.assertEqual(self._get_immediately_usable_qty(self.product), 10)

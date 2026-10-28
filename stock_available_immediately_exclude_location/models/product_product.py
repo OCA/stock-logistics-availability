@@ -76,18 +76,26 @@ class ProductProduct(models.Model):
         locations = self._get_locations_excluded_from_immediately_usable_qty()
         view_locations = locations.filtered(lambda location: location.usage == "view")
         # we must exclude the children of the view locations
-        locations |= self.env["stock.location"].search(
-            [
-                ("location_id", "child_of", view_locations.ids),
-                ("usage", "in", ["internal", "transit"]),
-            ]
+        locations |= (
+            self.env["stock.location"]
+            .with_context(active_test=False)
+            .search(
+                [
+                    ("location_id", "child_of", view_locations.ids),
+                    ("usage", "in", ["internal", "transit"]),
+                ]
+            )
         )
         return tuple(locations.ids)
 
     @api.model
     def _get_locations_excluded_from_immediately_usable_qty(self):
-        return self.env["stock.location"].search(
-            self._get_domain_location_excluded_from_immediately_usable_qty()
+        # The archived locations can still hold goods, which are counted in the
+        # quantities: they must be excluded too.
+        return (
+            self.env["stock.location"]
+            .with_context(active_test=False)
+            .search(self._get_domain_location_excluded_from_immediately_usable_qty())
         )
 
     @api.model
