@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2026 Camptocamp SA (https://www.camptocamp.com).
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<templates xml:space="preserve">
+    <t
+        t-name="stock_available.ForecastedHeader"
+        t-inherit="stock.ForecastedHeader"
+        t-inherit-mode="extension"
+    >
+        <!-- Show the available to promise next to the forecasted quantity -->
+        <xpath expr="//div[@name='forecasted_value']" position="after">
+            <div
+                t-attf-class="col-md-auto text-center border-start #{immediatelyUsableQty &lt; 0 and 'text-danger'}"
+                name="immediately_usable_qty"
+            >
+                <div class="h3">
+                    <span t-out="_formatFloat(immediatelyUsableQty)" />
+                    <span t-out="' ' + uom" groups="uom.group_uom" />
+                </div>
+                <div>Available to promise</div>
+            </div>
+        </xpath>
+    </t>
+</templates>

@@ -15,5 +15,11 @@
         "views/product_template_view.xml",
         "views/product_product_view.xml",
     ],
+    "assets": {
+        "web.assets_backend": [
+            "stock_available/static/src/stock_forecasted/forecasted_header.esm.js",
+            "stock_available/static/src/stock_forecasted/forecasted_header.xml",
+        ],
+    },
     "installable": True,
 }
