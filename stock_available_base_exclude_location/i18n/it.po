@@ -1,0 +1,63 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_available_base_exclude_location
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2024-04-10 08:41+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: stock_available_base_exclude_location
+#: model:ir.model.fields,field_description:stock_available_base_exclude_location.field_stock_exclude_location_mixin__stock_excluded_location_domain_char
+msgid "Domain to filter locations"
+msgstr "Dominio per filtrare le ubicazioni"
+
+#. module: stock_available_base_exclude_location
+#: model:ir.model.fields,help:stock_available_base_exclude_location.field_stock_exclude_location_mixin__stock_excluded_location_ids
+msgid ""
+"Fill in this field to exclude locations for product availablequantities."
+msgstr ""
+"Compilare questo campo per escludere ubicazioni dalle quantità disponibili "
+"del prodotto."
+
+#. module: stock_available_base_exclude_location
+#: model:ir.model.fields,help:stock_available_base_exclude_location.field_stock_exclude_location_mixin__stock_excluded_location_domain
+#: model:ir.model.fields,help:stock_available_base_exclude_location.field_stock_exclude_location_mixin__stock_excluded_location_domain_char
+msgid ""
+"Fill in this with the domain you want to exclude locations for product "
+"available quantities"
+msgstr ""
+"Compilare questo campo con il dominio che si vuole utilizzare per escludere "
+"le ubicazioni per le quantià prodotto disponibili"
+
+#. module: stock_available_base_exclude_location
+#: model:ir.model,name:stock_available_base_exclude_location.model_product_product
+msgid "Product Variant"
+msgstr "Variante prodotto"
+
+#. module: stock_available_base_exclude_location
+#: model:ir.model.fields,field_description:stock_available_base_exclude_location.field_stock_exclude_location_mixin__stock_excluded_location_domain
+msgid "Stock Excluded Location Domain"
+msgstr "Dominio ubicazione esclusa dalla giacenza"
+
+#. module: stock_available_base_exclude_location
+#: model:ir.model.fields,field_description:stock_available_base_exclude_location.field_stock_exclude_location_mixin__stock_excluded_location_ids
+msgid "Stock Excluded Locations"
+msgstr "Ubicazioni escluse dalla giacenza"
+
+#. module: stock_available_base_exclude_location
+#: model:ir.model,name:stock_available_base_exclude_location.model_stock_exclude_location_mixin
+msgid ""
+"technical base module to allow defining excluded locations on an Odoo model"
+msgstr ""
+"modulo tecnico base per consentire la definizione di ubicazioni escluse su "
+"un modello Odoo"
