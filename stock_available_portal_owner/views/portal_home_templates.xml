@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <template
+        id="portal_my_home_consigned_stock"
+        name="Portal Access - My Consigned Stock"
+        inherit_id="portal.portal_my_home"
+        customize_show="True"
+        priority="50"
+    >
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <div class="o_portal_category row g-2 mt-3" id="portal_product_category">
+                <t t-call="portal.portal_docs_entry">
+                    <t
+                        t-set="icon"
+                        t-value="'/stock_available_portal_owner/static/src/img/available.svg'"
+                    />
+                    <t t-set="text">Follow, view your consigned stock</t>
+                    <t t-set="title">My Consigned Stock</t>
+                    <t t-set="url" t-value="'/my/consigned-stock'" />
+                    <t t-set="placeholder_count" t-value="'consigned_stock_count'" />
+                </t>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>
