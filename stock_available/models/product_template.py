@@ -34,6 +34,16 @@ class ProductTemplate(models.Model):
         "product_variant_ids.immediately_usable_qty",
         "product_variant_ids.potential_qty",
     )
+    @api.depends_context(
+        "lot_id",
+        "owner_id",
+        "package_id",
+        "from_date",
+        "to_date",
+        "location",
+        "warehouse_id",
+        "allowed_company_ids",
+    )
     def _compute_available_quantities(self):
         res = self._compute_available_quantities_dict()
         for product in self:
