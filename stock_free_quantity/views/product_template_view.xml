@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record model="ir.ui.view" id="view_stock_available_form">
+    <record id="view_stock_available_form" model="ir.ui.view">
         <field name="model">product.template</field>
         <field
             name="inherit_id"
@@ -30,7 +30,7 @@
         </field>
     </record>
 
-    <record model="ir.ui.view" id="product_template_kanban_free_qty_view">
+    <record id="product_template_kanban_free_qty_view" model="ir.ui.view">
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_kanban_view" />
         <field name="priority" eval="15" />
