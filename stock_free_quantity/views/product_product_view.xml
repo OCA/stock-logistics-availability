@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_normal_form_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock.product_form_view_procurement_button" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//button[@name='action_product_forecast_report']"
+                position="after"
+            >
+                <button
+                    type="object"
+                    name="action_open_quants"
+                    invisible="type not in ['consu']"
+                    class="oe_stat_button"
+                    icon="inventory_2"
+                >
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value d-flex gap-1">
+                            <field name="free_qty" nolabel="1" class="oe_inline" />
+                            <field name="uom_name" class="oe_inline" />
+                        </span>
+                        <span class="o_stat_text">Free</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>
