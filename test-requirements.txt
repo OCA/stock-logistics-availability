@@ -1,0 +1,1 @@
+odoo-addon-stock_available_location_get_domain @ git+https://github.com/OCA/stock-logistics-availability.git@refs/pull/94/head#subdirectory=stock_available_location_get_domain

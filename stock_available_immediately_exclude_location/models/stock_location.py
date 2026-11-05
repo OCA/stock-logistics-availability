@@ -1,0 +1,36 @@
+# Copyright 2023 ACSONE SA/NV
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
+from odoo import api, fields, models
+
+
+class StockLocation(models.Model):
+    _inherit = "stock.location"
+
+    exclude_from_immediately_usable_qty = fields.Boolean(
+        "Exclude from immediately usable quantity",
+        index=True,
+        help="This property is not inherited by children locations",
+    )
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        res = super().create(vals_list)
+        self._invalidate_location_ids_excluded_from_immediately_usable_qty_cache()
+        return res
+
+    def write(self, vals):
+        res = super().write(vals)
+        # The excluded locations also depend on the parent and the usage of
+        # the locations: see
+        # ``product.product._get_location_ids_excluded_from_immediately_usable_qty``
+        if vals.keys() & {
+            "exclude_from_immediately_usable_qty",
+            "location_id",
+            "usage",
+        }:
+            self._invalidate_location_ids_excluded_from_immediately_usable_qty_cache()
+        return res
+
+    def _invalidate_location_ids_excluded_from_immediately_usable_qty_cache(self):
+        self.env.registry.clear_cache()
