@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_stock_product_template_tree" model="ir.ui.view">
+        <field name="name">product.template.stock.list.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.view_stock_product_template_tree" />
+        <field name="arch" type="xml">
+            <field name="qty_available" position="after">
+                <field groups="stock.group_stock_user" name="free_qty" />
+            </field>
+        </field>
+    </record>
+    <record id="product_template_search_form_view_stock" model="ir.ui.view">
+        <field name="name">product.template.search.stock.form.inherit</field>
+        <field name="model">product.template</field>
+        <field
+            name="inherit_id"
+            ref="stock.product_template_search_view_inherit_stock"
+        />
+        <field name="arch" type="xml">
+            <filter name="is_storable" position="after">
+                <separator />
+                <filter
+                    name="real_stock_unreserved"
+                    string="Reservable Products"
+                    domain="[('free_qty','&gt;',0)]"
+                />
+            </filter>
+        </field>
+    </record>
+    <record id="product_template_kanban_stock_view" model="ir.ui.view">
+        <field name="name">Product Template Kanban Stock</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.product_template_kanban_stock_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='qty_available']/parent::div" position="after">
+                <div
+                    groups="stock.group_stock_user"
+                    t-if="record.show_on_hand_qty_status_button.raw_value"
+                >Unreserved: <field name="free_qty" /> <field name="uom_id" /></div>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_stock_product_tree" model="ir.ui.view">
+        <field name="name">product.stock.list.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock.view_stock_product_tree" />
+        <field name="arch" type="xml">
+            <field
+                groups="stock.group_stock_user"
+                name="qty_available"
+                position="after"
+            >
+                <field name="free_qty" />
+            </field>
+        </field>
+    </record>
+    <record id="product_template_form_view_procurement_button" model="ir.ui.view">
+        <field name="name">product.template_procurement</field>
+        <field name="model">product.template</field>
+        <field
+            name="inherit_id"
+            ref="stock.product_template_form_view_procurement_button"
+        />
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button
+                    type="object"
+                    name="action_open_quants_unreserved"
+                    invisible="not show_on_hand_qty_status_button"
+                    groups="stock.group_stock_user"
+                    class="oe_stat_button"
+                    icon="fa-building-o"
+                >
+                    <field name="free_qty" widget="statinfo" string="Unreserved" />
+                </button>
+            </div>
+        </field>
+    </record>
+    <record id="product_form_view_procurement_button" model="ir.ui.view">
+        <field name="name">product.product.procurement</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock.product_form_view_procurement_button" />
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button
+                    class="oe_stat_button"
+                    name="%(product_open_quants_unreserved)d"
+                    icon="fa-building-o"
+                    type="action"
+                    invisible="not show_on_hand_qty_status_button"
+                    groups="stock.group_stock_user"
+                >
+                    <field name="free_qty" widget="statinfo" string="Unreserved" />
+                </button>
+            </div>
+        </field>
+    </record>
+</odoo>
