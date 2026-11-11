@@ -18,7 +18,7 @@ class StockQuant(models.Model):
     def _compute_contains_unreserved(self):
         for record in self:
             # Avoid error when adding a new line on manually Update Quantity
-            if isinstance(record.id, models.NewId):
+            if not record.id:
                 record.contains_unreserved = False
                 continue
             record.contains_unreserved = (

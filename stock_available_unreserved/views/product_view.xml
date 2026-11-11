@@ -13,9 +13,13 @@
     <record id="product_template_search_form_view_stock" model="ir.ui.view">
         <field name="name">product.template.search.stock.form.inherit</field>
         <field name="model">product.template</field>
-        <field name="inherit_id" ref="stock.product_template_search_form_view_stock" />
+        <field
+            name="inherit_id"
+            ref="stock.product_template_search_view_inherit_stock"
+        />
         <field name="arch" type="xml">
-            <filter name="real_stock_available" position="after">
+            <filter name="is_storable" position="after">
+                <separator />
                 <filter
                     name="real_stock_unreserved"
                     string="Reservable Products"

@@ -3,24 +3,18 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 from odoo import fields, models
+from odoo.fields import Domain
 
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    # Remove me after 18.0
-    qty_available_not_res = fields.Float(
-        related="free_qty",
-        string="Quantity On Hand Unreserved",
-        digits="Product Unit of Measure",
-        help="Quantity of this product that is not currently reserved for a stock move",
-    )
     free_qty = fields.Float(
         "Free to Use Quantity",
         compute="_compute_quantities",
         search="_search_free_qty",
         compute_sudo=False,
-        digits="Product Unit of Measure",
+        digits="Product Unit",
     )
 
     def _compute_quantities(self):
@@ -38,15 +32,17 @@ class ProductTemplate(models.Model):
     def _search_free_qty(self, operator, value):
         domain = [("free_qty", operator, value)]
         product_variant_query = self.env["product.product"]._search(domain)
-        return [("product_variant_ids", "in", product_variant_query)]
+        return Domain("product_variant_ids", "in", product_variant_query)
 
     def action_open_quants_unreserved(self):
         products_ids = self.mapped("product_variant_ids").ids
         quants = self.env["stock.quant"].search([("product_id", "in", products_ids)])
         quant_ids = quants.filtered(lambda x: x.product_id.free_qty > 0).ids
-        result = self.env["ir.actions.actions"]._for_xml_id(
-            "stock.dashboard_open_quants"
-        )
+        result = self.env["ir.actions.actions"]._for_xml_id("stock.stock_quant_action")
+        result["views"] = [
+            (self.env.ref("stock.view_stock_quant_tree_editable").id, "list"),
+            (False, "form"),
+        ]
         result["display_name"] = self.env._("Free to Use Quantity")
         result["domain"] = [("id", "in", quant_ids)]
         result["context"] = {

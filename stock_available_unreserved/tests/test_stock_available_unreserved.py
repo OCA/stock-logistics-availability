@@ -3,7 +3,6 @@
 # Copyright 2019 JARSA Sistemas S.A. de C.V.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo import release
 from odoo.tests.common import TransactionCase
 
 
@@ -11,6 +10,7 @@ class TestStockLogisticsWarehouse(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.pickingObj = cls.env["stock.picking"]
         cls.productObj = cls.env["product.product"]
         cls.templateObj = cls.env["product.template"]
@@ -89,7 +89,6 @@ class TestStockLogisticsWarehouse(TransactionCase):
                         0,
                         0,
                         {
-                            "name": "Test move",
                             "product_id": cls.productA.id,
                             "product_uom": cls.productA.uom_id.id,
                             "product_uom_qty": 2,
@@ -112,7 +111,6 @@ class TestStockLogisticsWarehouse(TransactionCase):
                         0,
                         0,
                         {
-                            "name": "Test move",
                             "product_id": cls.productB.id,
                             "product_uom": cls.productB.uom_id.id,
                             "product_uom_qty": 3,
@@ -134,7 +132,6 @@ class TestStockLogisticsWarehouse(TransactionCase):
                         0,
                         0,
                         {
-                            "name": "Test move",
                             "product_id": cls.productB.id,
                             "product_uom": cls.productB.uom_id.id,
                             "product_uom_qty": 2,
@@ -146,49 +143,41 @@ class TestStockLogisticsWarehouse(TransactionCase):
             }
         )
 
-    def compare_qty_available_not_res(self, product, value):
+    def compare_free_qty(self, product, value):
         product.invalidate_recordset()
-        self.assertEqual(product.qty_available_not_res, value)
         self.assertEqual(product.free_qty, value)
 
-    def test_deprecation(self):
-        if release.version_info[0] > 18:
-            raise DeprecationWarning(
-                "Please remove the redundant fields in the migration to 19.0 "
-                "(and this test)."
-            )
-
     def test_01_stock_levels(self):
-        """checking that qty_available_not_res actually reflects \
+        """checking that free_qty actually reflects \
         the variations in stock, both on product and template"""
 
-        self.compare_qty_available_not_res(self.productA, 0)
-        self.compare_qty_available_not_res(self.templateAB, 0)
+        self.compare_free_qty(self.productA, 0)
+        self.compare_free_qty(self.templateAB, 0)
 
         self.pickingInA.action_confirm()
-        self.compare_qty_available_not_res(self.productA, 0)
-        self.compare_qty_available_not_res(self.templateAB, 0)
+        self.compare_free_qty(self.productA, 0)
+        self.compare_free_qty(self.templateAB, 0)
 
         self.pickingInA.button_validate()
-        self.compare_qty_available_not_res(self.productA, 2)
-        self.compare_qty_available_not_res(self.templateAB, 2)
+        self.compare_free_qty(self.productA, 2)
+        self.compare_free_qty(self.templateAB, 2)
 
         # will directly trigger button_validate on self.productB
         self.pickingInB.button_validate()
-        self.compare_qty_available_not_res(self.productA, 2)
-        self.compare_qty_available_not_res(self.productB, 3)
-        self.compare_qty_available_not_res(self.templateAB, 5)
+        self.compare_free_qty(self.productA, 2)
+        self.compare_free_qty(self.productB, 3)
+        self.compare_free_qty(self.templateAB, 5)
 
-        self.compare_qty_available_not_res(self.productB, 3)
-        self.compare_qty_available_not_res(self.templateAB, 5)
+        self.compare_free_qty(self.productB, 3)
+        self.compare_free_qty(self.templateAB, 5)
 
         self.pickingOutA.action_confirm()
-        self.compare_qty_available_not_res(self.productB, 1)
-        self.compare_qty_available_not_res(self.templateAB, 3)
+        self.compare_free_qty(self.productB, 1)
+        self.compare_free_qty(self.templateAB, 3)
 
         self.pickingOutA.button_validate()
-        self.compare_qty_available_not_res(self.productB, 1)
-        self.compare_qty_available_not_res(self.templateAB, 3)
+        self.compare_free_qty(self.productB, 1)
+        self.compare_free_qty(self.templateAB, 3)
 
         self.templateAB.action_open_quants_unreserved()
 
@@ -217,7 +206,7 @@ class TestStockLogisticsWarehouse(TransactionCase):
                 "quantity": 60.0,
             }
         )
-        self.compare_qty_available_not_res(self.productA, 80)
+        self.compare_free_qty(self.productA, 80)
 
     def check_variants_found_correctly(self, operator, value, expected):
         domain = [("id", "in", self.templateAB.product_variant_ids.ids)]
@@ -233,18 +222,6 @@ class TestStockLogisticsWarehouse(TransactionCase):
         )
 
     def check_found_correctly(self, model, domain, operator, value, expected):
-        found = model.search(domain + [("qty_available_not_res", operator, value)])
-        if found != expected:
-            self.fail(
-                "Searching for products failed: search for unreserved "
-                "quantity {operator} {value}; expected to find "
-                "{expected}, but found {found}".format(
-                    operator=operator,
-                    value=value,
-                    expected=expected or "no products",
-                    found=found,
-                )
-            )
         found = model.search(domain + [("free_qty", operator, value)])
         if found != expected:
             self.fail(
@@ -392,3 +369,13 @@ class TestStockLogisticsWarehouse(TransactionCase):
         self.check_template_found_correctly("<", 2, self.templateAB)
         self.check_template_found_correctly("<", 1, self.templateAB)
         self.check_template_found_correctly("<", 0, no_template)
+
+    def test_04_new_quant_contains_unreserved(self):
+        quant = self.env["stock.quant"].new(
+            {
+                "location_id": self.stock_location.id,
+                "product_id": self.productA.id,
+                "quantity": 10.0,
+            }
+        )
+        self.assertFalse(quant.contains_unreserved)
