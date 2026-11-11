@@ -13,8 +13,7 @@ class ProductTemplate(models.Model):
         related="free_qty",
         string="Quantity On Hand Unreserved",
         digits="Product Unit of Measure",
-        help="Quantity of this product that is "
-        "not currently reserved for a stock move",
+        help="Quantity of this product that is not currently reserved for a stock move",
     )
     free_qty = fields.Float(
         "Free to Use Quantity",

@@ -13,6 +13,5 @@ class ProductProduct(models.Model):
         related="free_qty",
         string="Qty Available Not Reserved",
         digits="Product Unit of Measure",
-        help="Quantity of this product that is "
-        "not currently reserved for a stock move",
+        help="Quantity of this product that is not currently reserved for a stock move",
     )
