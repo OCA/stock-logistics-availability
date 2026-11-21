@@ -6,6 +6,11 @@ from odoo.addons.stock.tests.common import TestStockCommon
 
 
 class TestStockLogisticsWarehouse(TestStockCommon):
+    _test_user_groups = (
+        "product.group_product_manager",
+        "stock.group_stock_user",
+    )
+
     def test01_stock_levels(self):
         """checking that immediately_usable_qty actually reflects \
            the variations in stock, both on product and template"""
@@ -51,7 +56,7 @@ class TestStockLogisticsWarehouse(TestStockCommon):
                 "location_id": supplier_location.id,
                 "location_dest_id": stock_location.id,
                 "product_id": productA.id,
-                "product_uom": productA.uom_id.id,
+                "uom_id": productA.uom_id.id,
                 "product_uom_qty": 2,
             }
         )
@@ -61,7 +66,7 @@ class TestStockLogisticsWarehouse(TestStockCommon):
                 "location_id": supplier_location.id,
                 "location_dest_id": stock_location.id,
                 "product_id": productB.id,
-                "product_uom": productB.uom_id.id,
+                "uom_id": productB.uom_id.id,
                 "product_uom_qty": 3,
             }
         )
@@ -116,7 +121,7 @@ class TestStockLogisticsWarehouse(TestStockCommon):
                 "location_id": stock_location.id,
                 "location_dest_id": customer_location.id,
                 "product_id": productA.id,
-                "product_uom": productA.uom_id.id,
+                "uom_id": productA.uom_id.id,
                 "product_uom_qty": 1,
                 "state": "confirmed",
             }
@@ -152,7 +157,7 @@ class TestStockLogisticsWarehouse(TestStockCommon):
                 "location_id": supplier_location.id,
                 "location_dest_id": shelf1.id,
                 "product_id": productA.id,
-                "product_uom": productA.uom_id.id,
+                "uom_id": productA.uom_id.id,
                 "product_uom_qty": 2,
             }
         )
@@ -165,3 +170,21 @@ class TestStockLogisticsWarehouse(TestStockCommon):
             productA.with_context(location=shelf2.id).immediately_usable_qty,
             0.0,
         )
+
+    def test_views_show_immediately_usable_qty(self):
+        cases = [
+            ("product.template", "product.product_template_tree_view", "list"),
+            ("product.product", "product.product_product_tree_view", "list"),
+            ("product.template", "product.product_template_kanban_view", "kanban"),
+        ]
+        for model, xmlid, view_type in cases:
+            with self.subTest(view=xmlid):
+                arch = self.env[model].get_view(
+                    view_id=self.env.ref(xmlid).id, view_type=view_type
+                )["arch"]
+                self.assertIn('name="immediately_usable_qty"', arch)
+                if view_type == "list":
+                    self.assertLess(
+                        arch.index('name="qty_available"'),
+                        arch.index('name="immediately_usable_qty"'),
+                    )
