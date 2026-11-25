@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stock-logistics-warehouse (9.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-04 10:11+0000\n"
-"PO-Revision-Date: 2026-11-25 10:47+0000\n"
+"PO-Revision-Date: 2026-11-25 15:47+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (http://www.transifex.com/oca/OCA-stock-logistics-"
 "warehouse-9-0/language/it/)\n"
@@ -39,7 +39,7 @@ msgstr ""
 #. module: stock_available_mrp
 #: model:ir.model,name:stock_available_mrp.model_res_config_settings
 msgid "Config Settings"
-msgstr "Impostazioni di configurazione"
+msgstr "Impostazioni configurazione"
 
 #. module: stock_available_mrp
 #: model:ir.model,name:stock_available_mrp.model_product_product
