@@ -1,0 +1,144 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_available_portal_owner_lots
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-21 14:54+0000\n"
+"PO-Revision-Date: 2026-09-21 14:54+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid "<option value=\"\">All</option>"
+msgstr "<option value=\"\">Todos</option>"
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid "<span class=\"mr-sm-2\">Warehouse:</span>"
+msgstr "<span class=\"mr-sm-2\">Almacén:</span>"
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid "<span class=\"sr-only\">-</span>"
+msgstr "<span class=\"sr-only\">-</span>"
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid "<span class=\"sr-only\">Best Before: </span>"
+msgstr "Consumir antes de:"
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid "Alert"
+msgstr "Fecha de alerta"
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid "Apply"
+msgstr "Aplicar"
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid "Best Before"
+msgstr "Consumir antes de"
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid "Created"
+msgstr "Fecha de creación"
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid "Expiration"
+msgstr "Fecha de caducidad"
+
+#. module: stock_available_portal_owner_lots
+#. odoo-python
+#: code:addons/stock_available_portal_owner_lots/controllers/portal.py:0
+#, python-format
+msgid "Expiration Date"
+msgstr "Fecha de caducidad"
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid "Lot"
+msgstr "Lote/Serie"
+
+#. module: stock_available_portal_owner_lots
+#. odoo-python
+#: code:addons/stock_available_portal_owner_lots/controllers/portal.py:0
+#, python-format
+msgid "Lot/Serial"
+msgstr "Lote/Serie"
+
+#. module: stock_available_portal_owner_lots
+#. odoo-python
+#: code:addons/stock_available_portal_owner_lots/controllers/portal.py:0
+#, python-format
+msgid "Lot/Serial (Z-A)"
+msgstr "Lote/Serie (Z-A)"
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_home_menu_consigned_stock_by_lots
+msgid "My Consigned Lots"
+msgstr "Mis Lotes Consignados"
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_home_menu_consigned_stock_by_lots
+msgid "My Consigned Stock"
+msgstr "Mi Stock Consignado"
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid "My Consigned Stock by Lots"
+msgstr "Mi Stock Consignado por Lotes"
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid ""
+"No lots associated with your\n"
+"                    owner were found."
+msgstr ""
+"No se encontraron lotes asociados con su\n"
+"                        propietario."
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid "On Hand Qty"
+msgstr "Cantidad Disponible"
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid "Removal"
+msgstr "Fecha de Eliminación"
+
+#. module: stock_available_portal_owner_lots
+#. odoo-python
+#: code:addons/stock_available_portal_owner_lots/controllers/portal.py:0
+#, python-format
+msgid "Search by Lot/serial"
+msgstr "Buscar por Lote/serie"
+
+#. module: stock_available_portal_owner_lots
+#. odoo-python
+#: code:addons/stock_available_portal_owner_lots/controllers/portal.py:0
+#, python-format
+msgid "Search in All"
+msgstr "Buscar en Todos"
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid ""
+"We were unable to identify a goods owner\n"
+"                    associated with your account."
+msgstr ""
+"No se pudo identificar un propietario de bienes\n"
+"                    asociado con su cuenta."

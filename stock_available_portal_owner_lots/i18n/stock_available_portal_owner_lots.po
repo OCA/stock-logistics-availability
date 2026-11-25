@@ -1,0 +1,125 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#       * stock_available_portal_owner_lots
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-17 07:56+0000\n"
+"PO-Revision-Date: 2026-09-17 07:56+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid "<option value=\"\">All</option>"
+msgstr ""
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid "Alert"
+msgstr ""
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid "Best Before"
+msgstr ""
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid "Created"
+msgstr ""
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid "Expiration"
+msgstr ""
+
+#. module: stock_available_portal_owner_lots
+#. odoo-python
+#: code:addons/stock_available_portal_owner_lots/controllers/portal.py:0
+#, python-format
+msgid "Expiration Date"
+msgstr ""
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid "Lot"
+msgstr ""
+
+#. module: stock_available_portal_owner_lots
+#. odoo-python
+#: code:addons/stock_available_portal_owner_lots/controllers/portal.py:0
+#, python-format
+msgid "Lot/Serial"
+msgstr ""
+
+#. module: stock_available_portal_owner_lots
+#. odoo-python
+#: code:addons/stock_available_portal_owner_lots/controllers/portal.py:0
+#, python-format
+msgid "Lot/Serial (Z-A)"
+msgstr ""
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_home_menu_consigned_stock_by_lots
+msgid "My Consigned Lots"
+msgstr ""
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_home_menu_consigned_stock_by_lots
+msgid "My Consigned Stock"
+msgstr ""
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid "My Consigned Stock by Lots"
+msgstr ""
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid ""
+"No lots associated with your\n"
+"                        owner were found."
+msgstr ""
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid "On Hand Qty"
+msgstr ""
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid "Removal"
+msgstr ""
+
+#. module: stock_available_portal_owner_lots
+#. odoo-python
+#: code:addons/stock_available_portal_owner_lots/controllers/portal.py:0
+#, python-format
+msgid "Search by Lot/serial"
+msgstr ""
+
+#. module: stock_available_portal_owner_lots
+#. odoo-python
+#: code:addons/stock_available_portal_owner_lots/controllers/portal.py:0
+#, python-format
+msgid "Search in All"
+msgstr ""
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid "Warehouse:"
+msgstr ""
+
+#. module: stock_available_portal_owner_lots
+#: model_terms:ir.ui.view,arch_db:stock_available_portal_owner_lots.portal_my_consigned_stock_by_lots
+msgid ""
+"We were unable to identify a goods owner\n"
+"                    associated with your account."
+msgstr ""

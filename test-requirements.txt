@@ -1,0 +1,1 @@
+odoo-addon-stock_available_portal_owner @ git+https://github.com/OCA/stock-logistics-availability.git@refs/pull/85/head#subdirectory=stock_available_portal_owner
